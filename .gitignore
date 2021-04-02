@@ -1,0 +1,83 @@
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Ignore any .tfvars files that are generated automatically for each Terraform run. Most
+# .tfvars files are managed as part of configuration and so should be included in
+# version control.
+#
+# example.tfvars
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files you do wish to add to version control using negated pattern
+#
+# !example_override.tf
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# example: *tfplan*
+
+.idea/
+.terraform.lock.hcl
+
+# go
+.DS_Store
+*.[56789ao]
+*.a[56789o]
+*.so
+*.pyc
+._*
+.nfs.*
+[56789a].out
+*~
+*.orig
+*.rej
+*.exe
+.*.swp
+core
+*.cgo*.go
+*.cgo*.c
+_cgo_*
+_obj
+_test
+_testmain.go
+
+/VERSION.cache
+/bin/
+/build.out
+/doc/articles/wiki/*.bin
+/goinstall.log
+/last-change
+/misc/cgo/life/run.out
+/misc/cgo/stdio/run.out
+/misc/cgo/testso/main
+/pkg/
+/src/*.*/
+/src/cmd/cgo/zdefaultcc.go
+/src/cmd/dist/dist
+/src/cmd/go/internal/cfg/zdefaultcc.go
+/src/cmd/go/internal/cfg/zosarch.go
+/src/cmd/internal/objabi/zbootstrap.go
+/src/go/build/zcgo.go
+/src/go/doc/headscan
+/src/runtime/internal/sys/zversion.go
+/src/unicode/maketables
+/test.out
+/test/garbage/*.out
+/test/pass.out
+/test/run.out
+/test/times.out
+
+# ignore test file(s)
+**test**
