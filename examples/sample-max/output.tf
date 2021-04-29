@@ -5,7 +5,7 @@ output "databricks_host" {
 // export token for integration tests to run on
 output "databricks_token" {
   value     = module.databricks_workspace_management.databricks_token
-  //sensitive = true
+  sensitive = true
 }
 
 output "databricks_job_url" {
