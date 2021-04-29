@@ -19,19 +19,17 @@
 
 > ❗️ **Important** 
 > 
-> :point_right: This Terraform module assumes you have Databricks workspace already deployed.
+> :point_right: This Terraform module assumes you have [Databricks Workspace](https://github.com/tomarv2/terraform-databricks-workspace) already deployed.
 > 
 > :point_right: Workspace URL
 > 
 > :point_right: DAPI Token
 
-> :point_right: Part 1: Terraform module for [Databricks Workspace creation](https://github.com/tomarv2/terraform-databricks-workspace)
-
 ## Versions
 
 - Module tested for Terraform 0.14.
 - `databrickslabs/databricks` provider version [0.3.1](https://registry.terraform.io/providers/databrickslabs/databricks/latest)
-- AWS provider version [3.29.0](https://registry.terraform.io/providers/hashicorp/aws/latest)
+- AWS provider version [3.30.0](https://registry.terraform.io/providers/hashicorp/aws/latest)
 - `main` branch: Provider versions not pinned to keep up with Terraform releases
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-databricks-workspace-management/tags" alt="GitHub tag">
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-databricks-workspace-management" /></a> in your releases)
@@ -94,12 +92,12 @@ tf -cloud aws destroy -var='teamid=foo' -var='prjid=bar'
 #### Databricks workspace management
 ```
 module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.1"
+  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git"
 
-  workspace_url = "https://workspace-0tg.cloud.sample.com"
-  dapi_token    = "dapi1234567890"
+  workspace_url = "https://<workspace-url>.cloud.sample.com"
+  dapi_token    = "dapi123456789012"
   notebook_path = "notebooks/sample.py"
-  notebook_name = "sec-test"
+  notebook_name = "demo"
   # -----------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
@@ -108,3 +106,7 @@ module "databricks_workspace_management" {
 ```
 
 Please refer to examples directory [link](examples) for references.
+
+## Coming up:
+
+- [Workspace Security](https://docs.databricks.com/dev-tools/terraform/workspace-management.html#workspace-security)
