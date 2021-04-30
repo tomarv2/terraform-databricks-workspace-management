@@ -1,6 +1,6 @@
 provider "databricks" {
-  host  = var.workspace_url #module.ai.databricks_host
-  token = var.dapi_token    #module.ai.databricks_token
+  host  = var.workspace_url
+  token = var.dapi_token
 }
 
 terraform {

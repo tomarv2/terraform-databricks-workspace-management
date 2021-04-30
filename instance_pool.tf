@@ -1,4 +1,4 @@
-resource "databricks_instance_pool" "smallest_nodes" {
+resource "databricks_instance_pool" "instance_nodes" {
   instance_pool_name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
   min_idle_instances = var.min_idle_instances
   max_capacity       = var.max_capacity
@@ -9,4 +9,3 @@ resource "databricks_instance_pool" "smallest_nodes" {
 
   idle_instance_autotermination_minutes = var.idle_instance_autotermination_minutes
 }
-

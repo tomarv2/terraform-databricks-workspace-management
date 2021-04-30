@@ -1,86 +1,124 @@
 variable "teamid" {
   description = "(Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply'"
+  type        = string
 }
 
 variable "prjid" {
   description = "(Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply'"
+  type        = string
 }
 
 variable "profile_to_use" {
   description = "Getting values from ~/.aws/credentials"
   default     = "default"
+  type        = string
 }
 
 variable "aws_region" {
-  default = "us-west-2"
+  description = "aws region to deploy resources"
+  default     = "us-west-2"
+  type        = string
 }
 
-variable "workspace_url" {}
+variable "workspace_url" {
+  description = "databricks workspace url"
+  type        = string
+}
 # ------------------------------------------------
 # Token
 # ------------------------------------------------
-variable "dapi_token" {}
+variable "dapi_token" {
+  description = "databricks dapi token"
+  type        = string
+}
 
 variable "dapi_token_duration" {
-  default = 3600
+  description = "databricks dapi token duration"
+  type        = number
+  default     = 3600
 }
 
 variable "databricks_secret_key" {
-  default = "token"
+  description = "databricks token type"
+  type        = string
+  default     = "token"
 }
 # ------------------------------------------------
 # Instance Pool
 # ------------------------------------------------
 variable "min_idle_instances" {
-  default = 0
+  description = "instance pool minimum idle instances"
+  type        = number
+  default     = 0
 }
 
 variable "max_capacity" {
-  default = 30
+  description = "instance pool maximum capacity"
+  type        = number
+  default     = 30
 }
 
 variable "idle_instance_autotermination_minutes" {
-  default = 20
+  description = "idle instance auto termination duration"
+  type        = number
+  default     = 20
 }
 # ------------------------------------------------
 # Cluster
 # ------------------------------------------------
 variable "cluster_autotermination_minutes" {
-  default = 20
+  description = "cluster auto termination duration"
+  type        = number
+  default     = 20
 }
 
 variable "cluster_min_workers" {
-  default = 1
+  description = "cluster minimum workers"
+  type        = number
+  default     = 1
 }
 
 variable "cluster_max_workers" {
-  default = 10
+  description = "cluster maximum workers"
+  type        = number
+  default     = 10
 }
 
 variable "cluster_policy_max_dbus_per_hour" {
-  default = 10
+  description = "cluster maximum dbus per hour"
+  type        = number
+  default     = 10
 }
 
 variable "cluster_policy_autotermination_minutes" {
-  default = 20
+  description = "cluster policy auto termination minutes"
+  type        = number
+  default     = 20
 }
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
 variable "num_workers" {
-  default = 1
+  description = "number of workers for job"
+  type        = number
+  default     = 1
 }
 # ------------------------------------------------
 # Notebook
 # ------------------------------------------------
 variable "language" {
-  default = "PYTHON"
+  description = "notebook language"
+  type        = string
+  default     = "PYTHON"
 }
 
 variable "notebook_name" {
-  default = null
+  description = "notebook name"
+  type        = string
+  default     = null
 }
 
 variable "notebook_path" {
   description = "notebook location on user machine"
+  type        = string
 }

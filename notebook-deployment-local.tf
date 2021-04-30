@@ -1,4 +1,4 @@
-resource "databricks_notebook" "this" {
+resource "databricks_notebook" "notebook_local" {
   path     = "${data.databricks_current_user.me.home}/${local.notebook_name}-local"
   language = var.language
   content_base64 = base64encode(<<-EOT

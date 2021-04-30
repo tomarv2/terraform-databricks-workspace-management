@@ -10,4 +10,3 @@ module "databricks_workspace_management" {
   teamid = var.teamid
   prjid  = var.prjid
 }
-

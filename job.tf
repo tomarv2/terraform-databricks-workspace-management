@@ -1,4 +1,4 @@
-resource "databricks_job" "this" {
+resource "databricks_job" "databricks_job" {
   name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
 
   new_cluster {
@@ -8,7 +8,7 @@ resource "databricks_job" "this" {
   }
 
   notebook_task {
-    notebook_path = databricks_notebook.this.path
+    notebook_path = databricks_notebook.notebook_file.path
   }
 
   email_notifications {}
