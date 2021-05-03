@@ -35,6 +35,9 @@
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-databricks-workspace-management" /></a>).
 
 ---
+![Databricks deployment](https://github.com/tomarv2/terraform-databricks-workspace-management/raw/main/docs/images/databricks-workspace-management.png)
+---
+
 ## Usage
 
 ### Option 1:
