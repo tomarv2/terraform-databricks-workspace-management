@@ -1,25 +1,23 @@
-resource "databricks_cluster" "this" {
+resource "databricks_cluster" "cluster" {
+  count = var.deploy_cluster ? 1 : 0
+
   cluster_name            = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
   spark_version           = data.databricks_spark_version.latest.id
-  instance_pool_id        = databricks_instance_pool.smallest_nodes.id
+  instance_pool_id        = databricks_instance_pool.instance_nodes.id
   autotermination_minutes = var.cluster_autotermination_minutes
+
   autoscale {
     min_workers = var.cluster_min_workers
     max_workers = var.cluster_max_workers
   }
-}
 
-resource "databricks_cluster_policy" "this" {
-  name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
-  definition = jsonencode({
-    "dbus_per_hour" : {
-      "type" : "range",
-      "maxValue" : var.cluster_policy_max_dbus_per_hour
-    },
-    "autotermination_minutes" : {
-      "type" : "fixed",
-      "value" : var.cluster_policy_autotermination_minutes,
-      "hidden" : true
+  custom_tags = merge(local.shared_tags)
+
+  /*
+   spark_conf = {
+      # Single-node
+      "spark.databricks.cluster.profile" : "singleNode"
+      "spark.master" : "local[*]"
     }
-  })
+  */
 }

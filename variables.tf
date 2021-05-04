@@ -44,7 +44,7 @@ variable "databricks_secret_key" {
   default     = "token"
 }
 # ------------------------------------------------
-# Instance Pool
+# Cluster Instance Pool
 # ------------------------------------------------
 variable "min_idle_instances" {
   description = "instance pool minimum idle instances"
@@ -66,6 +66,13 @@ variable "idle_instance_autotermination_minutes" {
 # ------------------------------------------------
 # Cluster
 # ------------------------------------------------
+variable "deploy_cluster" {
+  description = "feature flag, true or false"
+  default     = true
+  type        = bool
+}
+
+
 variable "cluster_autotermination_minutes" {
   description = "cluster auto termination duration"
   type        = number
@@ -98,10 +105,33 @@ variable "cluster_policy_autotermination_minutes" {
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
+variable "deploy_job" {
+  description = "feature flag, true or false"
+  default     = true
+  type        = bool
+}
+
 variable "num_workers" {
   description = "number of workers for job"
   type        = number
   default     = 1
+}
+
+variable "use_existing_cluster" {
+  description = "Use existing cluster for running job"
+  default     = false
+  type        = bool
+}
+
+variable "email_notifications" {
+  description = "Email notification block."
+  type = list(object({
+    on_failure                = string
+    no_alert_for_skipped_runs = string
+    on_success                = string
+    on_start                  = string
+  }))
+  default = []
 }
 # ------------------------------------------------
 # Notebook
@@ -121,4 +151,56 @@ variable "notebook_name" {
 variable "notebook_path" {
   description = "notebook location on user machine"
   type        = string
+}
+# ------------------------------------------------
+# Cluster Node type
+# ------------------------------------------------
+variable "local_disk" {
+  description = "Pick only nodes with local storage. Defaults to false."
+  type        = string
+  default     = true
+}
+
+variable "min_cores" {
+  description = "Minimum number of CPU cores available on instance. Defaults to 0."
+  type        = string
+  default     = 0
+}
+
+variable "gb_per_core" {
+  description = "Number of gigabytes per core available on instance. Conflicts with min_memory_gb. Defaults to 0."
+  type        = string
+  default     = 0
+}
+
+variable "min_gpus" {
+  description = "Minimum number of GPU's attached to instance. Defaults to 0."
+  type        = string
+  default     = 0
+}
+
+variable "min_memory_gb" {
+  description = "Minimum amount of memory per node in gigabytes. Defaults to 0."
+  type        = string
+  default     = 0
+}
+
+variable "category" {
+  description = "Node category, which can be one of: General purpose, Memory optimized, Storage optimized, Compute optimized, GPU"
+  type        = string
+  default     = "General purpose"
+}
+# ------------------------------------------------
+# Spark version
+# ------------------------------------------------
+variable "gpu" {
+  description = "GPU required or not"
+  type        = bool
+  default     = false
+}
+
+variable "ml" {
+  description = "ML required or not"
+  type        = bool
+  default     = false
 }

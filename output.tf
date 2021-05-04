@@ -1,6 +1,6 @@
 output "databricks_host" {
   description = "databricks cluster id"
-  value       = databricks_cluster.this.id
+  value       = join("", databricks_cluster.cluster.*.id)
 }
 
 output "databricks_token" {
@@ -16,9 +16,13 @@ output "notebook_url" {
 
 output "job_url" {
   description = "databricks job url"
-  value       = databricks_job.this.url
+  value       = join("", databricks_job.databricks_job.*.url)
 }
 
+output "job_new_cluster_url" {
+  description = "databricks new cluster job url"
+  value       = join("", databricks_job.databricks_new_cluster_job.*.url)
+}
 
 /*
 // workspace security
