@@ -13,13 +13,13 @@ locals {
   cluster_info = var.use_existing_cluster != true ? join("", databricks_cluster.cluster.*.id) : var.existing_cluster_id
 
   # NOTEBOOK SECURITY
-  notebook = join("",databricks_notebook.notebook_file.*.id) != null ? join("",databricks_notebook.notebook_file.*.id) : join("", databricks_notebook.notebook_local.*.id)
+  notebook = join("", databricks_notebook.notebook_file.*.id) != null ? join("", databricks_notebook.notebook_file.*.id) : join("", databricks_notebook.notebook_local.*.id)
 
   # JOBS SECURITY
   databricks_job = join("", databricks_job.databricks_job.*.id) != null ? join("", databricks_job.databricks_new_cluster_job.*.id) : join("", databricks_job.databricks_job.*.id)
 
   # USERS
-  databricks_username = var.databricks_username != null ? var.databricks_username : "${data.databricks_current_user.me.alphanumeric}@example.com"
+  databricks_username    = var.databricks_username != null ? var.databricks_username : "${data.databricks_current_user.me.alphanumeric}@example.com"
   databricks_displayname = var.databricks_username != null ? var.databricks_username : "${var.teamid}-${var.prjid} ${data.databricks_current_user.me.alphanumeric}"
 
   # GROUP NAME

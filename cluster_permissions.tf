@@ -15,7 +15,7 @@ resource "databricks_permissions" "cluster" {
 resource "databricks_permissions" "policy" {
   count = var.deploy_cluster ? 1 : 0
 
-  cluster_policy_id = join("",databricks_cluster_policy.this.*.id)
+  cluster_policy_id = join("", databricks_cluster_policy.this.*.id)
   access_control {
     group_name       = databricks_group.spectators.display_name
     permission_level = "CAN_USE"
