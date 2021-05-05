@@ -125,13 +125,8 @@ variable "use_existing_cluster" {
 
 variable "email_notifications" {
   description = "Email notification block."
-  type = list(object({
-    on_failure                = string
-    no_alert_for_skipped_runs = string
-    on_success                = string
-    on_start                  = string
-  }))
-  default = []
+  type        = any
+  default     = null
 }
 # ------------------------------------------------
 # Notebook
@@ -203,4 +198,12 @@ variable "ml" {
   description = "ML required or not"
   type        = bool
   default     = false
+}
+# ------------------------------------------------
+# Databricks users
+# ------------------------------------------------
+variable "databricks_username" {
+  description = "List of user allowed to access the platform"
+  type        = string
+  default     = null
 }
