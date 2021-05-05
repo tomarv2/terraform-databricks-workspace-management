@@ -68,7 +68,7 @@ variable "idle_instance_autotermination_minutes" {
 # ------------------------------------------------
 variable "deploy_cluster" {
   description = "feature flag, true or false"
-  default     = true
+  default     = false
   type        = bool
 }
 
@@ -107,7 +107,7 @@ variable "cluster_policy_autotermination_minutes" {
 # ------------------------------------------------
 variable "deploy_job" {
   description = "feature flag, true or false"
-  default     = true
+  default     = false
   type        = bool
 }
 
@@ -125,13 +125,8 @@ variable "use_existing_cluster" {
 
 variable "email_notifications" {
   description = "Email notification block."
-  type = list(object({
-    on_failure                = string
-    no_alert_for_skipped_runs = string
-    on_success                = string
-    on_start                  = string
-  }))
-  default = []
+  type        = any
+  default     = null
 }
 # ------------------------------------------------
 # Notebook
@@ -151,6 +146,13 @@ variable "notebook_name" {
 variable "notebook_path" {
   description = "notebook location on user machine"
   type        = string
+  default     = null
+}
+
+variable "deploy_notebook" {
+  description = "feature flag, true or false"
+  default     = false
+  type        = bool
 }
 # ------------------------------------------------
 # Cluster Node type
@@ -190,6 +192,12 @@ variable "category" {
   type        = string
   default     = "General purpose"
 }
+
+variable "existing_cluster_id" {
+  description = "Existing cluster id"
+  type        = string
+  default     = null
+}
 # ------------------------------------------------
 # Spark version
 # ------------------------------------------------
@@ -203,4 +211,30 @@ variable "ml" {
   description = "ML required or not"
   type        = bool
   default     = false
+}
+# ------------------------------------------------
+# Databricks admin console
+# ------------------------------------------------
+variable "databricks_username" {
+  description = "List of user allowed to access the platform"
+  type        = string
+  default     = null
+}
+
+variable "databricks_groupname" {
+  description = "Group allowed to access the platform"
+  type        = string
+  default     = null
+}
+
+variable "create_user" {
+  description = "Create user required or not"
+  type        = bool
+  default     = true
+}
+
+variable "create_group" {
+  description = "Create group required or not"
+  type        = bool
+  default     = true
 }

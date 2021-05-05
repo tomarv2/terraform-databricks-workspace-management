@@ -92,15 +92,20 @@ tf -cloud aws destroy -var='teamid=foo' -var='prjid=bar'
 - Read more on [tfremote](https://github.com/tomarv2/tfremote)
 ---
 
-#### Databricks workspace management
+#### Databricks workspace management with default config
 ```
 module "databricks_workspace_management" {
   source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git"
 
   workspace_url = "https://<workspace-url>.cloud.sample.com"
   dapi_token    = "dapi123456789012"
-  notebook_path = "notebooks/sample.py"
-  notebook_name = "demo"
+
+  create_group    = true
+  deploy_cluster  = true
+  deploy_job      = true
+  deploy_notebook = true
+  notebook_path   = "notebooks/sample.py"
+  notebook_name   = "sec-test"
   # -----------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
@@ -110,6 +115,15 @@ module "databricks_workspace_management" {
 
 Please refer to examples directory [link](examples) for references.
 
-## Coming up:
+## Coming up
 
-- [**Workspace Security**](https://docs.databricks.com/dev-tools/terraform/workspace-management.html#workspace-security)
+- [**Workspace Security - Job Permissions**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-2-workspace-security)
+- [**Storage**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-3-storage)
+- [**Advanced configuration**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-4-advanced-configuration)
+- [**Init Script**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/global_init_script)
+
+## Helpful links
+
+- [Databricks Sync](https://github.com/databrickslabs/databricks-sync) - Migrate everything possible using CLI.
+- [Databricks Migrate](https://github.com/databrickslabs/migrate) - Selective Migration using Terraform.
+- [Databricks CICD Templates](https://github.com/databrickslabs/cicd-templates)

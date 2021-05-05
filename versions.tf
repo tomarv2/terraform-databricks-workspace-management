@@ -18,8 +18,7 @@ terraform {
 
 data "databricks_current_user" "me" {}
 
-#data "databricks_spark_version" "latest" {}
 data "databricks_spark_version" "latest" {
-  gpu = var.gpu #true
-  ml  = var.ml  #true
+  gpu = var.gpu
+  ml  = var.ml
 }
