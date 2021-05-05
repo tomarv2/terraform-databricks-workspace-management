@@ -1,6 +1,6 @@
 resource "databricks_secret_acl" "spectators" {
   principal  = databricks_group.spectators.display_name
-  scope      = databricks_secret_scope.this.name
+  scope      = "${var.teamid}-${var.prjid}"
   permission = "READ"
 }
 
@@ -9,11 +9,15 @@ resource "databricks_group" "spectators" {
 }
 
 resource "databricks_user" "users" {
+  count = var.create_user ? 1 : 0
+
   user_name    = local.databricks_username
-  display_name = "${var.teamid}-${var.prjid} ${data.databricks_current_user.me.alphanumeric}"
+  display_name = local.databricks_displayname
 }
 
 resource "databricks_group_member" "group_members" {
+  count = var.create_group ? 1 : 0
+
   group_id  = databricks_group.spectators.id
-  member_id = databricks_user.users.id
+  member_id = join("", databricks_user.users.*.id)
 }

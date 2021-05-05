@@ -11,7 +11,7 @@ output "databricks_token" {
 
 output "notebook_url" {
   description = "databricks notebook url"
-  value       = databricks_notebook.notebook_file.url
+  value       = join("", databricks_notebook.notebook_file.*.url)
 }
 
 output "job_url" {

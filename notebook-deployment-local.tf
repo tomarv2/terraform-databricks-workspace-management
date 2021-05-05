@@ -1,4 +1,6 @@
 resource "databricks_notebook" "notebook_local" {
+  count = var.deploy_notebook == true ? 1 : 0
+
   path     = "${data.databricks_current_user.me.home}/${local.notebook_name}-local"
   language = var.language
   content_base64 = base64encode(<<-EOT
