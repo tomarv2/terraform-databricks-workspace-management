@@ -20,12 +20,12 @@ resource "databricks_job" "databricks_new_cluster_job" {
   }
 
   dynamic "email_notifications" {
-    for_each = var.email_notifications
+    for_each = var.email_notifications == null ? [] : [var.email_notifications]
     content {
-      on_failure                = email_notifications.value["on_failure"]
-      no_alert_for_skipped_runs = email_notifications.value["no_alert_for_skipped_runs"]
-      on_success                = email_notifications.value["on_success"]
-      on_start                  = email_notifications.value["on_start"]
+      on_failure                = lookup(email_notifications.value, "on_failure", null)
+      no_alert_for_skipped_runs = lookup(email_notifications.value, "no_alert_for_skipped_runs", null)
+      on_success                = lookup(email_notifications.value, "on_success", null)
+      on_start                  = lookup(email_notifications.value, "on_start", null)
     }
   }
 }
@@ -44,12 +44,12 @@ resource "databricks_job" "databricks_job" {
   }
 
   dynamic "email_notifications" {
-    for_each = var.email_notifications
+    for_each = var.email_notifications == null ? [] : [var.email_notifications]
     content {
-      on_failure                = email_notifications.value["on_failure"]
-      no_alert_for_skipped_runs = email_notifications.value["no_alert_for_skipped_runs"]
-      on_success                = email_notifications.value["on_success"]
-      on_start                  = email_notifications.value["on_start"]
+      on_failure                = lookup(email_notifications.value, "on_failure", null)
+      no_alert_for_skipped_runs = lookup(email_notifications.value, "no_alert_for_skipped_runs", null)
+      on_success                = lookup(email_notifications.value, "on_success", null)
+      on_start                  = lookup(email_notifications.value, "on_start", null)
     }
   }
 }

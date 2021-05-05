@@ -11,4 +11,13 @@ locals {
 
   # JOBS CLUSTER
   cluster_info = var.use_existing_cluster == true ? join("", databricks_cluster.cluster.*.id) : null
+
+  # NOTEBOOK SECURITY
+  notebook = databricks_notebook.notebook_file.id != null ? databricks_notebook.notebook_file.id : databricks_notebook.notebook_local.id
+
+  # JOBS SECURITY
+  databricks_job = join("", databricks_job.databricks_job.*.id) != null ? join("", databricks_job.databricks_new_cluster_job.*.id) : join("", databricks_job.databricks_job.*.id)
+
+  # USERS
+  databricks_username = var.databricks_username != null ? var.databricks_username : "${data.databricks_current_user.me.alphanumeric}@example.com"
 }
