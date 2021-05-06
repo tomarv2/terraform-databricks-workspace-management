@@ -99,7 +99,7 @@ module "databricks_workspace_management" {
 
   workspace_url = "https://<workspace-url>.cloud.sample.com"
   dapi_token    = "dapi123456789012"
-  
+
   create_group    = true
   deploy_cluster  = true
   deploy_job      = true
