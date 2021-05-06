@@ -5,7 +5,6 @@ module "databricks_workspace_management" {
   dapi_token    = "dapi1234567890"
 
   create_group    = true
-  create_user     = true
   deploy_cluster  = true
   deploy_job      = true
   deploy_notebook = true
