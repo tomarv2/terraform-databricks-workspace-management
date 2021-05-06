@@ -9,6 +9,7 @@ resource "databricks_job" "databricks_new_cluster_job" {
   count = (var.deploy_job == true && var.use_existing_cluster == false) ? 1 : 0
 
   name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
+
   new_cluster {
     num_workers   = var.num_workers
     spark_version = data.databricks_spark_version.latest.id

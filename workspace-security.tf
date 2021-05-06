@@ -2,6 +2,8 @@ resource "databricks_secret_acl" "spectators" {
   principal  = databricks_group.spectators.display_name
   scope      = "${var.teamid}-${var.prjid}"
   permission = "READ"
+
+  depends_on = [databricks_group.spectators]
 }
 
 resource "databricks_group" "spectators" {

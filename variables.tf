@@ -230,11 +230,11 @@ variable "databricks_groupname" {
 variable "create_user" {
   description = "Create user required or not"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "create_group" {
   description = "Create group required or not"
   type        = bool
-  default     = false
+  default     = true
 }

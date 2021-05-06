@@ -1,8 +1,15 @@
 module "databricks_workspace_management" {
   source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.4"
 
-  workspace_url = "https://<workspace_url>.cloud.databricks.com"
-  dapi_token    = "dapi123456789012"
+  workspace_url = "https://<workspace_url>.cloud.sample.com"
+  dapi_token    = "dapi1234567890"
+  # ------------------------------------------------
+  # ADMIN CONSOLE
+  # ------------------------------------------------
+  # NOTE: `create_user` should be set to `true` if `create_group` is set to `true`
+  create_user         = true
+  databricks_username = "varun.tomar@databricks.com"
+  create_group        = true
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------
@@ -14,7 +21,7 @@ module "databricks_workspace_management" {
   # Cluster Policy
   # ------------------------------------------------
   cluster_policy_max_dbus_per_hour       = 5
-  cluster_policy_autotermination_minutes = 5
+  cluster_policy_autotermination_minutes = 15
   # ------------------------------------------------
   # Cluster Instance Pool
   # ------------------------------------------------
@@ -33,23 +40,21 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Job
   # ------------------------------------------------
-  deploy_job           = true
-  use_existing_cluster = true
-  num_workers          = 1
-  email_notifications = [
-    {
-      on_failure                = ["varun.tomar@databricks.com"],
-      no_alert_for_skipped_runs = true,
-      on_start                  = ["varun.tomar@databricks.com"],
-      on_success                = ["varun.tomar@databricks.com"]
-    }
-  ]
+  deploy_job  = true
+  num_workers = 1
+  email_notifications = {
+    on_failure                = ["varun.tomar@databricks.com"],
+    no_alert_for_skipped_runs = true,
+    on_start                  = ["varun.tomar@databricks.com"],
+    on_success                = ["varun.tomar@databricks.com"]
+  }
   # ------------------------------------------------
   # Notebook
   # ------------------------------------------------
-  language      = "PYTHON"
-  notebook_name = "delme"
-  notebook_path = "notebooks/sample.py"
+  deploy_notebook = true
+  language        = "PYTHON"
+  notebook_name   = "delme"
+  notebook_path   = "notebooks/sample.py"
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
