@@ -24,46 +24,54 @@ output "job_new_cluster_url" {
   value       = join("", databricks_job.databricks_new_cluster_job.*.url)
 }
 
-
-// workspace security
 output "databricks_secret_acl" {
-  value = databricks_secret_acl.spectators.principal
+  description = "databricks secret acl"
+  value       = databricks_secret_acl.spectators.principal
 }
 
 output "databricks_group" {
-  value = databricks_group.spectators.display_name
+  description = "databricks group name"
+  value       = databricks_group.spectators.display_name
 }
 
 output "databricks_user" {
-  value = join("", databricks_user.users.*.display_name)
+  description = "databricks user name"
+  value       = join("", databricks_user.users.*.display_name)
 }
 
 output "databricks_user_id" {
-  value = join("", databricks_user.users.*.id)
+  description = "databricks user id"
+  value       = join("", databricks_user.users.*.id)
 }
 
 
 output "databricks_group_member" {
-  value = join("", databricks_group_member.group_members.*.group_id)
+  description = "databricks group members"
+  value       = join("", databricks_group_member.group_members.*.group_id)
 }
 
 output "databricks_permissions_notebook" {
-  value = join("", databricks_permissions.notebook.*.notebook_path)
+  description = "databricks notebook permissions"
+  value       = join("", databricks_permissions.notebook.*.notebook_path)
 }
 
-//output "databricks_permissions_job" {
-//  value = databricks_permissions.
-//}
+/*
+output "databricks_permissions_job" {
+  value = databricks_permissions.
+}
+*/
 
 output "databricks_permissions_cluster" {
-  value = join("", databricks_permissions.cluster.*.id)
+  description = "databricks cluster permissions"
+  value       = join("", databricks_permissions.cluster.*.id)
 }
 
 output "databricks_permissions_policy" {
-  value = join("", databricks_permissions.policy.*.id)
+  description = "databricks cluster policy"
+  value       = join("", databricks_permissions.policy.*.id)
 }
 
 output "databricks_permissions_pool" {
-  value = join("", databricks_permissions.pool.*.id)
+  description = "databricks instance pool permissions"
+  value       = join("", databricks_permissions.pool.*.id)
 }
-

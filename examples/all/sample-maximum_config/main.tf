@@ -6,8 +6,6 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # ADMIN CONSOLE
   # ------------------------------------------------
-  # NOTE: `create_user` should be set to `true` if `create_group` is set to `true`
-  create_user         = true
   databricks_username = "varun.tomar@databricks.com"
   create_group        = true
   # ------------------------------------------------

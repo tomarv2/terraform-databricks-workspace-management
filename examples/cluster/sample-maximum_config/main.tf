@@ -4,10 +4,6 @@ module "databricks_workspace_management" {
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = "dapi123456789012"
   # ------------------------------------------------
-  # ADMIN CONSOLE
-  # ------------------------------------------------
-  create_user = true
-  # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------
   deploy_cluster                  = true
@@ -39,4 +35,3 @@ module "databricks_workspace_management" {
   teamid = var.teamid
   prjid  = var.prjid
 }
-

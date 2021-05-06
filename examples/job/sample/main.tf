@@ -10,7 +10,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Job
   # ------------------------------------------------
-  deploy_job          = true
+  deploy_job = true
   # NOTE: `deploy_cluster` or `use_existing_cluster` and `existing_cluster_id` are required
   deploy_cluster       = true
   use_existing_cluster = false
@@ -34,4 +34,3 @@ module "databricks_workspace_management" {
   teamid = var.teamid
   prjid  = var.prjid
 }
-
