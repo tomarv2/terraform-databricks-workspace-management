@@ -1,4 +1,6 @@
 resource "databricks_cluster_policy" "this" {
+  count = var.deploy_cluster ? 1 : 0
+
   name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
 
   definition = jsonencode({

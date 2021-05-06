@@ -3,7 +3,7 @@ resource "databricks_cluster" "cluster" {
 
   cluster_name            = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
   spark_version           = data.databricks_spark_version.latest.id
-  instance_pool_id        = databricks_instance_pool.instance_nodes.id
+  instance_pool_id        = join("", databricks_instance_pool.instance_nodes.*.id)
   autotermination_minutes = var.cluster_autotermination_minutes
 
   autoscale {
