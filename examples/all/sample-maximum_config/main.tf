@@ -1,13 +1,16 @@
 module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.4"
+  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.5"
 
   workspace_url = "https://<workspace_url>.cloud.sample.com"
   dapi_token    = "dapi1234567890"
   # ------------------------------------------------
-  # ADMIN CONSOLE
+  # Admin Console
   # ------------------------------------------------
-  databricks_username = "varun.tomar@databricks.com"
-  create_group        = true
+  # NOTE:
+  # - If `create_group` is `true`, `create_user` should be set to `true`
+  # - If `databricks_username` is not provided,
+  # `create_user` will use the current DB login name and add `@example.com` to generate databricks_username
+  databricks_username = "demo@demo.com"
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------
@@ -41,10 +44,10 @@ module "databricks_workspace_management" {
   deploy_job  = true
   num_workers = 1
   email_notifications = {
-    on_failure                = ["varun.tomar@databricks.com"],
+    on_failure                = ["demo@demo.com"],
     no_alert_for_skipped_runs = true,
-    on_start                  = ["varun.tomar@databricks.com"],
-    on_success                = ["varun.tomar@databricks.com"]
+    on_start                  = ["demo@demo.com"],
+    on_success                = ["demo@demo.com"]
   }
   # ------------------------------------------------
   # Notebook
