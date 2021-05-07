@@ -3,7 +3,7 @@ resource "databricks_secret_acl" "spectators" {
   scope      = "${var.teamid}-${var.prjid}"
   permission = "READ"
 
-  depends_on = [databricks_group.spectators]
+  depends_on = [databricks_group.spectators, databricks_secret_scope.this]
 }
 
 resource "databricks_group" "spectators" {
