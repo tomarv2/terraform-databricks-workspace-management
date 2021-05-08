@@ -1,5 +1,5 @@
 module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.5"
+  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git"
 
   workspace_url = "https://<workspace_url>.cloud.sample.com"
   dapi_token    = "dapi1234567890"
@@ -14,9 +14,20 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   deploy_cluster  = true
   deploy_job      = true
-  deploy_notebook = true
-  notebook_path   = "notebooks/sample.py"
-  notebook_name   = "delme"
+  notebook_info = {
+    default994 = {
+    language        = "PYTHON"
+    local_path     = "notebooks/sample.py"
+    }
+    default140 = {
+      language        = "PYTHON"
+      local_path            = "notebooks/sample1.py"
+    }
+    default241 = {
+      language        = "PYTHON"
+      local_path            = "notebooks/sample.py"
+    }
+  }
   # -----------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid

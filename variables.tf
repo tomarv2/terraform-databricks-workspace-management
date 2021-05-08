@@ -117,11 +117,11 @@ variable "num_workers" {
   default     = 1
 }
 
-variable "use_existing_cluster" {
-  description = "Use existing cluster for running job"
-  default     = false
-  type        = bool
-}
+//variable "use_existing_cluster" {
+//  description = "Use existing cluster for running job"
+//  default     = false
+//  type        = bool
+//}
 
 variable "email_notifications" {
   description = "Email notification block."
@@ -143,7 +143,7 @@ variable "notebook_name" {
   default     = null
 }
 
-variable "notebook_path" {
+variable "local_path" {
   description = "notebook location on user machine"
   type        = string
   default     = null
@@ -153,6 +153,20 @@ variable "deploy_notebook" {
   description = "feature flag, true or false"
   default     = false
   type        = bool
+}
+
+variable "notebook_info" {
+  description = "Notebook information"
+  type = map(object({
+    language   = string
+    local_path    = string
+  }))
+  default = {
+    default = {
+      language   = "PYTHON"
+      local_path    = "notebooks/sample.py"
+    }
+  }
 }
 # ------------------------------------------------
 # Cluster Node type
@@ -193,7 +207,7 @@ variable "category" {
   default     = "General purpose"
 }
 
-variable "existing_cluster_id" {
+variable "cluster_id" {
   description = "Existing cluster id"
   type        = string
   default     = null
@@ -238,3 +252,5 @@ variable "create_group" {
   type        = bool
   default     = true
 }
+
+

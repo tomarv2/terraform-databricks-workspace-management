@@ -4,17 +4,20 @@ module "databricks_workspace_management" {
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = "dapi123456789012"
   # ------------------------------------------------
-  # ADMIN CONSOLE
+  # Admin Console
   # ------------------------------------------------
-  create_user = true
+  # NOTE:
+  # - If `create_group` is `true`, `create_user` should be set to `true`
+  # - If `databricks_username` is not provided,
+  # `create_user` will use the current DB login name and add `@example.com` to generate databricks_username
+  databricks_username = "demo@demo.com"
   # ------------------------------------------------
   # Job
   # ------------------------------------------------
   deploy_job = true
-  # NOTE: `deploy_cluster` or `use_existing_cluster` and `existing_cluster_id` are required
+  # NOTE: `deploy_cluster` or `use_existing_cluster` and `cluster_id` are required
   deploy_cluster       = true
-  use_existing_cluster = false
-  #existing_cluster_id = "1234-123456-lark123"
+  #cluster_id = "1234-123456-lark123"
   num_workers = 1
   email_notifications = {
     on_failure                = ["demo@demo.com"],
@@ -25,10 +28,20 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Notebook
   # ------------------------------------------------
-  deploy_notebook = true
-  language        = "PYTHON"
-  notebook_name   = "delme"
-  notebook_path   = "notebooks/sample.py"
+  notebook_info = {
+    default994 = {
+    language        = "PYTHON"
+    local_path     = "notebooks/sample.py"
+    }
+    default140 = {
+      language        = "PYTHON"
+      local_path            = "notebooks/sample1.py"
+    }
+    default241 = {
+      language        = "PYTHON"
+      local_path            = "notebooks/sample.py"
+    }
+  }
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid

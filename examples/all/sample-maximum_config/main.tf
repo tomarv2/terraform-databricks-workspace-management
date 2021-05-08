@@ -1,5 +1,5 @@
 module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.5"
+  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git"
 
   workspace_url = "https://<workspace_url>.cloud.sample.com"
   dapi_token    = "dapi1234567890"
@@ -14,7 +14,10 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------
+  # NOTE:
+  # Only one should be provided, either use `deploy_cluster` or provide existing `cluster_id`
   deploy_cluster                  = true
+  //  cluster_id                      = "0507-210128-assay460"
   cluster_autotermination_minutes = 30
   cluster_min_workers             = 1
   cluster_max_workers             = 2
@@ -52,10 +55,20 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Notebook
   # ------------------------------------------------
-  deploy_notebook = true
-  language        = "PYTHON"
-  notebook_name   = "delme"
-  notebook_path   = "notebooks/sample.py"
+  notebook_info = {
+    default994 = {
+    language        = "PYTHON"
+    local_path     = "notebooks/sample.py"
+    }
+    default140 = {
+      language        = "PYTHON"
+      local_path            = "notebooks/sample1.py"
+    }
+    default241 = {
+      language        = "PYTHON"
+      local_path            = "notebooks/sample.py"
+    }
+  }
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
