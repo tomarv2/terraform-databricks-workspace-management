@@ -1,5 +1,5 @@
 module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.5"
+  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git"
 
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = "dapi123456789012"
@@ -11,7 +11,6 @@ module "databricks_workspace_management" {
   # - If `databricks_username` is not provided,
   # `create_user` will use the current DB login name and add `@example.com` to generate databricks_username
   databricks_username = "demo@demo.com"
-  # ------------------------------------------------
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------

@@ -11,17 +11,17 @@ output "databricks_token" {
 
 output "notebook_url" {
   description = "databricks notebook url"
-  value       = join("", databricks_notebook.notebook_file.*.url)
+  value       = { for k, v in databricks_notebook.notebook_file : k => v.url }
 }
 
 output "job_url" {
   description = "databricks job url"
-  value       = join("", databricks_job.databricks_job.*.url)
+  value       = { for k, v in databricks_job.databricks_job : k => v.url }
 }
 
 output "job_new_cluster_url" {
   description = "databricks new cluster job url"
-  value       = join("", databricks_job.databricks_new_cluster_job.*.url)
+  value       = { for k, v in databricks_job.databricks_new_cluster_job : k => v.url }
 }
 
 output "databricks_secret_acl" {
@@ -49,13 +49,12 @@ output "databricks_group_member" {
   description = "databricks group members"
   value       = join("", databricks_group_member.group_members.*.group_id)
 }
-
+/*
 output "databricks_permissions_notebook" {
   description = "databricks notebook permissions"
   value       = join("", databricks_permissions.notebook.*.notebook_path)
 }
 
-/*
 output "databricks_permissions_job" {
   value = databricks_permissions.
 }

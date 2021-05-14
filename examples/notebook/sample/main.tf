@@ -14,10 +14,20 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Notebook
   # ------------------------------------------------
-  deploy_notebook = true
-  language        = "PYTHON"
-  notebook_name   = "delme"
-  notebook_path   = "notebooks/sample.py"
+  notebook_info = {
+    default994 = {
+      language   = "PYTHON"
+      local_path = "notebooks/sample.py"
+    }
+    default140 = {
+      language   = "PYTHON"
+      local_path = "notebooks/sample1.py"
+    }
+    default241 = {
+      language   = "PYTHON"
+      local_path = "notebooks/sample.py"
+    }
+  }
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid

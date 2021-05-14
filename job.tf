@@ -1,14 +1,10 @@
-#NOTE:
-# IF YOU CHANGE FROM EXISTING TO NEW CLUSTER
-# DELETE THE WHOLE SETUP AND DEPLOY AGAIN
-# IF YOU CANNOT DELETE THE SETUP DELETE THE INSTALL POOL
 # ------------------------------------------------
 # NEW JOBS CLUSTER
 # ------------------------------------------------
 resource "databricks_job" "databricks_new_cluster_job" {
-  count = (var.deploy_job == true && var.use_existing_cluster == false) ? 1 : 0
+  for_each = (var.deploy_job == true && var.cluster_id == null) ? var.notebook_info : {}
+  name     = "${var.teamid}-${var.prjid}-${each.key} (${data.databricks_current_user.me.alphanumeric})"
 
-  name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
 
   new_cluster {
     num_workers   = var.num_workers
@@ -17,7 +13,7 @@ resource "databricks_job" "databricks_new_cluster_job" {
   }
 
   notebook_task {
-    notebook_path = join("", databricks_notebook.notebook_file.*.path)
+    notebook_path = "${data.databricks_current_user.me.home}/${each.key}"
   }
 
   dynamic "email_notifications" {
@@ -35,13 +31,13 @@ resource "databricks_job" "databricks_new_cluster_job" {
 # EXISTING CLUSTER
 # ------------------------------------------------
 resource "databricks_job" "databricks_job" {
-  count = (var.deploy_job == true && var.use_existing_cluster == true) ? 1 : 0
+  for_each = (var.deploy_job == true && var.cluster_id != null) ? var.notebook_info : {}
+  name     = "${var.teamid}-${var.prjid}-${each.key} (${data.databricks_current_user.me.alphanumeric})"
 
-  name                = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
   existing_cluster_id = local.cluster_info
 
   notebook_task {
-    notebook_path = join("", databricks_notebook.notebook_file.*.path)
+    notebook_path = "${data.databricks_current_user.me.home}/${each.key}"
   }
 
   dynamic "email_notifications" {

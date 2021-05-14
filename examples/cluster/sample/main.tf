@@ -1,5 +1,5 @@
 module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.5"
+  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git"
 
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = "dapi123456789012"
