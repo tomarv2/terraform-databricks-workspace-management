@@ -16,7 +16,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   deploy_job = true
   # NOTE: `deploy_cluster` or `use_existing_cluster` and `cluster_id` are required
-  deploy_cluster       = true
+  deploy_cluster = true
   #cluster_id = "1234-123456-lark123"
   num_workers = 1
   email_notifications = {
@@ -30,16 +30,16 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   notebook_info = {
     default994 = {
-    language        = "PYTHON"
-    local_path     = "notebooks/sample.py"
+      language   = "PYTHON"
+      local_path = "notebooks/sample.py"
     }
     default140 = {
-      language        = "PYTHON"
-      local_path            = "notebooks/sample1.py"
+      language   = "PYTHON"
+      local_path = "notebooks/sample1.py"
     }
     default241 = {
-      language        = "PYTHON"
-      local_path            = "notebooks/sample.py"
+      language   = "PYTHON"
+      local_path = "notebooks/sample.py"
     }
   }
   # ------------------------------------------------

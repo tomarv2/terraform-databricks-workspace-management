@@ -102,6 +102,24 @@ variable "cluster_policy_autotermination_minutes" {
   type        = number
   default     = 20
 }
+
+variable "cluster_type" {
+  description = "Type of cluster(autoscale or fixed)"
+  type        = string
+  default     = "fixed"
+}
+
+variable "auto_scaling" {
+  description = "Type of cluster(autoscale or fixed)"
+  type        = list(any)
+  default     = [1, 1]
+}
+
+variable "fixed_value" {
+  description = "Type of cluster(autoscale or fixed)"
+  type        = number
+  default     = null
+}
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
@@ -116,12 +134,6 @@ variable "num_workers" {
   type        = number
   default     = 1
 }
-
-//variable "use_existing_cluster" {
-//  description = "Use existing cluster for running job"
-//  default     = false
-//  type        = bool
-//}
 
 variable "email_notifications" {
   description = "Email notification block."
@@ -159,12 +171,12 @@ variable "notebook_info" {
   description = "Notebook information"
   type = map(object({
     language   = string
-    local_path    = string
+    local_path = string
   }))
   default = {
     default = {
       language   = "PYTHON"
-      local_path    = "notebooks/sample.py"
+      local_path = "notebooks/sample.py"
     }
   }
 }
@@ -212,6 +224,18 @@ variable "cluster_id" {
   type        = string
   default     = null
 }
+
+variable "note_type_id" {
+  description = "Existing cluster id"
+  type        = string
+  default     = null
+}
+
+variable "deploy_instance_pool" {
+  description = "Deploy instance pool"
+  type        = bool
+  default     = true
+}
 # ------------------------------------------------
 # Spark version
 # ------------------------------------------------
@@ -252,5 +276,3 @@ variable "create_group" {
   type        = bool
   default     = true
 }
-
-

@@ -16,16 +16,16 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   notebook_info = {
     default994 = {
-    language        = "PYTHON"
-    local_path     = "notebooks/sample.py"
+      language   = "PYTHON"
+      local_path = "notebooks/sample.py"
     }
     default140 = {
-      language        = "PYTHON"
-      local_path            = "notebooks/sample1.py"
+      language   = "PYTHON"
+      local_path = "notebooks/sample1.py"
     }
     default241 = {
-      language        = "PYTHON"
-      local_path            = "notebooks/sample.py"
+      language   = "PYTHON"
+      local_path = "notebooks/sample.py"
     }
   }
   # ------------------------------------------------

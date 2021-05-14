@@ -50,7 +50,7 @@ Note: Some option may be missing.
 
 ##### [Deploy Job on new or existing cluster:](examples/job)
 
-- Deploy Job to an existing cluster. 
+- Deploy Job to an existing cluster.
 - Deploy Cluster and deploy Job.
 Note: Job name and Notebook name is same.
 
@@ -58,7 +58,7 @@ Note: Job name and Notebook name is same.
 
 - Once you have Notebook ready put them in the notebooks folder and specify the job as below:
 
-``` 
+```
 notebook_info = {
   default994 = {
     language        = "PYTHON"
@@ -161,6 +161,6 @@ Please refer to examples directory [link](examples) for references.
 
 ## Helpful links
 
-- [Databricks Sync](https://github.com/databrickslabs/databricks-sync) - Migrate everything possible using CLI.
-- [Databricks Migrate](https://github.com/databrickslabs/migrate) - Selective Migration using Terraform.
+- [Databricks Sync](https://github.com/databrickslabs/databricks-sync) - Tool for multi cloud migrations, DR sync of workspaces. It uses TF in the backend. Run it from command line or from a notebook.
+- [Databricks Migrate](https://github.com/databrickslabs/migrate) - Tool to migrate a workspace(One time tool).
 - [Databricks CICD Templates](https://github.com/databrickslabs/cicd-templates)
