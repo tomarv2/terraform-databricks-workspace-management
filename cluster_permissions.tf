@@ -1,7 +1,7 @@
 resource "databricks_permissions" "cluster" {
   count = var.deploy_cluster ? 1 : 0
 
-  cluster_id = join("", databricks_cluster.cluster.*.id)
+  cluster_id = var.fixed_value != 0 ? join("", databricks_cluster.cluster.*.id) : join("", databricks_cluster.single_node_cluster.*.id)
   access_control {
     user_name        = join("", databricks_user.users.*.user_name)
     permission_level = "CAN_RESTART"

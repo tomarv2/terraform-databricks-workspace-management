@@ -49,12 +49,8 @@ output "databricks_group_member" {
   description = "databricks group members"
   value       = join("", databricks_group_member.group_members.*.group_id)
 }
-/*
-output "databricks_permissions_notebook" {
-  description = "databricks notebook permissions"
-  value       = join("", databricks_permissions.notebook.*.notebook_path)
-}
 
+/*
 output "databricks_permissions_job" {
   value = databricks_permissions.
 }
