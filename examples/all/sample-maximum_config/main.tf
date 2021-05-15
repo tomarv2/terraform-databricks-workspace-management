@@ -19,8 +19,8 @@ module "databricks_workspace_management" {
   deploy_cluster = true
   # cluster_id                      = "0507-210128-assay460"
   cluster_autotermination_minutes = 30
-  cluster_min_workers             = 1
-  cluster_max_workers             = 2
+  fixed_value                     = 1
+  auto_scaling                    = [2, 3]
   # ------------------------------------------------
   # Cluster Policy
   # ------------------------------------------------
@@ -29,6 +29,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Cluster Instance Pool
   # ------------------------------------------------
+  deploy_instance_pool                  = false
   min_idle_instances                    = 1
   max_capacity                          = 2
   idle_instance_autotermination_minutes = 30

@@ -43,16 +43,45 @@
 ##### [Create Cluster:](examples/cluster)
 
 - This is where you would normally start with if you just deployed your databricks workspace.
- Two options are available:
-  - Minimum configuration required to bring up a cluster.
-  - Bring up cluster with most of the available options.
-Note: Some option may be missing.
+
+Two Cluster Mode are supported by the module:
+
+- `Single Node` mode: To deploy cluster in Single Node mode, update `fixed_value` to `0`:
+```
+fixed_value         = 0
+```
+
+- `Standard` mode: To deploy in Standard mode, two options are available:
+
+```
+fixed_value         = 1
+```
+OR
+```
+auto_scaling         = [1,3]
+```
+
+**Note:** If you need to configure `Instance Pool`:
+
+```
+deploy_instance_pool                  = true
+min_idle_instances                    = 1
+max_capacity                          = 5
+idle_instance_autotermination_minutes = 30
+```
+
+> ❗️ **Important**
+>
+> If `deploy_instance_pool` is set to `true` and `auto_scaling` is enabled.
+> Ensure `max_capacity` is more than `auto_scaling`
+ max value.
 
 ##### [Deploy Job on new or existing cluster:](examples/job)
 
 - Deploy Job to an existing cluster.
 - Deploy Cluster and deploy Job.
-Note: Job name and Notebook name is same.
+
+Note: `Job name` and `Notebook name` is same.
 
 ##### [Deploy Notebook:](examples/notebook)
 
@@ -60,11 +89,11 @@ Note: Job name and Notebook name is same.
 
 ```
 notebook_info = {
-  default994 = {
+  demo1 = {
     language        = "PYTHON"
     local_path      = "notebooks/demo_notebook_1.py"
   }
-  default140 = {
+  demo2 = {
     language        = "PYTHON"
     local_path      = "notebooks/demo_notebook_2.py"
   }

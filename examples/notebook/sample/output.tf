@@ -49,17 +49,6 @@ output "databricks_group_member" {
   value       = module.databricks_workspace_management.databricks_group_member
 }
 
-output "databricks_permissions_notebook" {
-  description = "databricks notebook permissions"
-  value       = module.databricks_workspace_management.databricks_permissions_notebook
-}
-
-/*
-output "databricks_permissions_job" {
-  value = module.databricks_workspace_management.databricks_permissions_job
-}
-*/
-
 output "databricks_permissions_cluster" {
   description = "databricks cluster permissions"
   value       = module.databricks_workspace_management.databricks_permissions_cluster

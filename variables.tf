@@ -49,13 +49,13 @@ variable "databricks_secret_key" {
 variable "min_idle_instances" {
   description = "instance pool minimum idle instances"
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "max_capacity" {
   description = "instance pool maximum capacity"
   type        = number
-  default     = 30
+  default     = 3
 }
 
 variable "idle_instance_autotermination_minutes" {
@@ -79,18 +79,6 @@ variable "cluster_autotermination_minutes" {
   default     = 20
 }
 
-variable "cluster_min_workers" {
-  description = "cluster minimum workers"
-  type        = number
-  default     = 1
-}
-
-variable "cluster_max_workers" {
-  description = "cluster maximum workers"
-  type        = number
-  default     = 10
-}
-
 variable "cluster_policy_max_dbus_per_hour" {
   description = "cluster maximum dbus per hour"
   type        = number
@@ -98,27 +86,21 @@ variable "cluster_policy_max_dbus_per_hour" {
 }
 
 variable "cluster_policy_autotermination_minutes" {
-  description = "cluster policy auto termination minutes"
+  description = "cluster policy auto termination minutes."
   type        = number
   default     = 20
 }
 
-variable "cluster_type" {
-  description = "Type of cluster(autoscale or fixed)"
-  type        = string
-  default     = "fixed"
-}
-
 variable "auto_scaling" {
-  description = "Type of cluster(autoscale or fixed)"
+  description = "Number of min and max workers in auto scale."
   type        = list(any)
-  default     = [1, 1]
+  default     = null
 }
 
 variable "fixed_value" {
-  description = "Type of cluster(autoscale or fixed)"
+  description = "Number of nodes in the cluster."
   type        = number
-  default     = null
+  default     = 0
 }
 # ------------------------------------------------
 # Job
@@ -226,7 +208,7 @@ variable "cluster_id" {
 }
 
 variable "note_type_id" {
-  description = "Existing cluster id"
+  description = "Type of node"
   type        = string
   default     = null
 }
@@ -234,7 +216,7 @@ variable "note_type_id" {
 variable "deploy_instance_pool" {
   description = "Deploy instance pool"
   type        = bool
-  default     = true
+  default     = false
 }
 # ------------------------------------------------
 # Spark version
@@ -275,4 +257,10 @@ variable "create_group" {
   description = "Create group required or not"
   type        = bool
   default     = true
+}
+#
+variable "driver_node_type_id" {
+  description = "The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id"
+  type        = string
+  default     = null
 }
