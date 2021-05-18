@@ -102,6 +102,12 @@ variable "fixed_value" {
   type        = number
   default     = 0
 }
+
+variable "aws_attributes" {
+  description = "Optional configuration block contains attributes related to clusters running on AWS"
+  type        = any
+  default     = null
+}
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
@@ -156,11 +162,12 @@ variable "notebook_info" {
     local_path = string
   }))
   default = {
-    default = {
-      language   = "PYTHON"
-      local_path = "notebooks/sample.py"
-    }
   }
+  //    default = {
+  //      language   = "PYTHON"
+  //      local_path = "notebooks/sample.py"
+  //    }
+  //  }
 }
 # ------------------------------------------------
 # Cluster Node type
@@ -247,18 +254,6 @@ variable "databricks_groupname" {
   default     = null
 }
 
-variable "create_user" {
-  description = "Create user required or not"
-  type        = bool
-  default     = true
-}
-
-variable "create_group" {
-  description = "Create group required or not"
-  type        = bool
-  default     = true
-}
-#
 variable "driver_node_type_id" {
   description = "The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id"
   type        = string

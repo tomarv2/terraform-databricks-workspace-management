@@ -193,3 +193,15 @@ Please refer to examples directory [link](examples) for references.
 - [Databricks Sync](https://github.com/databrickslabs/databricks-sync) - Tool for multi cloud migrations, DR sync of workspaces. It uses TF in the backend. Run it from command line or from a notebook.
 - [Databricks Migrate](https://github.com/databrickslabs/migrate) - Tool to migrate a workspace(One time tool).
 - [Databricks CICD Templates](https://github.com/databrickslabs/cicd-templates)
+
+#### Troubleshooting
+
+If you see below error messages. Try deleting again.
+
+```
+Error: Failed to delete token in Scope <scope name>
+```
+
+``` 
+Error: Scope <scope name> does not exist!
+```
