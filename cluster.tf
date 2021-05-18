@@ -1,5 +1,5 @@
 resource "databricks_cluster" "cluster" {
-  count = var.deploy_cluster == true && var.fixed_value != 0 ? 1 : 0
+  count = (var.deploy_cluster == true && (var.fixed_value != 0 || var.auto_scaling != null) ? 1 : 0)
 
   cluster_name  = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
   spark_version = data.databricks_spark_version.latest.id
@@ -18,6 +18,20 @@ resource "databricks_cluster" "cluster" {
       max_workers = autoscale.value[1]
     }
   }
+
+  dynamic "aws_attributes" {
+    for_each = var.aws_attributes == null ? [] : [var.aws_attributes]
+    content {
+      instance_profile_arn   = lookup(aws_attributes.value, "instance_profile_arn", null)
+      zone_id                = lookup(aws_attributes.value, "zone_id", null)
+      first_on_demand        = lookup(aws_attributes.value, "first_on_demand", null)
+      availability           = lookup(aws_attributes.value, "availability", null)
+      spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent ", null)
+      ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count ", null)
+      ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size ", null)
+    }
+  }
+
   autotermination_minutes = var.cluster_autotermination_minutes
   custom_tags             = merge(local.shared_tags)
 }
@@ -30,6 +44,19 @@ resource "databricks_cluster" "single_node_cluster" {
   autotermination_minutes = var.cluster_autotermination_minutes
   node_type_id            = var.deploy_instance_pool != true ? join("", data.databricks_node_type.cluster_node_type.*.id) : null
   num_workers             = 0
+
+  dynamic "aws_attributes" {
+    for_each = var.aws_attributes == null ? [] : [var.aws_attributes]
+    content {
+      instance_profile_arn   = lookup(aws_attributes.value, "instance_profile_arn", null)
+      zone_id                = lookup(aws_attributes.value, "zone_id", null)
+      first_on_demand        = lookup(aws_attributes.value, "first_on_demand", null)
+      availability           = lookup(aws_attributes.value, "availability", null)
+      spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent ", null)
+      ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count ", null)
+      ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size ", null)
+    }
+  }
 
   custom_tags = {
     "ResourceClass" = "SingleNode"
