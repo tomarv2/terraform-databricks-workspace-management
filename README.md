@@ -73,8 +73,7 @@ idle_instance_autotermination_minutes = 30
 > ❗️ **Important**
 >
 > If `deploy_instance_pool` is set to `true` and `auto_scaling` is enabled.
-> Ensure `max_capacity` is more than `auto_scaling`
- max value.
+> Ensure `max_capacity` is more than `auto_scaling` max value.
 
 ##### [Deploy Job on new or existing cluster:](examples/job)
 
@@ -166,7 +165,6 @@ module "databricks_workspace_management" {
   workspace_url = "https://<workspace-url>.cloud.sample.com"
   dapi_token    = "dapi123456789012"
 
-  create_group    = true
   deploy_cluster  = true
   deploy_job      = true
   deploy_notebook = true
@@ -196,12 +194,12 @@ Please refer to examples directory [link](examples) for references.
 
 #### Troubleshooting
 
-If you see below error messages. Try deleting again.
+Common error messages. Try apply/destroy again.
 
 ```
 Error: Failed to delete token in Scope <scope name>
 ```
 
-``` 
+```
 Error: Scope <scope name> does not exist!
 ```
