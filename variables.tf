@@ -163,11 +163,13 @@ variable "notebook_info" {
   }))
   default = {
   }
-  //    default = {
-  //      language   = "PYTHON"
-  //      local_path = "notebooks/sample.py"
-  //    }
-  //  }
+  /*
+      default = {
+        language   = "PYTHON"
+        local_path = "notebooks/sample.py"
+      }
+    }
+  */
 }
 # ------------------------------------------------
 # Cluster Node type

@@ -24,15 +24,15 @@ output "job_new_cluster_url" {
   value       = { for k, v in databricks_job.databricks_new_cluster_job : k => v.url }
 }
 
-//output "databricks_secret_acl" {
-//  description = "databricks secret acl"
-//  value       = databricks_secret_acl.spectators.principal
-//}
+output "databricks_secret_acl" {
+  description = "databricks secret acl"
+  value       = join("", databricks_secret_acl.spectators.*.principal)
+}
 
-//output "databricks_group" {
-//  description = "databricks group name"
-//  value       = databricks_group.spectators.display_name
-//}
+output "databricks_group" {
+  description = "databricks group name"
+  value       = join("", databricks_group.spectators.*.display_name)
+}
 
 output "databricks_user" {
   description = "databricks user name"

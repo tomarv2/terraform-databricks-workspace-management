@@ -21,4 +21,3 @@ locals {
 
   user_name = var.databricks_username != null ? var.databricks_username : join("", databricks_user.users.*.id)
 }
-
