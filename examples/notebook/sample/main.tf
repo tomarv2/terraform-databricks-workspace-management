@@ -1,5 +1,5 @@
 module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git?ref=v0.0.5"
+  source        = "../../../"
 
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = var.dapi_token
@@ -7,17 +7,13 @@ module "databricks_workspace_management" {
   # NOTEBOOK
   # ------------------------------------------------
   notebook_info = {
-    default994 = {
-      language   = "PYTHON"
-      local_path = "notebooks/sample.py"
-    }
-    default140 = {
+    default1 = {
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
     }
-    default241 = {
+    default2 = {
       language   = "PYTHON"
-      local_path = "notebooks/sample.py"
+      local_path = "notebooks/sample2.py"
     }
   }
   # ------------------------------------------------

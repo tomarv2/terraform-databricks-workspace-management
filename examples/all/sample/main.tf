@@ -15,17 +15,13 @@ module "databricks_workspace_management" {
   deploy_cluster = true
   deploy_job     = true
   notebook_info = {
-    default994 = {
-      language   = "PYTHON"
-      local_path = "notebooks/sample.py"
-    }
-    default140 = {
+    default1 = {
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
     }
-    default241 = {
+    default2 = {
       language   = "PYTHON"
-      local_path = "notebooks/sample.py"
+      local_path = "notebooks/sample2.py"
     }
   }
   # -----------------------------------------
