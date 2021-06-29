@@ -1,11 +1,11 @@
-output "custer_id" {
+output "cluster_id" {
   description = "databricks cluster id"
   value       = join("", databricks_cluster.cluster.*.id)
 }
 
 output "databricks_token" {
   description = "databricks token"
-  value       = databricks_token.pat.id
+  value       = databricks_token.pat.*.id
   sensitive   = true
 }
 
@@ -41,7 +41,7 @@ output "databricks_secret_acl" {
 
 output "databricks_group" {
   description = "databricks group name"
-  value       = join("", databricks_group.spectators.*.display_name)
+  value       = join("", databricks_group.this.*.display_name)
 }
 
 output "databricks_user" {
@@ -53,7 +53,6 @@ output "databricks_user_id" {
   description = "databricks user id"
   value       = join("", databricks_user.users.*.id)
 }
-
 
 output "databricks_group_member" {
   description = "databricks group members"

@@ -1,12 +1,11 @@
-output "custer_id" {
+output "cluster_id" {
   description = "databricks cluster id"
-  value       = module.databricks_workspace_management.custer_id
+  value       = module.databricks_workspace_management.cluster_id
 }
 
 output "databricks_token" {
   description = "databricks token"
   value       = module.databricks_workspace_management.databricks_token
-  sensitive   = true
 }
 
 output "databricks_secret_acl" {

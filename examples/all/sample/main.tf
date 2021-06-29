@@ -4,14 +4,6 @@ module "databricks_workspace_management" {
   workspace_url = "https://<workspace_url>.cloud.sample.com"
   dapi_token    = "dapi1234567890"
   # ------------------------------------------------
-  # Admin Console
-  # ------------------------------------------------
-  # NOTE:
-  # - If `create_group` is `true`, `create_user` should be set to `true`
-  # - If `databricks_username` is not provided,
-  # `create_user` will use the current DB login name and add `@example.com` to generate databricks_username
-  databricks_username = "demo@demo.com"
-  # ------------------------------------------------
   deploy_cluster = true
   deploy_job     = true
   notebook_info = {

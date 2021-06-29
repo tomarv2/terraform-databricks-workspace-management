@@ -205,6 +205,12 @@ variable "notebook_info" {
   }))
   default = {}
 }
+
+variable "custom_path" {
+  description = "Custom path to the notebook"
+  default     = ""
+  type        = string
+}
 # ------------------------------------------------
 # Cluster Node type
 # ------------------------------------------------
@@ -265,33 +271,63 @@ variable "deploy_instance_pool" {
 # Spark version
 # ------------------------------------------------
 variable "gpu" {
-  description = "GPU required or not"
+  description = "GPU required or not."
   type        = bool
   default     = false
 }
 
 variable "ml" {
-  description = "ML required or not"
+  description = "ML required or not."
   type        = bool
   default     = false
 }
 # ------------------------------------------------
 # Databricks admin console
 # ------------------------------------------------
+variable "create_user" {
+  description = "Create a new user, if user already exists the deployment will fail."
+  type        = bool
+  default     = false
+}
+
+variable "create_group" {
+  description = "Create a new group, if group already exists the deployment will fail."
+  type        = bool
+  default     = false
+}
+
 variable "databricks_username" {
-  description = "List of user allowed to access the platform"
+  description = "User allowed to access the platform."
   type        = string
   default     = ""
 }
 
 variable "databricks_groupname" {
-  description = "Group allowed to access the platform"
+  description = "Group allowed to access the platform."
+  type        = string
+  default     = ""
+}
+
+variable "driver_node_type_id" {
+  description = "The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id."
   type        = string
   default     = null
 }
 
-variable "driver_node_type_id" {
-  description = "The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id"
-  type        = string
-  default     = null
+variable "allow_cluster_create" {
+  description = " This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks_permissions and cluster_id argument. Everyone without allow_cluster_create argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy."
+  type        = bool
+  default     = true
+}
+
+variable "allow_instance_pool_create" {
+  description = "This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks_permissions and instance_pool_id argument."
+  type        = bool
+  default     = true
+}
+
+variable "allow_sql_analytics_access" {
+  description = "This is a field to allow the group to have access to SQL Analytics feature through databricks_sql_endpoint."
+  type        = bool
+  default     = true
 }
