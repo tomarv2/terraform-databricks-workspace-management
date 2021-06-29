@@ -1,5 +1,5 @@
 module "databricks_workspace_management" {
-  source        = "../../../"
+  source = "../../../"
 
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = var.dapi_token
@@ -8,13 +8,12 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   /*
   # NOTE: If `databricks_username` is not provided, no permissions are configured
-  databricks_username = "varun.tomar@databricks.com"
-  # ------------------------------------------------
-  # NOTE: Power User does not have permissions to configure instance profile
-  aws_attributes = {
-    instance_profile_arn = "arn:aws:iam::755921336062:instance-profile/security-tines-ecs-mgmt-role"
-  }
+  databricks_username = "demo@demo.com"
   */
+  # ------------------------------------------------
+  aws_attributes = {
+    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/demo-role"
+  }
   # ------------------------------------------------
   # Job
   # ------------------------------------------------
@@ -22,7 +21,21 @@ module "databricks_workspace_management" {
   # NOTE: `deploy_cluster` or `use_existing_cluster` and `cluster_id` are required
   deploy_cluster = true
   #cluster_id = "1234-123456-lark123"
-  num_workers = 1
+  num_workers               = 1
+  retry_on_timeout          = false
+  max_retries               = 3
+  timeout                   = 30
+  min_retry_interval_millis = 10
+  max_concurrent_runs       = 1
+  task_parameters = {
+    "hello" = "world",
+    "ping"  = "pong"
+  }
+  schedule = {
+    cron_expression = "1 0 7 * * ?",
+    timezone_id     = "America/Los_Angeles",
+    pause_status    = "UNPAUSED"
+  }
   email_notifications = {
     on_failure                = ["demo@demo.com"],
     no_alert_for_skipped_runs = true,
@@ -33,17 +46,13 @@ module "databricks_workspace_management" {
   # Notebook
   # ------------------------------------------------
   notebook_info = {
-    default994 = {
-      language   = "PYTHON"
-      local_path = "notebooks/sample.py"
-    }
-    default140 = {
+    default1 = {
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
     }
-    default241 = {
+    default2 = {
       language   = "PYTHON"
-      local_path = "notebooks/sample.py"
+      local_path = "notebooks/sample2.py"
     }
   }
   # ------------------------------------------------

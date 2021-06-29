@@ -1,5 +1,5 @@
 module "databricks_workspace_management" {
-  source        = "../../../"
+  source = "../../../"
 
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = var.dapi_token

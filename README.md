@@ -61,7 +61,7 @@ OR
 auto_scaling         = [1,3]
 ```
 
-**Note:** If you need to configure `Instance Pool`:
+**Note:** To configure `Instance Pool`, add below configuration:
 
 ```
 deploy_instance_pool                  = true
@@ -181,7 +181,6 @@ Please refer to examples directory [link](examples) for references.
 
 ## Coming up
 
-- [**Workspace Security - Job Permissions**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-2-workspace-security)
 - [**Storage**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-3-storage)
 - [**Advanced configuration**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-4-advanced-configuration)
 - [**Init Script**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/global_init_script)
@@ -194,7 +193,7 @@ Please refer to examples directory [link](examples) for references.
 
 #### Troubleshooting
 
-Common error messages. Try apply/destroy again.
+Common error messages. Try the step one again if you below error.
 
 ```
 Error: Failed to delete token in Scope <scope name>

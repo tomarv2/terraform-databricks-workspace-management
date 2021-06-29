@@ -1,6 +1,6 @@
-output "databricks_host" {
+output "custer_id" {
   description = "databricks cluster id"
-  value       = module.databricks_workspace_management.databricks_host
+  value       = module.databricks_workspace_management.custer_id
 }
 
 output "databricks_token" {

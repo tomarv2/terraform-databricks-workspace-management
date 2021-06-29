@@ -128,6 +128,48 @@ variable "email_notifications" {
   type        = any
   default     = null
 }
+
+variable "schedule" {
+  description = "Job schedule configuration."
+  type        = any
+  default     = null
+}
+
+variable "task_parameters" {
+  description = "Base parameters to be used for each run of this job."
+  type        = map(any)
+  default     = {}
+}
+
+variable "retry_on_timeout" {
+  description = "An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout."
+  type        = bool
+  default     = false
+}
+
+variable "max_retries" {
+  description = " An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED result_state or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry."
+  type        = number
+  default     = 0
+}
+
+variable "timeout" {
+  description = "An optional timeout applied to each run of this job. The default behavior is to have no timeout."
+  default     = null
+  type        = number
+}
+
+variable "min_retry_interval_millis" {
+  description = "An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried."
+  default     = null
+  type        = number
+}
+
+variable "max_concurrent_runs" {
+  description = "An optional maximum allowed number of concurrent runs of the job."
+  default     = null
+  type        = number
+}
 # ------------------------------------------------
 # Notebook
 # ------------------------------------------------
@@ -161,15 +203,7 @@ variable "notebook_info" {
     language   = string
     local_path = string
   }))
-  default = {
-  }
-  /*
-      default = {
-        language   = "PYTHON"
-        local_path = "notebooks/sample.py"
-      }
-    }
-  */
+  default = {}
 }
 # ------------------------------------------------
 # Cluster Node type
@@ -247,7 +281,7 @@ variable "ml" {
 variable "databricks_username" {
   description = "List of user allowed to access the platform"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "databricks_groupname" {
