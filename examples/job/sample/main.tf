@@ -7,9 +7,14 @@ module "databricks_workspace_management" {
   # Admin Console
   # ------------------------------------------------
   /*
-  # NOTE: If `databricks_username` is not provided, no permissions are configured
-  databricks_username = "demo@demo.com"
+  # NOTE: 2 options are available:
+    - No `create_user`: no permissions are configured.
+    - `databricks_username`, `create_user`, and `create_group` to create user(user should not be existing already) and group.
+    - Provide `create_user` and `databricks_username`
   */
+  databricks_username = "demo@demo.com"
+  create_user         = true
+  create_group        = true
   # ------------------------------------------------
   aws_attributes = {
     instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/demo-role"

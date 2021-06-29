@@ -6,11 +6,15 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Admin Console
   # ------------------------------------------------
-  # NOTE:
-  # - If `create_group` is `true`, `create_user` should be set to `true`
-  # - If `databricks_username` is not provided,
-  # `create_user` will use the current DB login name and add `@example.com` to generate databricks_username
+  /*
+  # NOTE: 2 options are available:
+    - No `create_user`: no permissions are configured.
+    - `databricks_username`, `create_user`, and `create_group` to create user(user should not be existing already) and group.
+    - Provide `create_user` and `databricks_username`
+  */
   databricks_username = "demo@demo.com"
+  create_user         = true
+  create_group        = true
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------
