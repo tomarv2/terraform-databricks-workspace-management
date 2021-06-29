@@ -131,7 +131,7 @@ variable "email_notifications" {
 
 variable "schedule" {
   description = "Job schedule configuration."
-  type        = any
+  type        = map(any)
   default     = null
 }
 

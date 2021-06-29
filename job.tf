@@ -13,7 +13,7 @@ resource "databricks_job" "databricks_new_cluster_job" {
   }
 
   notebook_task {
-    notebook_path   = "${data.databricks_current_user.me.home}/${each.key}"
+    notebook_path   = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
     base_parameters = var.task_parameters
   }
 
@@ -53,7 +53,7 @@ resource "databricks_job" "databricks_job" {
   existing_cluster_id = local.cluster_info
 
   notebook_task {
-    notebook_path = "${data.databricks_current_user.me.home}/${each.key}"
+    notebook_path = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
   }
 
   dynamic "email_notifications" {
