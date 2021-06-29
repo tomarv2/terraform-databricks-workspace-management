@@ -1,5 +1,4 @@
 resource "databricks_cluster_policy" "this" {
-  #count = var.deploy_cluster ? 1 : 0
   count = var.deploy_cluster == true && (var.databricks_username != null) ? 1 : 0
 
   name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"

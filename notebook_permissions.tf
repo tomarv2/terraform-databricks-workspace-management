@@ -1,5 +1,5 @@
 resource "databricks_permissions" "notebook" {
-  for_each = var.notebook_info
+  for_each = local.user_name != "" ? var.notebook_info : {}
 
   notebook_path = "${data.databricks_current_user.me.home}/${each.key}"
 

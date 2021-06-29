@@ -1,4 +1,4 @@
-output "databricks_host" {
+output "custer_id" {
   description = "databricks cluster id"
   value       = join("", databricks_cluster.cluster.*.id)
 }
@@ -22,6 +22,16 @@ output "job_url" {
 output "job_new_cluster_url" {
   description = "databricks new cluster job url"
   value       = { for k, v in databricks_job.databricks_new_cluster_job : k => v.url }
+}
+
+output "job_id" {
+  description = "databricks job id"
+  value       = { for k, v in databricks_job.databricks_job : k => v.id }
+}
+
+output "job_new_cluster_id" {
+  description = "databricks new cluster job id"
+  value       = { for k, v in databricks_job.databricks_new_cluster_job : k => v.id }
 }
 
 output "databricks_secret_acl" {

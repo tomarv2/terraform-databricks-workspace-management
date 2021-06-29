@@ -1,27 +1,12 @@
-output "databricks_host" {
+output "custer_id" {
   description = "databricks cluster id"
-  value       = module.databricks_workspace_management.databricks_host
+  value       = module.databricks_workspace_management.custer_id
 }
 
 output "databricks_token" {
   description = "databricks token"
   value       = module.databricks_workspace_management.databricks_token
   sensitive   = true
-}
-
-output "databricks_job_url" {
-  description = "databricks job url"
-  value       = module.databricks_workspace_management.job_url
-}
-
-output "databricks_notebook_url" {
-  description = "databricks notebook url"
-  value       = module.databricks_workspace_management.notebook_url
-}
-
-output "job_new_cluster_url" {
-  description = "databricks new cluster job url"
-  value       = module.databricks_workspace_management.job_new_cluster_url
 }
 
 output "databricks_secret_acl" {
@@ -48,13 +33,12 @@ output "databricks_group_member" {
   description = "databricks group members"
   value       = module.databricks_workspace_management.databricks_group_member
 }
-
+/*
 output "databricks_permissions_notebook" {
   description = "databricks notebook permissions"
   value       = module.databricks_workspace_management.databricks_permissions_notebook
 }
 
-/*
 output "databricks_permissions_job" {
   value = module.databricks_workspace_management.databricks_permissions_job
 }
