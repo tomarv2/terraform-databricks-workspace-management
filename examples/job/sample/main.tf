@@ -13,8 +13,8 @@ module "databricks_workspace_management" {
     - Provide `create_user` and `databricks_username`
   */
   databricks_username = "demo@demo.com"
-  create_user = true
-  create_group = true
+  create_user         = true
+  create_group        = true
   # ------------------------------------------------
   aws_attributes = {
     instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/demo-role"
