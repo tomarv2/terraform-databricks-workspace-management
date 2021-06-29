@@ -13,7 +13,7 @@ resource "databricks_token" "pat" {
 resource "databricks_secret" "token" {
   count = var.deploy_cluster ? 1 : 0
 
-  string_value = databricks_token.pat.*.token_value
+  string_value = join("", databricks_token.pat.*.token_value)
   scope        = "${var.teamid}-${var.prjid}"
   key          = var.databricks_secret_key
 }
