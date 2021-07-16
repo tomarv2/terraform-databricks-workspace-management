@@ -3,10 +3,12 @@ output "cluster_id" {
   value       = module.databricks_workspace_management.cluster_id
 }
 
+/*
 output "databricks_token" {
   description = "databricks token"
   value       = module.databricks_workspace_management.databricks_token
 }
+*/
 
 output "databricks_secret_acl" {
   description = "databricks secret acl"

@@ -1,7 +1,7 @@
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://https://<workspace_url>.cloud.databricks.com"
+  workspace_url = "https://test-tomarv2.cloud.databricks.com"
   dapi_token    = var.dapi_token
   # ------------------------------------------------
   # Admin Console

@@ -3,6 +3,7 @@ resource "databricks_secret_scope" "this" {
   name  = "${var.teamid}-${var.prjid}"
 }
 
+/*
 resource "databricks_token" "pat" {
   count = var.deploy_cluster ? 1 : 0
 
@@ -17,3 +18,4 @@ resource "databricks_secret" "token" {
   scope        = "${var.teamid}-${var.prjid}"
   key          = var.databricks_secret_key
 }
+*/

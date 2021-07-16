@@ -3,5 +3,7 @@
 
 terraform {
   backend "s3" {
+    endpoint             = "s3-fips.us-west-2.amazonaws.com"
+    workspace_key_prefix = "test"
   }
 }
