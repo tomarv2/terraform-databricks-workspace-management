@@ -1,7 +1,7 @@
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://test-tomarv2.cloud.databricks.com"
+  workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = var.dapi_token
   # ------------------------------------------------
   # Admin Console
@@ -15,11 +15,7 @@ module "databricks_workspace_management" {
   databricks_username = "demo@demo.com"
   create_user         = true
   create_group        = true
-  /*
   # ------------------------------------------------
-  # NOTE: If `databricks_username` is not provided, no permissions are configured
-  databricks_username = "demo@demo.com"
-  */
   aws_attributes = {
     instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/demo-role"
   }
