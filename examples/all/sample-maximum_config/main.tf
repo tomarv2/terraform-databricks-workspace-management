@@ -15,6 +15,12 @@ module "databricks_workspace_management" {
   databricks_username = "demo@demo.com"
   create_user         = true
   create_group        = true
+  /*
+  # ------------------------------------------------
+  aws_attributes = {
+    instance_profile_arn = "arn:aws:iam::755921336062:instance-profile/security-tines-ecs-mgmt-role"
+  }
+  */
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------

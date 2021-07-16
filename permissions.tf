@@ -67,7 +67,7 @@ resource "databricks_permissions" "job" {
 resource "databricks_permissions" "notebook" {
   for_each = local.user_name != "" ? var.notebook_info : {}
 
-  notebook_path = "${data.databricks_current_user.me.home}/${each.key}"
+  notebook_path = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
 
   access_control {
     user_name        = var.create_user != false ? join("", databricks_user.users.*.user_name) : var.databricks_username

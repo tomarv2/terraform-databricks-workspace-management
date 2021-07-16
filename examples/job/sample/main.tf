@@ -8,9 +8,9 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   /*
   # NOTE: 2 options are available:
-    - No `create_user`: no permissions are configured.
-    - `databricks_username`, `create_user`, and `create_group` to create user(user should not be existing already) and group.
-    - Provide `create_user` and `databricks_username`
+    - 1. "create_user": false -> no permissions are configured.
+    - 2. "create_user", "databricks_username", "create_user", and "create_group" to create user and group.
+    IMPORTANT: databricks_username should not pre-exist.
   */
   databricks_username = "demo@demo.com"
   create_user         = true

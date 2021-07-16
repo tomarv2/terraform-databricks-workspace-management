@@ -3,11 +3,13 @@ output "cluster_id" {
   value       = join("", databricks_cluster.cluster.*.id)
 }
 
+/*
 output "databricks_token" {
   description = "databricks token"
-  value       = databricks_token.pat.*.id
-  sensitive   = true
+  value       = databricks_token.pat.*.token_value
+ sensitive   = true
 }
+*/
 
 output "notebook_url" {
   description = "databricks notebook url"
