@@ -295,7 +295,7 @@ No modules.
 | <a name="input_min_memory_gb"></a> [min\_memory\_gb](#input\_min\_memory\_gb) | Minimum amount of memory per node in gigabytes. Defaults to 0. | `string` | `0` | no |
 | <a name="input_min_retry_interval_millis"></a> [min\_retry\_interval\_millis](#input\_min\_retry\_interval\_millis) | An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried. | `number` | `null` | no |
 | <a name="input_ml"></a> [ml](#input\_ml) | ML required or not. | `bool` | `false` | no |
-| <a name="input_note_type_id"></a> [note\_type\_id](#input\_note\_type\_id) | Type of node | `string` | `null` | no |
+| <a name="input_node_type_id"></a> [note\_type\_id](#input\_note\_type\_id) | Type of node | `string` | `null` | no |
 | <a name="input_notebook_info"></a> [notebook\_info](#input\_notebook\_info) | Notebook information | <pre>map(object({<br>    language   = string<br>    local_path = string<br>  }))</pre> | `{}` | no |
 | <a name="input_notebook_name"></a> [notebook\_name](#input\_notebook\_name) | notebook name | `string` | `null` | no |
 | <a name="input_num_workers"></a> [num\_workers](#input\_num\_workers) | number of workers for job | `number` | `1` | no |
