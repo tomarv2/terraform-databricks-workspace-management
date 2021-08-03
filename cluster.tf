@@ -5,7 +5,8 @@ resource "databricks_cluster" "cluster" {
   spark_version = data.databricks_spark_version.latest.id
 
   driver_node_type_id = var.driver_node_type_id
-  node_type_id        = var.deploy_instance_pool != true ? join("", data.databricks_node_type.cluster_node_type.*.id) : null
+  #node_type_id        = var.node_type_id #var.deploy_instance_pool != true ? join("", data.databricks_node_type.cluster_node_type.*.id) : var.node_type_id
+  node_type_id = var.deploy_instance_pool != true ? var.node_type_id : null
 
   instance_pool_id = var.deploy_instance_pool == true ? join("", databricks_instance_pool.instance_nodes.*.id) : null
 
@@ -42,8 +43,9 @@ resource "databricks_cluster" "single_node_cluster" {
   cluster_name            = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
   spark_version           = data.databricks_spark_version.latest.id
   autotermination_minutes = var.cluster_autotermination_minutes
-  node_type_id            = var.deploy_instance_pool != true ? join("", data.databricks_node_type.cluster_node_type.*.id) : null
-  num_workers             = 0
+  #node_type_id            = var.deploy_instance_pool != true ? join("", data.databricks_node_type.cluster_node_type.*.id) : var.node_type_id
+  node_type_id = var.deploy_instance_pool != true ? var.node_type_id : null
+  num_workers  = 0
 
   dynamic "aws_attributes" {
     for_each = var.aws_attributes == null ? [] : [var.aws_attributes]

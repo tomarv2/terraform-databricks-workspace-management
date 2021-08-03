@@ -256,8 +256,8 @@ variable "cluster_id" {
   default     = null
 }
 
-variable "note_type_id" {
-  description = "Type of node"
+variable "node_type_id" {
+  description = "The node type of the Spark driver."
   type        = string
   default     = null
 }
