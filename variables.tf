@@ -8,18 +8,6 @@ variable "prjid" {
   type        = string
 }
 
-variable "profile_to_use" {
-  description = "Getting values from ~/.aws/credentials"
-  default     = "default"
-  type        = string
-}
-
-variable "aws_region" {
-  description = "aws region to deploy resources"
-  default     = "us-west-2"
-  type        = string
-}
-
 variable "workspace_url" {
   description = "databricks workspace url"
   type        = string
@@ -79,16 +67,10 @@ variable "cluster_autotermination_minutes" {
   default     = 20
 }
 
-variable "cluster_policy_max_dbus_per_hour" {
-  description = "cluster maximum dbus per hour"
-  type        = number
-  default     = 10
-}
-
-variable "cluster_policy_autotermination_minutes" {
-  description = "cluster policy auto termination minutes."
-  type        = number
-  default     = 20
+variable "policy_overrides" {
+  description = "Cluster policy overrides"
+  type        = any
+  default     = null
 }
 
 variable "auto_scaling" {
@@ -105,6 +87,12 @@ variable "fixed_value" {
 
 variable "aws_attributes" {
   description = "Optional configuration block contains attributes related to clusters running on AWS"
+  type        = any
+  default     = null
+}
+
+variable "spark_conf" {
+  description = "Optional Spark configuration block"
   type        = any
   default     = null
 }
@@ -280,6 +268,12 @@ variable "ml" {
   description = "ML required or not."
   type        = bool
   default     = false
+}
+
+variable "spark_version" {
+  description = "Runtime version of the cluster. Any supported databricks_spark_version id. We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control."
+  type        = string
+  default     = null
 }
 # ------------------------------------------------
 # Databricks admin console

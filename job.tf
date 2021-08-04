@@ -3,8 +3,8 @@
 # ------------------------------------------------
 resource "databricks_job" "databricks_new_cluster_job" {
   for_each = (var.deploy_job == true && var.cluster_id == null) ? var.notebook_info : {}
-  name     = "${var.teamid}-${var.prjid}-${each.key} (${data.databricks_current_user.me.alphanumeric})"
 
+  name = "${var.teamid}-${var.prjid}-${each.key} (Terraform managed)"
 
   new_cluster {
     num_workers   = var.num_workers
@@ -48,8 +48,8 @@ resource "databricks_job" "databricks_new_cluster_job" {
 # ------------------------------------------------
 resource "databricks_job" "databricks_job" {
   for_each = (var.deploy_job == true && var.cluster_id != null) ? var.notebook_info : {}
-  name     = "${var.teamid}-${var.prjid}-${each.key} (${data.databricks_current_user.me.alphanumeric})"
 
+  name                = "${var.teamid}-${var.prjid}-${each.key} (Terraform managed)"
   existing_cluster_id = local.cluster_info
 
   notebook_task {

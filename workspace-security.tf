@@ -18,7 +18,7 @@ resource "databricks_user" "users" {
 resource "databricks_group" "this" {
   count = var.create_group != false ? 1 : 0
 
-  display_name               = "${var.teamid}-${var.prjid} (by ${data.databricks_current_user.me.alphanumeric})"
+  display_name               = "${var.teamid}-${var.prjid} (Terraform managed)"
   allow_cluster_create       = var.allow_cluster_create
   allow_instance_pool_create = var.allow_instance_pool_create
   allow_sql_analytics_access = var.allow_sql_analytics_access
