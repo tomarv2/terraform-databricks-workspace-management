@@ -4,7 +4,7 @@ resource "databricks_instance_pool" "instance_nodes" {
   instance_pool_name = "${var.teamid}-${var.prjid} (Terraform managed)"
   min_idle_instances = var.min_idle_instances
   max_capacity       = var.max_capacity
-  node_type_id       = var.node_type_id #join("", data.databricks_node_type.cluster_node_type.*.id)
+  node_type_id       = local.node_type
   preloaded_spark_versions = [
     data.databricks_spark_version.latest.id
   ]

@@ -1,4 +1,3 @@
-#TODO: where to integrate?
 data "databricks_node_type" "cluster_node_type" {
   count = var.deploy_cluster ? 1 : 0
 
