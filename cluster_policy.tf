@@ -1,17 +1,20 @@
-resource "databricks_cluster_policy" "this" {
-  count = var.deploy_cluster == true && (var.databricks_username != null) ? 1 : 0
-
-  name = "${var.teamid}-${var.prjid} (${data.databricks_current_user.me.alphanumeric})"
-
-  definition = jsonencode({
+locals {
+  default_policy = {
     "dbus_per_hour" : {
       "type" : "range",
-      "maxValue" : var.cluster_policy_max_dbus_per_hour
+      "maxValue" : 10
     },
     "autotermination_minutes" : {
       "type" : "fixed",
-      "value" : var.cluster_policy_autotermination_minutes,
+      "value" : 20,
       "hidden" : true
     }
-  })
+  }
+}
+
+resource "databricks_cluster_policy" "this" {
+  count = var.deploy_cluster == true && (var.databricks_username != null) ? 1 : 0
+
+  name       = "${var.teamid}-${var.prjid} (Terraform managed)"
+  definition = jsonencode(merge(local.default_policy, var.policy_overrides))
 }

@@ -1,6 +1,7 @@
 resource "databricks_secret_scope" "this" {
   count = var.deploy_cluster ? 1 : 0
-  name  = "${var.teamid}-${var.prjid}"
+
+  name = "${var.teamid}-${var.prjid}"
 }
 
 /*
