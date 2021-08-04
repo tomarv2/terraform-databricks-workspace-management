@@ -26,6 +26,13 @@ module "databricks_workspace_management" {
   cluster_autotermination_minutes = 30
   fixed_value                     = 1
   auto_scaling                    = [2, 3]
+  node_type_id                    = "i3.large"
+  driver_node_type_id             = "i3.large"
+  spark_version                   = "8.3.x-scala2.12"
+  spark_conf = {
+    "spark.databricks.io.cache.enabled" = true
+    "spark.driver.maxResultSize"        = "100g"
+  }
   # ------------------------------------------------
   # Cluster Instance Pool
   # ------------------------------------------------
@@ -36,8 +43,11 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Cluster Policy
   # ------------------------------------------------
-  cluster_policy_max_dbus_per_hour       = 5
-  cluster_policy_autotermination_minutes = 5
+  policy_overrides = {
+    "spark_conf.spark.databricks.io.cache.enabled" : {
+      "value" : "true"
+    },
+  }
   # ------------------------------------------------
   # Cluster Worker Type
   # ------------------------------------------------

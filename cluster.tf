@@ -4,7 +4,7 @@ resource "databricks_cluster" "cluster" {
   cluster_name        = "${var.teamid}-${var.prjid} (Terraform managed)"
   spark_version       = var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
   driver_node_type_id = var.driver_node_type_id
-  node_type_id        = var.deploy_instance_pool != true ? var.node_type_id : null # var.node_type_id #var.deploy_instance_pool != true ? join("", data.databricks_node_type.cluster_node_type.*.id) : var.node_type_id
+  node_type_id        = var.deploy_instance_pool != true ? local.node_type : null
   instance_pool_id    = var.deploy_instance_pool == true ? join("", databricks_instance_pool.instance_nodes.*.id) : null
   num_workers         = var.fixed_value != null ? var.fixed_value : null
 
@@ -40,7 +40,7 @@ resource "databricks_cluster" "single_node_cluster" {
   cluster_name            = "${var.teamid}-${var.prjid} (Terraform managed)"
   spark_version           = var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
   autotermination_minutes = var.cluster_autotermination_minutes
-  node_type_id            = var.deploy_instance_pool != true ? var.node_type_id : null #var.deploy_instance_pool != true ? join("", data.databricks_node_type.cluster_node_type.*.id) : var.node_type_id
+  node_type_id            = var.deploy_instance_pool != true ? local.node_type : null
   num_workers             = 0
 
   dynamic "aws_attributes" {
