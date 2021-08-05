@@ -36,7 +36,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Cluster Instance Pool
   # ------------------------------------------------
-  deploy_instance_pool                  = false
+  deploy_worker_instance_pool           = false
   min_idle_instances                    = 1
   max_capacity                          = 5
   idle_instance_autotermination_minutes = 30

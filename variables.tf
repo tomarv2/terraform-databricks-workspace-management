@@ -64,7 +64,19 @@ variable "deploy_cluster" {
 variable "cluster_autotermination_minutes" {
   description = "cluster auto termination duration"
   type        = number
-  default     = 20
+  default     = 30
+}
+
+variable "deploy_cluster_policy" {
+  description = "feature flag, true or false"
+  default     = false
+  type        = bool
+}
+
+variable "cluster_policy_id" {
+  description = "Exiting cluster policy id"
+  type        = string
+  default     = null
 }
 
 variable "policy_overrides" {
@@ -244,14 +256,20 @@ variable "cluster_id" {
   default     = null
 }
 
-variable "node_type_id" {
-  description = "The node type of the Spark driver."
+variable "worker_node_type_id" {
+  description = "The node type of the Spark worker."
   type        = string
   default     = null
 }
 
-variable "deploy_instance_pool" {
-  description = "Deploy instance pool"
+variable "deploy_worker_instance_pool" {
+  description = "Worker instance pool"
+  type        = bool
+  default     = false
+}
+
+variable "deploy_driver_instance_pool" {
+  description = "Driver instance pool"
   type        = bool
   default     = false
 }
@@ -296,11 +314,11 @@ variable "databricks_username" {
   default     = ""
 }
 
-variable "databricks_groupname" {
-  description = "Group allowed to access the platform."
-  type        = string
-  default     = ""
-}
+//variable "databricks_groupname" {
+//  description = "Group allowed to access the platform."
+//  type        = string
+//  default     = ""
+//}
 
 variable "driver_node_type_id" {
   description = "The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id."
@@ -324,4 +342,52 @@ variable "allow_sql_analytics_access" {
   description = "This is a field to allow the group to have access to SQL Analytics feature through databricks_sql_endpoint."
   type        = bool
   default     = true
+}
+
+variable "group_can_manage" {
+  description = "Group allowed to access the platform."
+  type        = string
+  default     = ""
+}
+
+variable "group_can_attach_to" {
+  description = "Group allowed to access the platform."
+  type        = string
+  default     = ""
+}
+
+variable "group_can_restart" {
+  description = "Group allowed to access the platform."
+  type        = string
+  default     = ""
+}
+
+variable "cluster_access_control" {
+  type        = any
+  description = "Cluster access control"
+  default     = null
+}
+
+variable "instance_pool_access_control" {
+  type        = any
+  description = "Instance pool access control"
+  default     = null
+}
+
+variable "policy_access_control" {
+  type        = any
+  description = "Policy access control"
+  default     = null
+}
+
+variable "job_access_control" {
+  type        = any
+  description = "Jobs access control"
+  default     = null
+}
+
+variable "notebook_access_control" {
+  type        = any
+  description = "Notebook access control"
+  default     = null
 }

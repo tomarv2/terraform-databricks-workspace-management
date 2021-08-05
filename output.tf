@@ -67,8 +67,13 @@ output "databricks_permissions_job" {
 }
 */
 
-output "databricks_permissions_cluster" {
-  description = "databricks cluster permissions"
+//output "databricks_permissions_cluster_group_can_attach_to" {
+//  description = "databricks cluster permissions group can attach to"
+//  value       = join("", databricks_permissions.group_can_attach_to.*.id)
+//}
+
+output "databricks_permissions_cluster_group_can_attach_to" {
+  description = "databricks cluster permissions group can attach to"
   value       = join("", databricks_permissions.cluster.*.id)
 }
 
@@ -77,7 +82,7 @@ output "databricks_permissions_policy" {
   value       = join("", databricks_permissions.policy.*.id)
 }
 
-output "databricks_permissions_pool" {
-  description = "databricks instance pool permissions"
-  value       = join("", databricks_permissions.pool.*.id)
-}
+//output "databricks_permissions_pool" {
+//  description = "databricks instance pool permissions"
+//  value       = join("", databricks_permissions.pool.*.id)
+//}
