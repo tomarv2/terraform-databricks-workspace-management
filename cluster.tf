@@ -1,11 +1,16 @@
+locals {
+  cluster_policy_id = var.cluster_policy_id != null ? var.cluster_policy_id : join("", databricks_cluster_policy.this.*.id)
+}
 resource "databricks_cluster" "cluster" {
   count = (var.deploy_cluster == true && (var.fixed_value != 0 || var.auto_scaling != null) ? 1 : 0)
 
-  cluster_name        = "${var.teamid}-${var.prjid} (Terraform managed)"
+  cluster_name = "${var.teamid}-${var.prjid} (Terraform managed)"
+
+  policy_id           = var.cluster_policy_id == null && var.deploy_cluster_policy == false ? null : local.cluster_policy_id
   spark_version       = var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
-  driver_node_type_id = var.driver_node_type_id
-  node_type_id        = var.deploy_instance_pool != true ? local.node_type : null
-  instance_pool_id    = var.deploy_instance_pool == true ? join("", databricks_instance_pool.instance_nodes.*.id) : null
+  node_type_id        = var.deploy_worker_instance_pool != true ? local.worker_node_type : null
+  instance_pool_id    = var.deploy_worker_instance_pool == true ? join("", databricks_instance_pool.worker_instance_nodes.*.id) : null
+  driver_node_type_id = var.deploy_worker_instance_pool != true ? local.driver_node_type : null
   num_workers         = var.fixed_value != null ? var.fixed_value : null
 
   dynamic "autoscale" {
@@ -35,13 +40,11 @@ resource "databricks_cluster" "cluster" {
 }
 
 resource "databricks_cluster" "single_node_cluster" {
-  count = var.deploy_cluster == true && var.fixed_value == 0 && var.auto_scaling == null ? 1 : 0
-
-  cluster_name            = "${var.teamid}-${var.prjid} (Terraform managed)"
-  spark_version           = var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
-  autotermination_minutes = var.cluster_autotermination_minutes
-  node_type_id            = var.deploy_instance_pool != true ? local.node_type : null
-  num_workers             = 0
+  count         = var.deploy_cluster == true && var.fixed_value == 0 && var.auto_scaling == null ? 1 : 0
+  cluster_name  = "${var.teamid}-${var.prjid} (Terraform managed)"
+  spark_version = var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
+  node_type_id  = var.deploy_worker_instance_pool != true ? local.driver_node_type : null
+  num_workers   = 0
 
   dynamic "aws_attributes" {
     for_each = var.aws_attributes == null ? [] : [var.aws_attributes]
@@ -56,6 +59,7 @@ resource "databricks_cluster" "single_node_cluster" {
     }
   }
 
+  autotermination_minutes = var.cluster_autotermination_minutes
   custom_tags = {
     "ResourceClass" = "SingleNode"
   }

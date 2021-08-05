@@ -40,7 +40,7 @@
 
 ## What this module does?
 
-##### [Create Cluster:](examples/cluster)
+### [Deploy Cluster:](examples/cluster)
 
 - This is where you would normally start with if you have just deployed your databricks workspace.
 
@@ -61,30 +61,119 @@ OR
 auto_scaling         = [1,3]
 ```
 
+### [Cluster ACL:](https://docs.databricks.com/security/access-control/cluster-acl.html)
+
+Cluster can have one of these permissions:  `CAN_ATTACH_TO` , `CAN_RESTART` and `CAN_MANAGE`.
+
+```
+cluster_access_control = [
+  {
+    group_name       = "<group_name>"
+    permission_level = "CAN_RESTART"
+  }
+]
+```
+
+### [Cluster Policy:](https://docs.databricks.com/administration-guide/clusters/policies.html)
+
+- To build cluster with new cluster policy, use:
+```
+deploy_cluster_policy = true
+policy_overrides = {
+  "dbus_per_hour" : {
+    "type" : "range",
+    "maxValue" : 10
+  },
+  "autotermination_minutes" : {
+    "type" : "fixed",
+    "value" : 30,
+    "hidden" : true
+  }
+}
+```
+
+- To use existing Cluster policy, specify the existing policy id:
+```
+cluster_policy_id = "E0123456789"
+```
+
+To get existing policy id use:
+```
+curl -X GET --header "Authorization: Bearer $DAPI_TOKEN"  https://<workspace_name>/api/2.0/policies/clusters/list \
+--data '{ "sort_order": "DESC", "sort_column": "POLICY_CREATION_TIME" }'
+```
+
+### [Cluster Policy ACL:]
+
+```
+policy_access_control = [
+  {
+    group_name       = "<group_name>"
+    permission_level = "CAN_USE"
+  }
+]
+```
+
+### [Instance Pool](https://docs.databricks.com/clusters/instance-pools/index.html)
 **Note:** To configure `Instance Pool`, add below configuration:
 
 ```
-deploy_instance_pool                  = true
+deploy_worker_instance_pool           = true
 min_idle_instances                    = 1
 max_capacity                          = 5
 idle_instance_autotermination_minutes = 30
 ```
 
+[Instance Pool ACL:](https://docs.databricks.com/security/access-control/pool-acl.html)
+
+Instance pool can have one of these permissions:  `CAN_ATTACH_TO` and `CAN_MANAGE`.
+
+```
+instance_pool_access_control = [
+  {
+    group_name       = "<group_name>"
+    permission_level = "CAN_ATTACH_TO"
+  }
+]
+```
+
 > ❗️ **Important**
 >
-> If `deploy_instance_pool` is set to `true` and `auto_scaling` is enabled.
+> If `deploy_worker_instance_pool` is set to `true` and `auto_scaling` is enabled.
 > Ensure `max_capacity` of Cluster Instance Pool is more than `auto_scaling` max value for Cluster.
 
-##### [Deploy Job on a new or existing cluster:](examples/job)
+### [Deploy Job:](examples/job)
 
 Two options are available:
 
 - Deploy Job to an existing cluster.
-- Deploy new cluster and deploy Job.
+- Deploy new cluster and then deploy Job.
 
 Note: `Job name` and `Notebook name` is same.
 
-##### [Deploy Notebook:](examples/notebook)
+### [Jobs ACL:](https://docs.databricks.com/security/access-control/jobs-acl.html)
+
+Job can have one of these permissions:  `CAN_VIEW`, `CAN_MANAGE_RUN`, `IS_OWNER`, and `CAN_MANAGE`.
+
+Admins have `CAN_MANAGE` permission by default, and they can assign that permission to non-admin users, and service principals.
+
+Job creator has `IS_OWNER` permission. Destroying databricks_permissions resource for a job would revert ownership to the creator.
+
+**Note:**
+- A job must have exactly one owner. If resource is changed and no owner is specified, currently authenticated principal would become new owner of the job.
+- A job cannot have a **group** as an owner.
+- Jobs triggered through Run Now assume the permissions of the job owner and not the user, and service principal who issued Run Now.
+
+```
+job_access_control = [
+  {
+    group_name       = "<group_name>"
+    permission_level = "CAN_MANAGE_RUN"
+  }
+]
+```
+
+### [Deploy Notebook:](examples/notebook)
 
 Put notebooks in notebooks folder and provide below information:
 
@@ -102,8 +191,20 @@ notebook_info = {
   }
 }
 ```
+### [Notebool ACL:]
 
-##### [Deploy everything(cluster,job, and notebook):](examples/all)
+Notebook can have one of these permissions:  `CAN_READ`, `CAN_RUN`, `CAN_EDIT`, and `CAN_MANAGE`.
+
+```
+notebook_access_control = [
+  {
+    group_name       = "<group_name>"
+    permission_level = "CAN_MANAGE"
+  }
+]
+```
+
+### [Deploy everything(cluster,job, and notebook):](examples/all)
 
 - Try this: If you want to test what resources are getting deployed.
 
@@ -113,9 +214,9 @@ notebook_info = {
 
 ```
 terrafrom init
-terraform plan -var='teamid=tryme' -var='prjid=project1'
-terraform apply -var='teamid=tryme' -var='prjid=project1'
-terraform destroy -var='teamid=tryme' -var='prjid=project1'
+terraform plan -var='teamid=tryme' -var='prjid=project'
+terraform apply -var='teamid=tryme' -var='prjid=project'
+terraform destroy -var='teamid=tryme' -var='prjid=project'
 ```
 **Note:** With this option please take care of remote state storage
 
@@ -173,7 +274,7 @@ module "databricks_workspace_management" {
   deploy_job      = true
   deploy_notebook = true
   notebook_path   = "notebooks/sample.py"
-  notebook_name   = "sec-test"
+  notebook_name   = "demo-notebook"
   # -----------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
@@ -234,15 +335,17 @@ No modules.
 | [databricks_cluster_policy.this](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/cluster_policy) | resource |
 | [databricks_group.this](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/group) | resource |
 | [databricks_group_member.group_members](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/group_member) | resource |
-| [databricks_instance_pool.instance_nodes](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_pool) | resource |
+| [databricks_instance_pool.driver_instance_nodes](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_pool) | resource |
+| [databricks_instance_pool.worker_instance_nodes](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_pool) | resource |
 | [databricks_job.databricks_job](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
 | [databricks_job.databricks_new_cluster_job](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
 | [databricks_notebook.notebook_file](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/notebook) | resource |
 | [databricks_permissions.cluster](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.driver_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.job](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.policy](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.worker_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_secret_acl.spectators](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/secret_acl) | resource |
 | [databricks_secret_scope.this](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/secret_scope) | resource |
 | [databricks_user.users](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/user) | resource |
@@ -260,26 +363,34 @@ No modules.
 | <a name="input_auto_scaling"></a> [auto\_scaling](#input\_auto\_scaling) | Number of min and max workers in auto scale. | `list(any)` | `null` | no |
 | <a name="input_aws_attributes"></a> [aws\_attributes](#input\_aws\_attributes) | Optional configuration block contains attributes related to clusters running on AWS | `any` | `null` | no |
 | <a name="input_category"></a> [category](#input\_category) | Node category, which can be one of: General purpose, Memory optimized, Storage optimized, Compute optimized, GPU | `string` | `"General purpose"` | no |
-| <a name="input_cluster_autotermination_minutes"></a> [cluster\_autotermination\_minutes](#input\_cluster\_autotermination\_minutes) | cluster auto termination duration | `number` | `20` | no |
+| <a name="input_cluster_access_control"></a> [cluster\_access\_control](#input\_cluster\_access\_control) | Cluster access control | `any` | `null` | no |
+| <a name="input_cluster_autotermination_minutes"></a> [cluster\_autotermination\_minutes](#input\_cluster\_autotermination\_minutes) | cluster auto termination duration | `number` | `30` | no |
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | Existing cluster id | `string` | `null` | no |
+| <a name="input_cluster_policy_id"></a> [cluster\_policy\_id](#input\_cluster\_policy\_id) | Exiting cluster policy id | `string` | `null` | no |
 | <a name="input_create_group"></a> [create\_group](#input\_create\_group) | Create a new group, if group already exists the deployment will fail. | `bool` | `false` | no |
 | <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Create a new user, if user already exists the deployment will fail. | `bool` | `false` | no |
 | <a name="input_custom_path"></a> [custom\_path](#input\_custom\_path) | Custom path to the notebook | `string` | `""` | no |
 | <a name="input_dapi_token"></a> [dapi\_token](#input\_dapi\_token) | databricks dapi token | `string` | n/a | yes |
 | <a name="input_dapi_token_duration"></a> [dapi\_token\_duration](#input\_dapi\_token\_duration) | databricks dapi token duration | `number` | `3600` | no |
-| <a name="input_databricks_groupname"></a> [databricks\_groupname](#input\_databricks\_groupname) | Group allowed to access the platform. | `string` | `""` | no |
 | <a name="input_databricks_secret_key"></a> [databricks\_secret\_key](#input\_databricks\_secret\_key) | databricks token type | `string` | `"token"` | no |
 | <a name="input_databricks_username"></a> [databricks\_username](#input\_databricks\_username) | User allowed to access the platform. | `string` | `""` | no |
 | <a name="input_deploy_cluster"></a> [deploy\_cluster](#input\_deploy\_cluster) | feature flag, true or false | `bool` | `false` | no |
-| <a name="input_deploy_instance_pool"></a> [deploy\_instance\_pool](#input\_deploy\_instance\_pool) | Deploy instance pool | `bool` | `false` | no |
+| <a name="input_deploy_cluster_policy"></a> [deploy\_cluster\_policy](#input\_deploy\_cluster\_policy) | feature flag, true or false | `bool` | `false` | no |
+| <a name="input_deploy_driver_instance_pool"></a> [deploy\_driver\_instance\_pool](#input\_deploy\_driver\_instance\_pool) | Driver instance pool | `bool` | `false` | no |
 | <a name="input_deploy_job"></a> [deploy\_job](#input\_deploy\_job) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_notebook"></a> [deploy\_notebook](#input\_deploy\_notebook) | feature flag, true or false | `bool` | `false` | no |
+| <a name="input_deploy_worker_instance_pool"></a> [deploy\_worker\_instance\_pool](#input\_deploy\_worker\_instance\_pool) | Worker instance pool | `bool` | `false` | no |
 | <a name="input_driver_node_type_id"></a> [driver\_node\_type\_id](#input\_driver\_node\_type\_id) | The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node\_type\_id. | `string` | `null` | no |
 | <a name="input_email_notifications"></a> [email\_notifications](#input\_email\_notifications) | Email notification block. | `any` | `null` | no |
 | <a name="input_fixed_value"></a> [fixed\_value](#input\_fixed\_value) | Number of nodes in the cluster. | `number` | `0` | no |
 | <a name="input_gb_per_core"></a> [gb\_per\_core](#input\_gb\_per\_core) | Number of gigabytes per core available on instance. Conflicts with min\_memory\_gb. Defaults to 0. | `string` | `0` | no |
 | <a name="input_gpu"></a> [gpu](#input\_gpu) | GPU required or not. | `bool` | `false` | no |
+| <a name="input_group_can_attach_to"></a> [group\_can\_attach\_to](#input\_group\_can\_attach\_to) | Group allowed to access the platform. | `string` | `""` | no |
+| <a name="input_group_can_manage"></a> [group\_can\_manage](#input\_group\_can\_manage) | Group allowed to access the platform. | `string` | `""` | no |
+| <a name="input_group_can_restart"></a> [group\_can\_restart](#input\_group\_can\_restart) | Group allowed to access the platform. | `string` | `""` | no |
 | <a name="input_idle_instance_autotermination_minutes"></a> [idle\_instance\_autotermination\_minutes](#input\_idle\_instance\_autotermination\_minutes) | idle instance auto termination duration | `number` | `20` | no |
+| <a name="input_instance_pool_access_control"></a> [instance\_pool\_access\_control](#input\_instance\_pool\_access\_control) | Instance pool access control | `any` | `null` | no |
+| <a name="input_job_access_control"></a> [job\_access\_control](#input\_job\_access\_control) | Jobs access control | `any` | `null` | no |
 | <a name="input_language"></a> [language](#input\_language) | notebook language | `string` | `"PYTHON"` | no |
 | <a name="input_local_disk"></a> [local\_disk](#input\_local\_disk) | Pick only nodes with local storage. Defaults to false. | `string` | `true` | no |
 | <a name="input_local_path"></a> [local\_path](#input\_local\_path) | notebook location on user machine | `string` | `null` | no |
@@ -292,10 +403,11 @@ No modules.
 | <a name="input_min_memory_gb"></a> [min\_memory\_gb](#input\_min\_memory\_gb) | Minimum amount of memory per node in gigabytes. Defaults to 0. | `string` | `0` | no |
 | <a name="input_min_retry_interval_millis"></a> [min\_retry\_interval\_millis](#input\_min\_retry\_interval\_millis) | An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried. | `number` | `null` | no |
 | <a name="input_ml"></a> [ml](#input\_ml) | ML required or not. | `bool` | `false` | no |
-| <a name="input_node_type_id"></a> [node\_type\_id](#input\_node\_type\_id) | The node type of the Spark driver. | `string` | `null` | no |
+| <a name="input_notebook_access_control"></a> [notebook\_access\_control](#input\_notebook\_access\_control) | Notebook access control | `any` | `null` | no |
 | <a name="input_notebook_info"></a> [notebook\_info](#input\_notebook\_info) | Notebook information | <pre>map(object({<br>    language   = string<br>    local_path = string<br>  }))</pre> | `{}` | no |
 | <a name="input_notebook_name"></a> [notebook\_name](#input\_notebook\_name) | notebook name | `string` | `null` | no |
 | <a name="input_num_workers"></a> [num\_workers](#input\_num\_workers) | number of workers for job | `number` | `1` | no |
+| <a name="input_policy_access_control"></a> [policy\_access\_control](#input\_policy\_access\_control) | Policy access control | `any` | `null` | no |
 | <a name="input_policy_overrides"></a> [policy\_overrides](#input\_policy\_overrides) | Cluster policy overrides | `any` | `null` | no |
 | <a name="input_prjid"></a> [prjid](#input\_prjid) | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
 | <a name="input_retry_on_timeout"></a> [retry\_on\_timeout](#input\_retry\_on\_timeout) | An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout. | `bool` | `false` | no |
@@ -305,6 +417,7 @@ No modules.
 | <a name="input_task_parameters"></a> [task\_parameters](#input\_task\_parameters) | Base parameters to be used for each run of this job. | `map(any)` | `{}` | no |
 | <a name="input_teamid"></a> [teamid](#input\_teamid) | (Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | An optional timeout applied to each run of this job. The default behavior is to have no timeout. | `number` | `null` | no |
+| <a name="input_worker_node_type_id"></a> [worker\_node\_type\_id](#input\_worker\_node\_type\_id) | The node type of the Spark worker. | `string` | `null` | no |
 | <a name="input_workspace_url"></a> [workspace\_url](#input\_workspace\_url) | databricks workspace url | `string` | n/a | yes |
 
 ## Outputs
@@ -314,9 +427,8 @@ No modules.
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | databricks cluster id |
 | <a name="output_databricks_group"></a> [databricks\_group](#output\_databricks\_group) | databricks group name |
 | <a name="output_databricks_group_member"></a> [databricks\_group\_member](#output\_databricks\_group\_member) | databricks group members |
-| <a name="output_databricks_permissions_cluster"></a> [databricks\_permissions\_cluster](#output\_databricks\_permissions\_cluster) | databricks cluster permissions |
+| <a name="output_databricks_permissions_cluster_group_can_attach_to"></a> [databricks\_permissions\_cluster\_group\_can\_attach\_to](#output\_databricks\_permissions\_cluster\_group\_can\_attach\_to) | databricks cluster permissions group can attach to |
 | <a name="output_databricks_permissions_policy"></a> [databricks\_permissions\_policy](#output\_databricks\_permissions\_policy) | databricks cluster policy |
-| <a name="output_databricks_permissions_pool"></a> [databricks\_permissions\_pool](#output\_databricks\_permissions\_pool) | databricks instance pool permissions |
 | <a name="output_databricks_secret_acl"></a> [databricks\_secret\_acl](#output\_databricks\_secret\_acl) | databricks secret acl |
 | <a name="output_databricks_user"></a> [databricks\_user](#output\_databricks\_user) | databricks user name |
 | <a name="output_databricks_user_id"></a> [databricks\_user\_id](#output\_databricks\_user\_id) | databricks user id |

@@ -31,7 +31,7 @@ module "databricks_workspace_management" {
   cluster_autotermination_minutes = 30
   fixed_value                     = 1
   auto_scaling                    = [2, 3]
-  node_type_id                    = "i3.large"
+  worker_node_type_id             = "i3.large"
   driver_node_type_id             = "i3.large"
   spark_version                   = "8.3.x-scala2.12"
   spark_conf = {
@@ -49,7 +49,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Cluster Instance Pool
   # ------------------------------------------------
-  deploy_instance_pool                  = false
+  deploy_worker_instance_pool           = false
   min_idle_instances                    = 1
   max_capacity                          = 2
   idle_instance_autotermination_minutes = 30

@@ -13,10 +13,7 @@ output "job_new_cluster_url" {
   value       = module.databricks_workspace_management.job_new_cluster_url
 }
 
-/*
-output "databricks_token" {
-  description = "databricks token"
-  value       = module.databricks_workspace_management.databricks_token
-  sensitive = true
+output "job_permissions" {
+  description = "databricks job permissions"
+  value       = module.databricks_workspace_management.job_permissions
 }
-*/
