@@ -4,8 +4,6 @@ resource "databricks_secret_acl" "spectators" {
   principal  = join("", databricks_group.this.*.display_name)
   scope      = "${var.teamid}-${var.prjid}"
   permission = "READ"
-
-  #depends_on = [databricks_secret_scope.this]
 }
 
 resource "databricks_user" "users" {

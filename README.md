@@ -40,7 +40,7 @@
 
 ## What this module does?
 
-### [Deploy Cluster:](examples/cluster)
+### [Deploy Cluster](examples/cluster)
 
 - This is where you would normally start with if you have just deployed your databricks workspace.
 
@@ -61,7 +61,7 @@ OR
 auto_scaling         = [1,3]
 ```
 
-### [Cluster ACL:](https://docs.databricks.com/security/access-control/cluster-acl.html)
+### [Cluster ACL](https://docs.databricks.com/security/access-control/cluster-acl.html)
 
 Cluster can have one of these permissions:  `CAN_ATTACH_TO` , `CAN_RESTART` and `CAN_MANAGE`.
 
@@ -74,7 +74,7 @@ cluster_access_control = [
 ]
 ```
 
-### [Cluster Policy:](https://docs.databricks.com/administration-guide/clusters/policies.html)
+### [Cluster Policy](https://docs.databricks.com/administration-guide/clusters/policies.html)
 
 - To build cluster with new cluster policy, use:
 ```
@@ -103,7 +103,7 @@ curl -X GET --header "Authorization: Bearer $DAPI_TOKEN"  https://<workspace_nam
 --data '{ "sort_order": "DESC", "sort_column": "POLICY_CREATION_TIME" }'
 ```
 
-### [Cluster Policy ACL:]
+### [Cluster Policy ACL]()
 
 ```
 policy_access_control = [
@@ -124,7 +124,7 @@ max_capacity                          = 5
 idle_instance_autotermination_minutes = 30
 ```
 
-[Instance Pool ACL:](https://docs.databricks.com/security/access-control/pool-acl.html)
+### [Instance Pool ACL](https://docs.databricks.com/security/access-control/pool-acl.html)
 
 Instance pool can have one of these permissions:  `CAN_ATTACH_TO` and `CAN_MANAGE`.
 
@@ -142,7 +142,7 @@ instance_pool_access_control = [
 > If `deploy_worker_instance_pool` is set to `true` and `auto_scaling` is enabled.
 > Ensure `max_capacity` of Cluster Instance Pool is more than `auto_scaling` max value for Cluster.
 
-### [Deploy Job:](examples/job)
+### [Deploy Job](examples/job)
 
 Two options are available:
 
@@ -151,7 +151,7 @@ Two options are available:
 
 Note: `Job name` and `Notebook name` is same.
 
-### [Jobs ACL:](https://docs.databricks.com/security/access-control/jobs-acl.html)
+### [Jobs ACL](https://docs.databricks.com/security/access-control/jobs-acl.html)
 
 Job can have one of these permissions:  `CAN_VIEW`, `CAN_MANAGE_RUN`, `IS_OWNER`, and `CAN_MANAGE`.
 
@@ -173,7 +173,7 @@ job_access_control = [
 ]
 ```
 
-### [Deploy Notebook:](examples/notebook)
+### [Deploy Notebook](examples/notebook)
 
 Put notebooks in notebooks folder and provide below information:
 
@@ -191,7 +191,7 @@ notebook_info = {
   }
 }
 ```
-### [Notebool ACL:]
+### [Notebook ACL]()
 
 Notebook can have one of these permissions:  `CAN_READ`, `CAN_RUN`, `CAN_EDIT`, and `CAN_MANAGE`.
 
@@ -307,7 +307,6 @@ Error: Failed to delete token in Scope <scope name>
 ```
 Error: Scope <scope name> does not exist!
 ```
-
 ## Requirements
 
 | Name | Version |
@@ -347,7 +346,6 @@ No modules.
 | [databricks_permissions.policy](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.worker_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_secret_acl.spectators](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/secret_acl) | resource |
-| [databricks_secret_scope.this](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/secret_scope) | resource |
 | [databricks_user.users](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/user) | resource |
 | [databricks_current_user.me](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/data-sources/current_user) | data source |
 | [databricks_node_type.cluster_node_type](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/data-sources/node_type) | data source |
@@ -425,15 +423,19 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | databricks cluster id |
+| <a name="output_cluster_permissions"></a> [cluster\_permissions](#output\_cluster\_permissions) | databricks cluster permissions |
+| <a name="output_cluster_policy_permissions"></a> [cluster\_policy\_permissions](#output\_cluster\_policy\_permissions) | databricks cluster policy permissions |
 | <a name="output_databricks_group"></a> [databricks\_group](#output\_databricks\_group) | databricks group name |
 | <a name="output_databricks_group_member"></a> [databricks\_group\_member](#output\_databricks\_group\_member) | databricks group members |
-| <a name="output_databricks_permissions_cluster_group_can_attach_to"></a> [databricks\_permissions\_cluster\_group\_can\_attach\_to](#output\_databricks\_permissions\_cluster\_group\_can\_attach\_to) | databricks cluster permissions group can attach to |
-| <a name="output_databricks_permissions_policy"></a> [databricks\_permissions\_policy](#output\_databricks\_permissions\_policy) | databricks cluster policy |
 | <a name="output_databricks_secret_acl"></a> [databricks\_secret\_acl](#output\_databricks\_secret\_acl) | databricks secret acl |
 | <a name="output_databricks_user"></a> [databricks\_user](#output\_databricks\_user) | databricks user name |
 | <a name="output_databricks_user_id"></a> [databricks\_user\_id](#output\_databricks\_user\_id) | databricks user id |
+| <a name="output_driver_pool_permissions"></a> [driver\_pool\_permissions](#output\_driver\_pool\_permissions) | databricks driver pool permissions |
 | <a name="output_job_id"></a> [job\_id](#output\_job\_id) | databricks job id |
 | <a name="output_job_new_cluster_id"></a> [job\_new\_cluster\_id](#output\_job\_new\_cluster\_id) | databricks new cluster job id |
 | <a name="output_job_new_cluster_url"></a> [job\_new\_cluster\_url](#output\_job\_new\_cluster\_url) | databricks new cluster job url |
+| <a name="output_job_permissions"></a> [job\_permissions](#output\_job\_permissions) | databricks job permissions |
 | <a name="output_job_url"></a> [job\_url](#output\_job\_url) | databricks job url |
 | <a name="output_notebook_url"></a> [notebook\_url](#output\_notebook\_url) | databricks notebook url |
+| <a name="output_worker_pool_permissions"></a> [worker\_pool\_permissions](#output\_worker\_pool\_permissions) | databricks worker pool permissions |
+(tf-updated) varun.tomar@C02CD0SHMD6R terraform-databricks-workspace-management %
