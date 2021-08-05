@@ -31,7 +31,7 @@ module "databricks_workspace_management" {
   cluster_autotermination_minutes = 30
   fixed_value                     = 1
   auto_scaling                    = [2, 3]
-  node_type_id                    = "i3.large"
+  worker_node_type_id             = "i3.large"
   driver_node_type_id             = "i3.large"
   spark_version                   = "8.3.x-scala2.12"
   spark_conf = {

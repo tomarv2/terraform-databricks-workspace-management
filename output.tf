@@ -62,27 +62,33 @@ output "databricks_group_member" {
 }
 
 /*
-output "databricks_permissions_job" {
-  value = databricks_permissions.
+output "notebook_permissions" {
+  description = "databricks notebook permissions"
+  value       = join("", databricks_permissions.notebook.*.id)
 }
 */
 
-//output "databricks_permissions_cluster_group_can_attach_to" {
-//  description = "databricks cluster permissions group can attach to"
-//  value       = join("", databricks_permissions.group_can_attach_to.*.id)
-//}
+output "job_permissions" {
+  description = "databricks job permissions"
+  value       = join("", databricks_permissions.job.*.id)
+}
 
-output "databricks_permissions_cluster_group_can_attach_to" {
-  description = "databricks cluster permissions group can attach to"
+output "cluster_permissions" {
+  description = "databricks cluster permissions"
   value       = join("", databricks_permissions.cluster.*.id)
 }
 
-output "databricks_permissions_policy" {
-  description = "databricks cluster policy"
+output "cluster_policy_permissions" {
+  description = "databricks cluster policy permissions"
   value       = join("", databricks_permissions.policy.*.id)
 }
 
-//output "databricks_permissions_pool" {
-//  description = "databricks instance pool permissions"
-//  value       = join("", databricks_permissions.pool.*.id)
-//}
+output "driver_pool_permissions" {
+  description = "databricks driver pool permissions"
+  value       = join("", databricks_permissions.driver_pool.*.id)
+}
+
+output "worker_pool_permissions" {
+  description = "databricks worker pool permissions"
+  value       = join("", databricks_permissions.worker_pool.*.id)
+}

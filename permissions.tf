@@ -53,7 +53,7 @@ resource "databricks_permissions" "cluster" {
 # Policy Permissions
 # ------------------------------------------------
 resource "databricks_permissions" "policy" {
-  count = var.deploy_cluster == true && var.policy_access_control != null ? 1 : 0
+  count = var.deploy_cluster_policy == true && var.policy_access_control != null ? 1 : 0
 
   cluster_policy_id = join("", databricks_cluster_policy.this.*.id)
 

@@ -3,13 +3,6 @@ output "cluster_id" {
   value       = module.databricks_workspace_management.cluster_id
 }
 
-/*
-output "databricks_token" {
-  description = "databricks token"
-  value       = module.databricks_workspace_management.databricks_token
-}
-*/
-
 output "databricks_job_url" {
   description = "databricks job url"
   value       = module.databricks_workspace_management.job_url
@@ -50,28 +43,32 @@ output "databricks_group_member" {
   value       = module.databricks_workspace_management.databricks_group_member
 }
 
-output "databricks_permissions_notebook" {
+output "notebook_permissions" {
   description = "databricks notebook permissions"
-  value       = module.databricks_workspace_management.databricks_permissions_notebook
+  value       = module.databricks_workspace_management.notebook_permissions
 }
 
-/*
-output "databricks_permissions_job" {
-  value = module.databricks_workspace_management.databricks_permissions_job
+output "job_permissions" {
+  description = "databricks job permissions"
+  value       = module.databricks_workspace_management.job_permissions
 }
-*/
 
-output "databricks_permissions_cluster" {
+output "cluster_permissions" {
   description = "databricks cluster permissions"
-  value       = module.databricks_workspace_management.databricks_permissions_cluster
+  value       = module.databricks_workspace_management.cluster_permissions
 }
 
-output "databricks_permissions_policy" {
-  description = "databricks cluster policy"
-  value       = module.databricks_workspace_management.databricks_permissions_policy
+output "cluster_policy_permissions" {
+  description = "databricks cluster policy permissions"
+  value       = module.databricks_workspace_management.cluster_policy_permissions
 }
 
-output "databricks_permissions_pool" {
-  description = "databricks instance pool permissions"
-  value       = module.databricks_workspace_management.databricks_permissions_pool
+output "driver_pool_permissions" {
+  description = "databricks driver pool permissions"
+  value       = module.databricks_workspace_management.driver_pool_permissions
+}
+
+output "worker_pool_permissions" {
+  description = "databricks worker pool permissions"
+  value       = module.databricks_workspace_management.driver_pool_permissions
 }

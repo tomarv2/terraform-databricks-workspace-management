@@ -314,12 +314,6 @@ variable "databricks_username" {
   default     = ""
 }
 
-//variable "databricks_groupname" {
-//  description = "Group allowed to access the platform."
-//  type        = string
-//  default     = ""
-//}
-
 variable "driver_node_type_id" {
   description = "The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id."
   type        = string
