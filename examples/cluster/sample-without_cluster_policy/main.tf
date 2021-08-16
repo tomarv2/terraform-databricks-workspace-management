@@ -17,8 +17,11 @@ module "databricks_workspace_management" {
     "spark.databricks.io.cache.enabled" = true
     "spark.driver.maxResultSize"        = "100g"
   }
+  deploy_instance_profile = true
+  instance_profile_arn    = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
+
   aws_attributes = {
-    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/demo-role"
+    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
   }
   # ------------------------------------------------
   # CLUSTER PERMISSIONS

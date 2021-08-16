@@ -114,6 +114,31 @@ policy_access_control = [
 ]
 ```
 
+### [Instance Profile](https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html)
+
+There are two options available to handle instance profiles:
+
+**Existing instance profile:**
+
+If you have an existing instance profile:
+
+Specify as `aws_attributes`
+
+```
+aws_attributes = {
+    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
+}
+```
+
+**Create new instance profile:**
+
+```
+deploy_instance_profile = true
+instance_profile_arn    = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
+```
+
+**Note:** If you specify both the options, create new instance profile will take presedence.
+
 ### [Instance Pool](https://docs.databricks.com/clusters/instance-pools/index.html)
 **Note:** To configure `Instance Pool`, add below configuration:
 
