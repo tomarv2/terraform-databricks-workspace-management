@@ -92,3 +92,8 @@ output "worker_pool_permissions" {
   description = "databricks worker pool permissions"
   value       = join("", databricks_permissions.worker_pool.*.id)
 }
+
+output "instance_profile" {
+  description = "databricks worker pool permissions"
+  value       = join("", databricks_instance_profile.shared.*.instance_profile_arn)
+}

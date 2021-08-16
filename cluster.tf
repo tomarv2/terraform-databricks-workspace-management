@@ -1,6 +1,15 @@
 locals {
   cluster_policy_id = var.cluster_policy_id != null ? var.cluster_policy_id : join("", databricks_cluster_policy.this.*.id)
 }
+
+resource "databricks_instance_profile" "shared" {
+  count = (var.deploy_cluster == true && var.deploy_instance_profile == true) ? 1 : 0
+
+  instance_profile_arn     = var.instance_profile_arn
+  is_meta_instance_profile = var.is_meta_instance_profile
+
+}
+
 resource "databricks_cluster" "cluster" {
   count = (var.deploy_cluster == true && (var.fixed_value != 0 || var.auto_scaling != null) ? 1 : 0)
 
@@ -24,7 +33,7 @@ resource "databricks_cluster" "cluster" {
   dynamic "aws_attributes" {
     for_each = var.aws_attributes == null ? [] : [var.aws_attributes]
     content {
-      instance_profile_arn   = lookup(aws_attributes.value, "instance_profile_arn", null)
+      instance_profile_arn   = var.deploy_instance_profile == true ? join("", databricks_instance_profile.shared.*.id) : lookup(aws_attributes.value, "instance_profile_arn", null)
       zone_id                = lookup(aws_attributes.value, "zone_id", null)
       first_on_demand        = lookup(aws_attributes.value, "first_on_demand", null)
       availability           = lookup(aws_attributes.value, "availability", null)

@@ -108,6 +108,25 @@ variable "spark_conf" {
   type        = any
   default     = null
 }
+
+variable "deploy_instance_profile" {
+  description = "Existing AWS instance profile ARN"
+  type        = any
+  default     = false
+}
+
+variable "instance_profile_arn" {
+  description = "ARN attribute of aws_iam_instance_profile output, the EC2 instance profile association to AWS IAM role. This ARN would be validated upon resource creation and it's not possible to skip validation."
+  type        = any
+  default     = null
+}
+
+variable "is_meta_instance_profile" {
+  description = "Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough."
+  type        = any
+  default     = false
+}
+
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
