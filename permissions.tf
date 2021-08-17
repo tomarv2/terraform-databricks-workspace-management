@@ -100,4 +100,3 @@ resource "databricks_permissions" "job" {
 //    }
 //  }
 //}
-

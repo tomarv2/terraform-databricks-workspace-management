@@ -5,7 +5,7 @@ locals {
 resource "databricks_instance_profile" "shared" {
   count = (var.deploy_cluster == true && var.deploy_instance_profile == true) ? 1 : 0
 
-  instance_profile_arn     = var.instance_profile_arn
+  instance_profile_arn = var.instance_profile_arn
 }
 
 resource "databricks_cluster" "cluster" {
