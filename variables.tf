@@ -396,7 +396,10 @@ variable "policy_access_control" {
 variable "job_access_control" {
   type        = any
   description = "Jobs access control"
-  default     = null
+  default     = {
+    group_name = "admins"
+    permission_level= "CAN_MANAGE"
+  }
 }
 
 variable "notebook_access_control" {

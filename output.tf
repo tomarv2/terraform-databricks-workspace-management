@@ -68,10 +68,10 @@ output "notebook_permissions" {
 }
 */
 
-output "job_permissions" {
-  description = "databricks job permissions"
-  value       = join("", databricks_permissions.job.*.id)
-}
+//output "job_permissions" {
+//  description = "databricks job permissions"
+//  value       = join("", databricks_permissions.job.*.id)
+//}
 
 output "cluster_permissions" {
   description = "databricks cluster permissions"

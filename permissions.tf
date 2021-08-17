@@ -77,26 +77,27 @@ resource "databricks_permissions" "job" {
   dynamic "access_control" {
     for_each = var.job_access_control
     content {
-      group_name       = access_control.value.group_name
-      permission_level = access_control.value.permission_level
+      group_name       = "all users"
+      permission_level = "CAN_MANAGE"
     }
   }
 }
 
-# ------------------------------------------------
-# Notebooks Permissions
-# ------------------------------------------------
-resource "databricks_permissions" "notebook" {
-  #for_each = length(var.notebook_info) && var.job_access_control != null ? length(local.job_id_list) : 0
-  for_each = var.notebook_info
+//# ------------------------------------------------
+//# Notebooks Permissions
+//# ------------------------------------------------
+//resource "databricks_permissions" "notebook" {
+//  #for_each = length(var.notebook_info) && var.job_access_control != null ? length(local.job_id_list) : 0
+//  for_each = var.notebook_info
+//
+//  notebook_path = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
+//
+//  dynamic "access_control" {
+//    for_each = var.notebook_access_control != null ? var.notebook_access_control : [] #var.notebook_access_control
+//    content {
+//      group_name       = access_control.value.group_name
+//      permission_level = access_control.value.permission_level
+//    }
+//  }
+//}
 
-  notebook_path = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
-
-  dynamic "access_control" {
-    for_each = var.notebook_access_control
-    content {
-      group_name       = access_control.value.group_name
-      permission_level = access_control.value.permission_level
-    }
-  }
-}
