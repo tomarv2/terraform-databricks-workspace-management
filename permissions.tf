@@ -65,23 +65,23 @@ resource "databricks_permissions" "policy" {
     }
   }
 }
-
-# ------------------------------------------------
-# Jobs Permissions
-# ------------------------------------------------
-resource "databricks_permissions" "job" {
-  count = length(local.job_id_list)
-
-  job_id = local.job_id_list[count.index]
-
-  dynamic "access_control" {
-    for_each = var.job_access_control
-    content {
-      group_name       = "all users"
-      permission_level = "CAN_MANAGE"
-    }
-  }
-}
+//
+//# ------------------------------------------------
+//# Jobs Permissions
+//# ------------------------------------------------
+//resource "databricks_permissions" "job" {
+//  count = length(local.job_id_list)
+//
+//  job_id = local.job_id_list[count.index]
+//
+//  dynamic "access_control" {
+//    for_each = var.job_access_control
+//    content {
+//      group_name       = "all users"
+//      permission_level = "CAN_MANAGE"
+//    }
+//  }
+//}
 
 //# ------------------------------------------------
 //# Notebooks Permissions
