@@ -65,38 +65,39 @@ resource "databricks_permissions" "policy" {
     }
   }
 }
-//
-//# ------------------------------------------------
-//# Jobs Permissions
-//# ------------------------------------------------
-//resource "databricks_permissions" "job" {
-//  count = length(local.job_id_list)
-//
-//  job_id = local.job_id_list[count.index]
-//
-//  dynamic "access_control" {
-//    for_each = var.job_access_control
-//    content {
-//      group_name       = "all users"
-//      permission_level = "CAN_MANAGE"
-//    }
-//  }
-//}
+/*
+# ------------------------------------------------
+# Jobs Permissions
+# ------------------------------------------------
+resource "databricks_permissions" "job" {
+  count = length(local.job_id_list)
 
-//# ------------------------------------------------
-//# Notebooks Permissions
-//# ------------------------------------------------
-//resource "databricks_permissions" "notebook" {
-//  #for_each = length(var.notebook_info) && var.job_access_control != null ? length(local.job_id_list) : 0
-//  for_each = var.notebook_info
-//
-//  notebook_path = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
-//
-//  dynamic "access_control" {
-//    for_each = var.notebook_access_control != null ? var.notebook_access_control : [] #var.notebook_access_control
-//    content {
-//      group_name       = access_control.value.group_name
-//      permission_level = access_control.value.permission_level
-//    }
-//  }
-//}
+  job_id = local.job_id_list[count.index]
+
+  dynamic "access_control" {
+    for_each = var.job_access_control
+    content {
+      group_name       = "all users"
+      permission_level = "CAN_MANAGE"
+    }
+  }
+}
+
+# ------------------------------------------------
+# Notebooks Permissions
+# ------------------------------------------------
+resource "databricks_permissions" "notebook" {
+  #for_each = length(var.notebook_info) && var.job_access_control != null ? length(local.job_id_list) : 0
+  for_each = var.notebook_info
+
+  notebook_path = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
+
+  dynamic "access_control" {
+    for_each = var.notebook_access_control != null ? var.notebook_access_control : [] #var.notebook_access_control
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+*/
