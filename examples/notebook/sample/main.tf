@@ -6,7 +6,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # NOTEBOOK
   # ------------------------------------------------
-  local_notebook_info = [
+  local_notebooks = [
     {
       name       = "local_demo_job1"
       language   = "PYTHON"

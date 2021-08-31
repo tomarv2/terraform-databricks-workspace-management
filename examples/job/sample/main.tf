@@ -6,7 +6,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Job
   # ------------------------------------------------
-  deploy_job = true
+  deploy_jobs = true
   # NOTE: `deploy_cluster` or `use_existing_cluster` and `cluster_id` are required
   deploy_cluster = true
   #cluster_id = "1234-123456-lark123"
@@ -34,22 +34,22 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Notebook
   # ------------------------------------------------
-  local_notebook_info = [
+  local_notebooks = [
     {
-      name       = "local_demo_job1"
+      job_name   = "local_demo_job1"
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
       path       = "/Shared/demo/sample1.py"
     },
     {
-      name       = "local_demo_job2"
+      job_name   = "local_demo_job2"
       local_path = "notebooks/sample2.py"
     }
   ]
-  remote_notebook_info = [
+  remote_notebooks = [
     {
-      name = "remote_demo_job"
-      path = "/Shared/demo"
+      job_name = "remote_demo_job"
+      path     = "/Shared/demo"
     }
   ]
   # ------------------------------------------------
