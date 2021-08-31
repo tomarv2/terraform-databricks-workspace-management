@@ -1,10 +1,3 @@
-/*
-provider "databricks" {
-  host  = var.workspace_url
-  token = var.dapi_token
-}
-*/
-
 terraform {
   required_version = ">= 1.0.1"
   required_providers {

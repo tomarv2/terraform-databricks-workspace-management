@@ -210,26 +210,19 @@ variable "local_path" {
   default     = null
 }
 
-variable "deploy_notebook" {
-  description = "feature flag, true or false"
-  default     = false
-  type        = bool
+
+variable "local_notebook_info" {
+  description = "nested block: NestingSet, min items: 0, max items: 0"
+  type        = any
+  default     = []
 }
 
-variable "notebook_info" {
-  description = "Notebook information"
-  type = map(object({
-    language   = string
-    local_path = string
-  }))
-  default = {}
+variable "remote_notebook_info" {
+  description = "nested block: NestingSet, min items: 0, max items: 0"
+  type        = any
+  default     = []
 }
 
-variable "custom_path" {
-  description = "Custom path to the notebook"
-  default     = ""
-  type        = string
-}
 # ------------------------------------------------
 # Cluster Node type
 # ------------------------------------------------
@@ -396,7 +389,10 @@ variable "policy_access_control" {
 variable "job_access_control" {
   type        = any
   description = "Jobs access control"
-  default     = null
+  default = {
+    group_name       = "admins"
+    permission_level = "CAN_MANAGE"
+  }
 }
 
 variable "notebook_access_control" {
