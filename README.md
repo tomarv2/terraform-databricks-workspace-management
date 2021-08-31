@@ -203,18 +203,18 @@ job_access_control = [
 Put notebooks in notebooks folder and provide below information:
 
 ```
-notebook_info = {
-  demo1 = {
-    custom_path     = "<to overwrite default path on remote location>"
-    language        = "PYTHON"
-    local_path      = "notebooks/demo_notebook_1.py"
+local_notebook_info = [
+  {
+    name       = "local_demo_job1"
+    language   = "PYTHON"
+    local_path = "notebooks/sample1.py"
+    path       = "/Shared/demo/sample1.py"
+  },
+  {
+    name       = "local_demo_job2"
+    local_path = "notebooks/sample2.py"
   }
-  demo2 = {
-    custom_path     = "<to overwrite default path on remote location>"
-    language        = "PYTHON"
-    local_path      = "notebooks/demo_notebook_2.py"
-  }
-}
+]
 ```
 ### [Notebook ACL]()
 
@@ -332,6 +332,7 @@ Error: Failed to delete token in Scope <scope name>
 ```
 Error: Scope <scope name> does not exist!
 ```
+
 ## Requirements
 
 | Name | Version |
@@ -361,13 +362,14 @@ No modules.
 | [databricks_group_member.group_members](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/group_member) | resource |
 | [databricks_instance_pool.driver_instance_nodes](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_pool) | resource |
 | [databricks_instance_pool.worker_instance_nodes](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_pool) | resource |
-| [databricks_job.databricks_job](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
-| [databricks_job.databricks_new_cluster_job](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
+| [databricks_instance_profile.shared](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_profile) | resource |
+| [databricks_job.existing_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
+| [databricks_job.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
+| [databricks_job.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
+| [databricks_job.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
 | [databricks_notebook.notebook_file](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/notebook) | resource |
 | [databricks_permissions.cluster](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.driver_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.job](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.policy](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.worker_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_secret_acl.spectators](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/secret_acl) | resource |
@@ -392,7 +394,6 @@ No modules.
 | <a name="input_cluster_policy_id"></a> [cluster\_policy\_id](#input\_cluster\_policy\_id) | Exiting cluster policy id | `string` | `null` | no |
 | <a name="input_create_group"></a> [create\_group](#input\_create\_group) | Create a new group, if group already exists the deployment will fail. | `bool` | `false` | no |
 | <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Create a new user, if user already exists the deployment will fail. | `bool` | `false` | no |
-| <a name="input_custom_path"></a> [custom\_path](#input\_custom\_path) | Custom path to the notebook | `string` | `""` | no |
 | <a name="input_dapi_token"></a> [dapi\_token](#input\_dapi\_token) | databricks dapi token | `string` | n/a | yes |
 | <a name="input_dapi_token_duration"></a> [dapi\_token\_duration](#input\_dapi\_token\_duration) | databricks dapi token duration | `number` | `3600` | no |
 | <a name="input_databricks_secret_key"></a> [databricks\_secret\_key](#input\_databricks\_secret\_key) | databricks token type | `string` | `"token"` | no |
@@ -400,8 +401,8 @@ No modules.
 | <a name="input_deploy_cluster"></a> [deploy\_cluster](#input\_deploy\_cluster) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_cluster_policy"></a> [deploy\_cluster\_policy](#input\_deploy\_cluster\_policy) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_driver_instance_pool"></a> [deploy\_driver\_instance\_pool](#input\_deploy\_driver\_instance\_pool) | Driver instance pool | `bool` | `false` | no |
+| <a name="input_deploy_instance_profile"></a> [deploy\_instance\_profile](#input\_deploy\_instance\_profile) | Existing AWS instance profile ARN | `any` | `false` | no |
 | <a name="input_deploy_job"></a> [deploy\_job](#input\_deploy\_job) | feature flag, true or false | `bool` | `false` | no |
-| <a name="input_deploy_notebook"></a> [deploy\_notebook](#input\_deploy\_notebook) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_worker_instance_pool"></a> [deploy\_worker\_instance\_pool](#input\_deploy\_worker\_instance\_pool) | Worker instance pool | `bool` | `false` | no |
 | <a name="input_driver_node_type_id"></a> [driver\_node\_type\_id](#input\_driver\_node\_type\_id) | The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node\_type\_id. | `string` | `null` | no |
 | <a name="input_email_notifications"></a> [email\_notifications](#input\_email\_notifications) | Email notification block. | `any` | `null` | no |
@@ -413,9 +414,12 @@ No modules.
 | <a name="input_group_can_restart"></a> [group\_can\_restart](#input\_group\_can\_restart) | Group allowed to access the platform. | `string` | `""` | no |
 | <a name="input_idle_instance_autotermination_minutes"></a> [idle\_instance\_autotermination\_minutes](#input\_idle\_instance\_autotermination\_minutes) | idle instance auto termination duration | `number` | `20` | no |
 | <a name="input_instance_pool_access_control"></a> [instance\_pool\_access\_control](#input\_instance\_pool\_access\_control) | Instance pool access control | `any` | `null` | no |
-| <a name="input_job_access_control"></a> [job\_access\_control](#input\_job\_access\_control) | Jobs access control | `any` | `null` | no |
+| <a name="input_instance_profile_arn"></a> [instance\_profile\_arn](#input\_instance\_profile\_arn) | ARN attribute of aws\_iam\_instance\_profile output, the EC2 instance profile association to AWS IAM role. This ARN would be validated upon resource creation and it's not possible to skip validation. | `any` | `null` | no |
+| <a name="input_is_meta_instance_profile"></a> [is\_meta\_instance\_profile](#input\_is\_meta\_instance\_profile) | Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough. | `any` | `false` | no |
+| <a name="input_job_access_control"></a> [job\_access\_control](#input\_job\_access\_control) | Jobs access control | `any` | <pre>{<br>  "group_name": "admins",<br>  "permission_level": "CAN_MANAGE"<br>}</pre> | no |
 | <a name="input_language"></a> [language](#input\_language) | notebook language | `string` | `"PYTHON"` | no |
 | <a name="input_local_disk"></a> [local\_disk](#input\_local\_disk) | Pick only nodes with local storage. Defaults to false. | `string` | `true` | no |
+| <a name="input_local_notebook_info"></a> [local\_notebook\_info](#input\_local\_notebook\_info) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
 | <a name="input_local_path"></a> [local\_path](#input\_local\_path) | notebook location on user machine | `string` | `null` | no |
 | <a name="input_max_capacity"></a> [max\_capacity](#input\_max\_capacity) | instance pool maximum capacity | `number` | `3` | no |
 | <a name="input_max_concurrent_runs"></a> [max\_concurrent\_runs](#input\_max\_concurrent\_runs) | An optional maximum allowed number of concurrent runs of the job. | `number` | `null` | no |
@@ -427,12 +431,12 @@ No modules.
 | <a name="input_min_retry_interval_millis"></a> [min\_retry\_interval\_millis](#input\_min\_retry\_interval\_millis) | An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried. | `number` | `null` | no |
 | <a name="input_ml"></a> [ml](#input\_ml) | ML required or not. | `bool` | `false` | no |
 | <a name="input_notebook_access_control"></a> [notebook\_access\_control](#input\_notebook\_access\_control) | Notebook access control | `any` | `null` | no |
-| <a name="input_notebook_info"></a> [notebook\_info](#input\_notebook\_info) | Notebook information | <pre>map(object({<br>    language   = string<br>    local_path = string<br>  }))</pre> | `{}` | no |
 | <a name="input_notebook_name"></a> [notebook\_name](#input\_notebook\_name) | notebook name | `string` | `null` | no |
 | <a name="input_num_workers"></a> [num\_workers](#input\_num\_workers) | number of workers for job | `number` | `1` | no |
 | <a name="input_policy_access_control"></a> [policy\_access\_control](#input\_policy\_access\_control) | Policy access control | `any` | `null` | no |
 | <a name="input_policy_overrides"></a> [policy\_overrides](#input\_policy\_overrides) | Cluster policy overrides | `any` | `null` | no |
 | <a name="input_prjid"></a> [prjid](#input\_prjid) | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
+| <a name="input_remote_notebook_info"></a> [remote\_notebook\_info](#input\_remote\_notebook\_info) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
 | <a name="input_retry_on_timeout"></a> [retry\_on\_timeout](#input\_retry\_on\_timeout) | An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout. | `bool` | `false` | no |
 | <a name="input_schedule"></a> [schedule](#input\_schedule) | Job schedule configuration. | `map(any)` | `null` | no |
 | <a name="input_spark_conf"></a> [spark\_conf](#input\_spark\_conf) | Optional Spark configuration block | `any` | `null` | no |
@@ -456,11 +460,14 @@ No modules.
 | <a name="output_databricks_user"></a> [databricks\_user](#output\_databricks\_user) | databricks user name |
 | <a name="output_databricks_user_id"></a> [databricks\_user\_id](#output\_databricks\_user\_id) | databricks user id |
 | <a name="output_driver_pool_permissions"></a> [driver\_pool\_permissions](#output\_driver\_pool\_permissions) | databricks driver pool permissions |
-| <a name="output_job_id"></a> [job\_id](#output\_job\_id) | databricks job id |
-| <a name="output_job_new_cluster_id"></a> [job\_new\_cluster\_id](#output\_job\_new\_cluster\_id) | databricks new cluster job id |
-| <a name="output_job_new_cluster_url"></a> [job\_new\_cluster\_url](#output\_job\_new\_cluster\_url) | databricks new cluster job url |
-| <a name="output_job_permissions"></a> [job\_permissions](#output\_job\_permissions) | databricks job permissions |
-| <a name="output_job_url"></a> [job\_url](#output\_job\_url) | databricks job url |
+| <a name="output_existing_cluster_new_job_existing_notebooks_id"></a> [existing\_cluster\_new\_job\_existing\_notebooks\_id](#output\_existing\_cluster\_new\_job\_existing\_notebooks\_id) | databricks new cluster job id |
+| <a name="output_existing_cluster_new_job_existing_notebooks_job"></a> [existing\_cluster\_new\_job\_existing\_notebooks\_job](#output\_existing\_cluster\_new\_job\_existing\_notebooks\_job) | databricks new cluster job url |
+| <a name="output_existing_cluster_new_job_new_notebooks_id"></a> [existing\_cluster\_new\_job\_new\_notebooks\_id](#output\_existing\_cluster\_new\_job\_new\_notebooks\_id) | databricks new cluster job id |
+| <a name="output_existing_cluster_new_job_new_notebooks_job"></a> [existing\_cluster\_new\_job\_new\_notebooks\_job](#output\_existing\_cluster\_new\_job\_new\_notebooks\_job) | databricks new cluster job url |
+| <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | databricks worker pool permissions |
+| <a name="output_new_cluster_new_job_existing_notebooks_id"></a> [new\_cluster\_new\_job\_existing\_notebooks\_id](#output\_new\_cluster\_new\_job\_existing\_notebooks\_id) | databricks job id |
+| <a name="output_new_cluster_new_job_existing_notebooks_job"></a> [new\_cluster\_new\_job\_existing\_notebooks\_job](#output\_new\_cluster\_new\_job\_existing\_notebooks\_job) | databricks job url |
+| <a name="output_new_cluster_new_job_new_notebooks_id"></a> [new\_cluster\_new\_job\_new\_notebooks\_id](#output\_new\_cluster\_new\_job\_new\_notebooks\_id) | databricks job id |
+| <a name="output_new_cluster_new_job_new_notebooks_job"></a> [new\_cluster\_new\_job\_new\_notebooks\_job](#output\_new\_cluster\_new\_job\_new\_notebooks\_job) | databricks job url |
 | <a name="output_notebook_url"></a> [notebook\_url](#output\_notebook\_url) | databricks notebook url |
 | <a name="output_worker_pool_permissions"></a> [worker\_pool\_permissions](#output\_worker\_pool\_permissions) | databricks worker pool permissions |
-(tf-updated) varun.tomar@C02CD0SHMD6R terraform-databricks-workspace-management %

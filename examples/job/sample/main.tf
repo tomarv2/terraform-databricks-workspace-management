@@ -4,22 +4,6 @@ module "databricks_workspace_management" {
   workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = var.dapi_token
   # ------------------------------------------------
-  # Admin Console
-  # ------------------------------------------------
-  /*
-  # NOTE: 2 options are available:
-    - 1. "create_user": false -> no permissions are configured.
-    - 2. "create_user", "databricks_username", "create_user", and "create_group" to create user and group.
-    IMPORTANT: databricks_username should not pre-exist.
-  */
-  databricks_username = "demo@demo.com"
-  create_user         = true
-  create_group        = true
-  # ------------------------------------------------
-  aws_attributes = {
-    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/demo-role"
-  }
-  # ------------------------------------------------
   # Job
   # ------------------------------------------------
   deploy_job = true
@@ -50,16 +34,24 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Notebook
   # ------------------------------------------------
-  notebook_info = {
-    default1 = {
+  local_notebook_info = [
+    {
+      name       = "local_demo_job1"
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
-    }
-    default2 = {
-      language   = "PYTHON"
+      path       = "/Shared/demo/sample1.py"
+    },
+    {
+      name       = "local_demo_job2"
       local_path = "notebooks/sample2.py"
     }
-  }
+  ]
+  remote_notebook_info = [
+    {
+      name = "remote_demo_job"
+      path = "/Shared/demo"
+    }
+  ]
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid

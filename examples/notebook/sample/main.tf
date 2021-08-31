@@ -6,16 +6,18 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # NOTEBOOK
   # ------------------------------------------------
-  notebook_info = {
-    default1 = {
+  local_notebook_info = [
+    {
+      name       = "local_demo_job1"
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
-    }
-    default2 = {
-      language   = "PYTHON"
+      path       = "/Shared/demo/sample1.py"
+    },
+    {
+      name       = "local_demo_job2"
       local_path = "notebooks/sample2.py"
     }
-  }
+  ]
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
