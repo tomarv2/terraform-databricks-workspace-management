@@ -1,10 +1,11 @@
+# TODO: this file has four resources, look at ideas to move to two
 # ------------------------------------------------
 # 1. NEW CLUSTER WITH NEW NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_job" "new_cluster_new_job_new_notebooks" {
-  for_each = (var.deploy_job == true && var.cluster_id == null && var.local_notebook_info != null) ? { for p in var.local_notebook_info : "${p.name}-${p.local_path}" => p } : {}
+  for_each = (var.deploy_jobs == true && var.cluster_id == null && var.local_notebooks != null) ? { for p in var.local_notebooks : "${p.job_name}-${p.local_path}" => p } : {}
 
-  name = "${each.value.name} (Terraform managed)"
+  name = "${each.value.job_name} (Terraform managed)"
 
   new_cluster {
     num_workers   = var.num_workers
@@ -13,7 +14,7 @@ resource "databricks_job" "new_cluster_new_job_new_notebooks" {
   }
 
   notebook_task {
-    notebook_path   = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.name}")
+    notebook_path   = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.job_name}")
     base_parameters = var.task_parameters
   }
 
@@ -47,13 +48,13 @@ resource "databricks_job" "new_cluster_new_job_new_notebooks" {
 # 2. EXISTING CLUSTER WITH NEW NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_job" "existing_cluster_new_job_new_notebooks" {
-  for_each = (var.cluster_id != null && var.local_notebook_info != null) ? { for p in var.local_notebook_info : "${p.name}-${p.local_path}" => p } : {}
+  for_each = (var.cluster_id != null && var.local_notebooks != null) ? { for p in var.local_notebooks : "${p.job_name}-${p.local_path}" => p } : {}
 
-  name                = "${each.value.name} (Terraform managed)"
+  name                = "${each.value.job_name} (Terraform managed)"
   existing_cluster_id = local.cluster_info
 
   notebook_task {
-    notebook_path   = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.name}")
+    notebook_path   = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.job_name}")
     base_parameters = var.task_parameters
   }
 
@@ -86,9 +87,9 @@ resource "databricks_job" "existing_cluster_new_job_new_notebooks" {
 # 3. NEW CLUSTER WITH EXITING NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_job" "new_cluster_new_job_existing_notebooks" {
-  for_each = (var.deploy_job == true && var.cluster_id == null && var.remote_notebook_info != null) ? { for p in var.remote_notebook_info : "${p.path}" => p } : {}
+  for_each = (var.deploy_jobs == true && var.cluster_id == null && var.remote_notebooks != null) ? { for p in var.remote_notebooks : "${p.path}" => p } : {}
 
-  name = "${each.value.name} (Terraform managed)"
+  name = "${each.value.job_name} (Terraform managed)"
 
   new_cluster {
     num_workers   = var.num_workers
@@ -131,9 +132,9 @@ resource "databricks_job" "new_cluster_new_job_existing_notebooks" {
 # 4. EXISTING CLUSTER WITH EXITING NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_job" "existing_cluster_new_job_existing_notebooks" {
-  for_each = (var.cluster_id != null && var.local_notebook_info != null) ? { for p in var.remote_notebook_info : "${p.path}" => p } : {}
+  for_each = (var.cluster_id != null && var.local_notebooks != null) ? { for p in var.remote_notebooks : "${p.path}" => p } : {}
 
-  name                = "${each.value.name} (Terraform managed)"
+  name                = "${each.value.job_name} (Terraform managed)"
   existing_cluster_id = local.cluster_info
 
   notebook_task {

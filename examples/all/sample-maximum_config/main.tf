@@ -65,7 +65,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Job
   # ------------------------------------------------
-  deploy_job  = true
+  deploy_jobs = true
   num_workers = 1
   email_notifications = {
     on_failure                = ["demo@demo.com"],
