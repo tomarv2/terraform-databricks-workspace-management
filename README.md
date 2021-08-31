@@ -203,7 +203,7 @@ job_access_control = [
 Put notebooks in notebooks folder and provide below information:
 
 ```
-local_notebook_info = [
+local_notebooks = [
   {
     name       = "local_demo_job1"
     language   = "PYTHON"
@@ -296,7 +296,7 @@ module "databricks_workspace_management" {
   dapi_token    = "dapi123456789012"
 
   deploy_cluster  = true
-  deploy_job      = true
+  deploy_jobs      = true
   deploy_notebook = true
   notebook_path   = "notebooks/sample.py"
   notebook_name   = "demo-notebook"
@@ -402,7 +402,7 @@ No modules.
 | <a name="input_deploy_cluster_policy"></a> [deploy\_cluster\_policy](#input\_deploy\_cluster\_policy) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_driver_instance_pool"></a> [deploy\_driver\_instance\_pool](#input\_deploy\_driver\_instance\_pool) | Driver instance pool | `bool` | `false` | no |
 | <a name="input_deploy_instance_profile"></a> [deploy\_instance\_profile](#input\_deploy\_instance\_profile) | Existing AWS instance profile ARN | `any` | `false` | no |
-| <a name="input_deploy_job"></a> [deploy\_job](#input\_deploy\_job) | feature flag, true or false | `bool` | `false` | no |
+| <a name="input_deploy_jobs"></a> [deploy\_jobs](#input\_deploy\_jobs) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_worker_instance_pool"></a> [deploy\_worker\_instance\_pool](#input\_deploy\_worker\_instance\_pool) | Worker instance pool | `bool` | `false` | no |
 | <a name="input_driver_node_type_id"></a> [driver\_node\_type\_id](#input\_driver\_node\_type\_id) | The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node\_type\_id. | `string` | `null` | no |
 | <a name="input_email_notifications"></a> [email\_notifications](#input\_email\_notifications) | Email notification block. | `any` | `null` | no |
@@ -419,7 +419,7 @@ No modules.
 | <a name="input_job_access_control"></a> [job\_access\_control](#input\_job\_access\_control) | Jobs access control | `any` | <pre>{<br>  "group_name": "admins",<br>  "permission_level": "CAN_MANAGE"<br>}</pre> | no |
 | <a name="input_language"></a> [language](#input\_language) | notebook language | `string` | `"PYTHON"` | no |
 | <a name="input_local_disk"></a> [local\_disk](#input\_local\_disk) | Pick only nodes with local storage. Defaults to false. | `string` | `true` | no |
-| <a name="input_local_notebook_info"></a> [local\_notebook\_info](#input\_local\_notebook\_info) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
+| <a name="input_local_notebooks"></a> [local\_notebooks](#input\_local\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
 | <a name="input_local_path"></a> [local\_path](#input\_local\_path) | notebook location on user machine | `string` | `null` | no |
 | <a name="input_max_capacity"></a> [max\_capacity](#input\_max\_capacity) | instance pool maximum capacity | `number` | `3` | no |
 | <a name="input_max_concurrent_runs"></a> [max\_concurrent\_runs](#input\_max\_concurrent\_runs) | An optional maximum allowed number of concurrent runs of the job. | `number` | `null` | no |
@@ -436,7 +436,7 @@ No modules.
 | <a name="input_policy_access_control"></a> [policy\_access\_control](#input\_policy\_access\_control) | Policy access control | `any` | `null` | no |
 | <a name="input_policy_overrides"></a> [policy\_overrides](#input\_policy\_overrides) | Cluster policy overrides | `any` | `null` | no |
 | <a name="input_prjid"></a> [prjid](#input\_prjid) | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_remote_notebook_info"></a> [remote\_notebook\_info](#input\_remote\_notebook\_info) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
+| <a name="input_remote_notebooks"></a> [remote\_notebooks](#input\_remote\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
 | <a name="input_retry_on_timeout"></a> [retry\_on\_timeout](#input\_retry\_on\_timeout) | An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout. | `bool` | `false` | no |
 | <a name="input_schedule"></a> [schedule](#input\_schedule) | Job schedule configuration. | `map(any)` | `null` | no |
 | <a name="input_spark_conf"></a> [spark\_conf](#input\_spark\_conf) | Optional Spark configuration block | `any` | `null` | no |

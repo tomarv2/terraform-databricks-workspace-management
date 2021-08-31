@@ -5,7 +5,7 @@ module "databricks_workspace_management" {
   dapi_token    = "dapi1234567890"
   # ------------------------------------------------
   deploy_cluster = true
-  deploy_job     = true
+  deploy_jobs    = true
   notebook_info = {
     default1 = {
       language   = "PYTHON"
