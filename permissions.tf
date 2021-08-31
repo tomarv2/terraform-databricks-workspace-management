@@ -1,7 +1,3 @@
-locals {
-  job_id_list = values(databricks_job.databricks_new_cluster_job)[*].id != null ? values(databricks_job.databricks_new_cluster_job)[*].id : values(databricks_job.databricks_job)[*].id
-}
-
 # ------------------------------------------------
 # Instance Pool Permissions
 # ------------------------------------------------

@@ -16,24 +16,44 @@ output "notebook_url" {
   value       = { for k, v in databricks_notebook.notebook_file : k => v.url }
 }
 
-output "job_url" {
+output "new_cluster_new_job_new_notebooks_job" {
   description = "databricks job url"
-  value       = { for k, v in databricks_job.databricks_job : k => v.url }
+  value       = { for k, v in databricks_job.new_cluster_new_job_new_notebooks : k => v.url }
 }
 
-output "job_new_cluster_url" {
-  description = "databricks new cluster job url"
-  value       = { for k, v in databricks_job.databricks_new_cluster_job : k => v.url }
-}
-
-output "job_id" {
+output "new_cluster_new_job_new_notebooks_id" {
   description = "databricks job id"
-  value       = { for k, v in databricks_job.databricks_job : k => v.id }
+  value       = { for k, v in databricks_job.new_cluster_new_job_new_notebooks : k => v.id }
 }
 
-output "job_new_cluster_id" {
+output "existing_cluster_new_job_new_notebooks_job" {
+  description = "databricks new cluster job url"
+  value       = { for k, v in databricks_job.existing_cluster_new_job_new_notebooks : k => v.url }
+}
+
+output "existing_cluster_new_job_new_notebooks_id" {
   description = "databricks new cluster job id"
-  value       = { for k, v in databricks_job.databricks_new_cluster_job : k => v.id }
+  value       = { for k, v in databricks_job.existing_cluster_new_job_new_notebooks : k => v.id }
+}
+
+output "new_cluster_new_job_existing_notebooks_job" {
+  description = "databricks job url"
+  value       = { for k, v in databricks_job.new_cluster_new_job_existing_notebooks : k => v.url }
+}
+
+output "new_cluster_new_job_existing_notebooks_id" {
+  description = "databricks job id"
+  value       = { for k, v in databricks_job.new_cluster_new_job_existing_notebooks : k => v.id }
+}
+
+output "existing_cluster_new_job_existing_notebooks_job" {
+  description = "databricks new cluster job url"
+  value       = { for k, v in databricks_job.existing_cluster_new_job_existing_notebooks : k => v.url }
+}
+
+output "existing_cluster_new_job_existing_notebooks_id" {
+  description = "databricks new cluster job id"
+  value       = { for k, v in databricks_job.existing_cluster_new_job_existing_notebooks : k => v.id }
 }
 
 output "databricks_secret_acl" {
