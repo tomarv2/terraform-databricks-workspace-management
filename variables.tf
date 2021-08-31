@@ -130,7 +130,7 @@ variable "is_meta_instance_profile" {
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
-variable "deploy_job" {
+variable "deploy_jobs" {
   description = "feature flag, true or false"
   default     = false
   type        = bool
@@ -211,13 +211,13 @@ variable "local_path" {
 }
 
 
-variable "local_notebook_info" {
+variable "local_notebooks" {
   description = "nested block: NestingSet, min items: 0, max items: 0"
   type        = any
   default     = []
 }
 
-variable "remote_notebook_info" {
+variable "remote_notebooks" {
   description = "nested block: NestingSet, min items: 0, max items: 0"
   type        = any
   default     = []
