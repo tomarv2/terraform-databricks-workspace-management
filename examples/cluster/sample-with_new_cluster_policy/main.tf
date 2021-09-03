@@ -1,3 +1,18 @@
+provider "databricks" {
+  host  = var.workspace_url
+  token = var.dapi_token
+}
+
+terraform {
+  required_providers {
+    databricks = {
+      source  = "databrickslabs/databricks"
+      version = "~> 0.3.5"
+    }
+  }
+}
+
+
 module "databricks_workspace_management" {
   source = "../../../"
 
@@ -14,7 +29,6 @@ module "databricks_workspace_management" {
   driver_node_type_id               = "i3.large"
   spark_version                     = "8.3.x-scala2.12"
   add_instance_profile_to_workspace = true
-  instance_profile_arn              = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
 
   aws_attributes = {
     instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
