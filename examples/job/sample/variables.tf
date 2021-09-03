@@ -8,7 +8,12 @@ variable "prjid" {
   type        = string
 }
 
+variable "workspace_url" {
+  description = "databricks workspace url"
+  type        = string
+}
+
 variable "dapi_token" {
-  description = "DAPI token"
+  description = "databricks dapi token"
   type        = string
 }
