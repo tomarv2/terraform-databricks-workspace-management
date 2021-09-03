@@ -109,7 +109,7 @@ variable "spark_conf" {
   default     = null
 }
 
-variable "deploy_instance_profile" {
+variable "add_instance_profile_to_workspace" {
   description = "Existing AWS instance profile ARN"
   type        = any
   default     = false
