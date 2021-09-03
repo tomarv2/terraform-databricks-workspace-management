@@ -1,21 +1,44 @@
+provider "databricks" {
+  host  = var.workspace_url
+  token = var.dapi_token
+}
+
+terraform {
+  required_providers {
+    databricks = {
+      source  = "databrickslabs/databricks"
+      version = "~> 0.3.5"
+    }
+  }
+}
+
+
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://<workspace_url>.cloud.sample.com"
+  workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = "dapi1234567890"
   # ------------------------------------------------
   deploy_cluster = true
   deploy_jobs    = true
-  notebook_info = {
-    default1 = {
+  local_notebooks = [
+    {
+      job_name   = "local_demo_job1"
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
-    }
-    default2 = {
-      language   = "PYTHON"
+      path       = "/Shared/demo/sample1.py"
+    },
+    {
+      job_name   = "local_demo_job2"
       local_path = "notebooks/sample2.py"
     }
-  }
+  ]
+  remote_notebooks = [
+    {
+      job_name = "remote_demo_job"
+      path     = "/Shared/demo"
+    }
+  ]
   # -----------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
