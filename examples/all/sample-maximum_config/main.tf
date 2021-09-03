@@ -1,14 +1,23 @@
+provider "databricks" {
+  host  = var.workspace_url
+  token = var.dapi_token
+}
+
+terraform {
+  required_providers {
+    databricks = {
+      source  = "databrickslabs/databricks"
+      version = "~> 0.3.5"
+    }
+  }
+}
+
+
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://<workspace_url>.cloud.sample.com"
+  workspace_url = "https://<workspace_url>.cloud.databricks.com"
   dapi_token    = "dapi1234567890"
-  # ------------------------------------------------
-  add_instance_profile_to_workspace = true
-
-  aws_attributes = {
-    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
-  }
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------
@@ -25,6 +34,11 @@ module "databricks_workspace_management" {
   spark_conf = {
     "spark.databricks.io.cache.enabled" = true
     "spark.driver.maxResultSize"        = "100g"
+  }
+  add_instance_profile_to_workspace = true
+
+  aws_attributes = {
+    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
   }
   # ------------------------------------------------
   # Cluster Policy
@@ -64,16 +78,24 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   # Notebook
   # ------------------------------------------------
-  notebook_info = {
-    default1 = {
+  local_notebooks = [
+    {
+      job_name   = "local_demo_job1"
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
+      path       = "/Shared/demo/sample1.py"
+    },
+    {
+      job_name   = "local_demo_job2"
+      local_path = "notebooks/sample2.py"
     }
-    default2 = {
-      language   = "PYTHON"
-      local_path = "notebooks/sample1.py"
+  ]
+  remote_notebooks = [
+    {
+      job_name = "remote_demo_job"
+      path     = "/Shared/demo"
     }
-  }
+  ]
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
