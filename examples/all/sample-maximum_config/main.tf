@@ -4,23 +4,11 @@ module "databricks_workspace_management" {
   workspace_url = "https://<workspace_url>.cloud.sample.com"
   dapi_token    = "dapi1234567890"
   # ------------------------------------------------
-  # Admin Console
-  # ------------------------------------------------
-  /*
-  # NOTE: 2 options are available:
-    - No `create_user`: no permissions are configured.
-    - `databricks_username`, `create_user`, and `create_group` to create user(user should not be existing already) and group.
-    - Provide `create_user` and `databricks_username`
-  */
-  databricks_username = "demo@demo.com"
-  create_user         = true
-  create_group        = true
-  /*
-  # ------------------------------------------------
+  add_instance_profile_to_workspace = true
+
   aws_attributes = {
-    instance_profile_arn = "arn:aws:iam::755921336062:instance-profile/security-tines-ecs-mgmt-role"
+    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
   }
-  */
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------

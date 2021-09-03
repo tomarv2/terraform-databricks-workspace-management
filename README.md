@@ -116,28 +116,14 @@ policy_access_control = [
 
 ### [Instance Profile](https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html)
 
-There are two options available to handle instance profiles:
-
-**Existing instance profile:**
-
-If you have an existing instance profile:
-
-Specify as `aws_attributes`
-
 ```
+add_instance_profile_to_workspace = true (default false)
 aws_attributes = {
     instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
 }
 ```
 
-**Create new instance profile:**
-
-```
-deploy_instance_profile = true
-instance_profile_arn    = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
-```
-
-**Note:** If you specify both the options, create new instance profile will take presedence.
+Note: `add_instance_profile_to_workspace` to add Instance profile to Databricks workspace. To use existing set it to `false`.
 
 ### [Instance Pool](https://docs.databricks.com/clusters/instance-pools/index.html)
 **Note:** To configure `Instance Pool`, add below configuration:
@@ -332,7 +318,6 @@ Error: Failed to delete token in Scope <scope name>
 ```
 Error: Scope <scope name> does not exist!
 ```
-
 ## Requirements
 
 | Name | Version |
@@ -382,6 +367,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_add_instance_profile_to_workspace"></a> [add\_instance\_profile\_to\_workspace](#input\_add\_instance\_profile\_to\_workspace) | Existing AWS instance profile ARN | `any` | `false` | no |
 | <a name="input_allow_cluster_create"></a> [allow\_cluster\_create](#input\_allow\_cluster\_create) | This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks\_permissions and cluster\_id argument. Everyone without allow\_cluster\_create argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy. | `bool` | `true` | no |
 | <a name="input_allow_instance_pool_create"></a> [allow\_instance\_pool\_create](#input\_allow\_instance\_pool\_create) | This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks\_permissions and instance\_pool\_id argument. | `bool` | `true` | no |
 | <a name="input_allow_sql_analytics_access"></a> [allow\_sql\_analytics\_access](#input\_allow\_sql\_analytics\_access) | This is a field to allow the group to have access to SQL Analytics feature through databricks\_sql\_endpoint. | `bool` | `true` | no |
@@ -401,7 +387,6 @@ No modules.
 | <a name="input_deploy_cluster"></a> [deploy\_cluster](#input\_deploy\_cluster) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_cluster_policy"></a> [deploy\_cluster\_policy](#input\_deploy\_cluster\_policy) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_driver_instance_pool"></a> [deploy\_driver\_instance\_pool](#input\_deploy\_driver\_instance\_pool) | Driver instance pool | `bool` | `false` | no |
-| <a name="input_deploy_instance_profile"></a> [deploy\_instance\_profile](#input\_deploy\_instance\_profile) | Existing AWS instance profile ARN | `any` | `false` | no |
 | <a name="input_deploy_jobs"></a> [deploy\_jobs](#input\_deploy\_jobs) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_worker_instance_pool"></a> [deploy\_worker\_instance\_pool](#input\_deploy\_worker\_instance\_pool) | Worker instance pool | `bool` | `false` | no |
 | <a name="input_driver_node_type_id"></a> [driver\_node\_type\_id](#input\_driver\_node\_type\_id) | The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node\_type\_id. | `string` | `null` | no |
