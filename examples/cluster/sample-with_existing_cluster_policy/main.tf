@@ -14,8 +14,7 @@ module "databricks_workspace_management" {
   driver_node_type_id             = "i3.large"
   spark_version                   = "8.3.x-scala2.12"
 
-  deploy_instance_profile = true
-  instance_profile_arn    = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
+  add_instance_profile_to_workspace = true
 
   aws_attributes = {
     instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"

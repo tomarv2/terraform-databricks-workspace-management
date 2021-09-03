@@ -3,9 +3,9 @@ locals {
 }
 
 resource "databricks_instance_profile" "shared" {
-  count = (var.deploy_cluster == true && var.deploy_instance_profile == true) ? 1 : 0
+  count = (var.deploy_cluster == true && var.add_instance_profile_to_workspace == true) ? 1 : 0
 
-  instance_profile_arn = var.instance_profile_arn
+  instance_profile_arn = lookup(var.aws_attributes, "instance_profile_arn", null)
 }
 
 resource "databricks_cluster" "cluster" {
@@ -31,7 +31,7 @@ resource "databricks_cluster" "cluster" {
   dynamic "aws_attributes" {
     for_each = var.aws_attributes == null ? [] : [var.aws_attributes]
     content {
-      instance_profile_arn   = var.deploy_instance_profile == true ? join("", databricks_instance_profile.shared.*.id) : lookup(aws_attributes.value, "instance_profile_arn", null)
+      instance_profile_arn   = var.add_instance_profile_to_workspace == true ? join("", databricks_instance_profile.shared.*.id) : lookup(aws_attributes.value, "instance_profile_arn", null)
       zone_id                = lookup(aws_attributes.value, "zone_id", null)
       first_on_demand        = lookup(aws_attributes.value, "first_on_demand", null)
       availability           = lookup(aws_attributes.value, "availability", null)
@@ -56,7 +56,7 @@ resource "databricks_cluster" "single_node_cluster" {
   dynamic "aws_attributes" {
     for_each = var.aws_attributes == null ? [] : [var.aws_attributes]
     content {
-      instance_profile_arn   = var.deploy_instance_profile == true ? join("", databricks_instance_profile.shared.*.id) : lookup(aws_attributes.value, "instance_profile_arn", null)
+      instance_profile_arn   = var.add_instance_profile_to_workspace == true ? join("", databricks_instance_profile.shared.*.id) : lookup(aws_attributes.value, "instance_profile_arn", null)
       zone_id                = lookup(aws_attributes.value, "zone_id", null)
       first_on_demand        = lookup(aws_attributes.value, "first_on_demand", null)
       availability           = lookup(aws_attributes.value, "availability", null)
