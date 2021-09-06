@@ -16,15 +16,13 @@ terraform {
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://<workspace_url>.cloud.databricks.com"
+  workspace_url = var.workspace_url
   dapi_token    = var.dapi_token
   # ------------------------------------------------
   # Job
   # ------------------------------------------------
-  deploy_jobs = true
-  # NOTE: `deploy_cluster` or `use_existing_cluster` and `cluster_id` are required
-  deploy_cluster = true
-  #cluster_id = "1234-123456-lark123"
+  deploy_jobs               = true
+  cluster_id                = "0906-195356-wants463"
   num_workers               = 1
   retry_on_timeout          = false
   max_retries               = 3
@@ -59,12 +57,6 @@ module "databricks_workspace_management" {
     {
       job_name   = "local_demo_job2"
       local_path = "notebooks/sample2.py"
-    }
-  ]
-  remote_notebooks = [
-    {
-      job_name = "remote_demo_job"
-      path     = "/Shared/demo"
     }
   ]
   # ------------------------------------------------

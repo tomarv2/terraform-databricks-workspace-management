@@ -1,6 +1,6 @@
-output "databricks_notebook_url" {
+output "notebook_url_standalone" {
   description = "databricks notebook url"
-  value       = module.databricks_workspace_management.notebook_url
+  value       = module.databricks_workspace_management.notebook_url_standalone
 }
 
 /*

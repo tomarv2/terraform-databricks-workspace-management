@@ -12,27 +12,16 @@ terraform {
   }
 }
 
-
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://<workspace_url>.cloud.databricks.com"
+  workspace_url = var.workspace_url
   dapi_token    = var.dapi_token
   # ------------------------------------------------
-  # NOTEBOOK
+  # CLUSTER
   # ------------------------------------------------
-  local_notebooks = [
-    {
-      name       = "local_demo_job1"
-      language   = "PYTHON"
-      local_path = "notebooks/sample1.py"
-      path       = "/Shared/demo/sample1.py"
-    },
-    {
-      name       = "local_demo_job2"
-      local_path = "notebooks/sample2.py"
-    }
-  ]
+  deploy_cluster = true
+  fixed_value    = 0
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
