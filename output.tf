@@ -3,6 +3,12 @@ output "cluster_id" {
   value       = join("", databricks_cluster.cluster.*.id)
 }
 
+output "single_node_cluster_id" {
+  description = "databricks cluster id"
+  value       = join("", databricks_cluster.single_node_cluster.*.id)
+}
+
+
 /*
 output "databricks_token" {
   description = "databricks token"
@@ -14,6 +20,11 @@ output "databricks_token" {
 output "notebook_url" {
   description = "databricks notebook url"
   value       = { for k, v in databricks_notebook.notebook_file : k => v.url }
+}
+
+output "notebook_url_standalone" {
+  description = "databricks notebook url standalone"
+  value       = { for k, v in databricks_notebook.notebook_file_deployment : k => v.url }
 }
 
 output "new_cluster_new_job_new_notebooks_job" {
@@ -93,27 +104,12 @@ output "job_permissions" {
 }
 */
 
-output "cluster_permissions" {
-  description = "databricks cluster permissions"
-  value       = join("", databricks_permissions.cluster.*.id)
-}
-
-output "cluster_policy_permissions" {
+output "cluster_policy_id" {
   description = "databricks cluster policy permissions"
   value       = join("", databricks_permissions.policy.*.id)
 }
 
-output "driver_pool_permissions" {
-  description = "databricks driver pool permissions"
-  value       = join("", databricks_permissions.driver_pool.*.id)
-}
-
-output "worker_pool_permissions" {
-  description = "databricks worker pool permissions"
-  value       = join("", databricks_permissions.worker_pool.*.id)
-}
-
 output "instance_profile" {
-  description = "databricks worker pool permissions"
+  description = "databricks instance profile ARN"
   value       = join("", databricks_instance_profile.shared.*.instance_profile_arn)
 }
