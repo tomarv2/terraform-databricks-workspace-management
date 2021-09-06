@@ -192,18 +192,18 @@ job_access_control = [
 Put notebooks in notebooks folder and provide below information:
 
 ```
-local_notebooks = [
-  {
-    name       = "local_demo_job1"
-    language   = "PYTHON"
-    local_path = "notebooks/sample1.py"
-    path       = "/Shared/demo/sample1.py"
-  },
-  {
-    name       = "local_demo_job2"
-    local_path = "notebooks/sample2.py"
-  }
-]
+  notebooks = [
+    {
+      name       = "demo_notebook1"
+      language   = "PYTHON"
+      local_path = "notebooks/sample1.py"
+      path       = "/Shared/demo/sample1.py"
+    },
+    {
+      name       = "demo_notebook2"
+      local_path = "notebooks/sample2.py"
+    }
+  ]
 ```
 ### [Notebook ACL]()
 
