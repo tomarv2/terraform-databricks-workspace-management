@@ -4,7 +4,7 @@ resource "databricks_instance_pool" "worker_instance_nodes" {
   instance_pool_name = "${var.teamid}-${var.prjid}-worker (Terraform managed)"
   min_idle_instances = var.min_idle_instances
   max_capacity       = var.max_capacity
-  node_type_id       = var.worker_node_type_id
+  node_type_id       = local.worker_node_type
   preloaded_spark_versions = [
     var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
   ]

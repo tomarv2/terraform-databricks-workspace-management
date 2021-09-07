@@ -198,12 +198,6 @@ variable "language" {
   default     = "PYTHON"
 }
 
-variable "notebook_name" {
-  description = "notebook name"
-  type        = string
-  default     = null
-}
-
 variable "local_path" {
   description = "notebook location on user machine"
   type        = string
@@ -218,6 +212,12 @@ variable "local_notebooks" {
 }
 
 variable "remote_notebooks" {
+  description = "nested block: NestingSet, min items: 0, max items: 0"
+  type        = any
+  default     = []
+}
+
+variable "notebooks" {
   description = "nested block: NestingSet, min items: 0, max items: 0"
   type        = any
   default     = []
