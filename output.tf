@@ -8,7 +8,6 @@ output "single_node_cluster_id" {
   value       = join("", databricks_cluster.single_node_cluster.*.id)
 }
 
-
 /*
 output "databricks_token" {
   description = "databricks token"
@@ -91,18 +90,6 @@ output "databricks_group_member" {
   description = "databricks group members"
   value       = join("", databricks_group_member.group_members.*.group_id)
 }
-
-/*
-output "notebook_permissions" {
-  description = "databricks notebook permissions"
-  value       = join("", databricks_permissions.notebook.*.id)
-}
-
-output "job_permissions" {
-  description = "databricks job permissions"
-  value       = join("", databricks_permissions.job.*.id)
-}
-*/
 
 output "cluster_policy_id" {
   description = "databricks cluster policy permissions"
