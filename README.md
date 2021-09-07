@@ -205,7 +205,7 @@ Put notebooks in notebooks folder and provide below information:
     }
   ]
 ```
-### [Notebook ACL]()
+### Notebook ACL
 
 Notebook can have one of these permissions:  `CAN_READ`, `CAN_RUN`, `CAN_EDIT`, and `CAN_MANAGE`.
 
@@ -321,6 +321,7 @@ Error: Failed to delete token in Scope <scope name>
 ```
 Error: Scope <scope name> does not exist!
 ```
+
 ## Requirements
 
 | Name | Version |
@@ -356,8 +357,13 @@ No modules.
 | [databricks_job.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
 | [databricks_job.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
 | [databricks_notebook.notebook_file](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/notebook) | resource |
+| [databricks_notebook.notebook_file_deployment](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/notebook) | resource |
 | [databricks_permissions.cluster](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.driver_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.jobs_notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.policy](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.worker_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_secret_acl.spectators](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/secret_acl) | resource |
@@ -404,7 +410,7 @@ No modules.
 | <a name="input_instance_pool_access_control"></a> [instance\_pool\_access\_control](#input\_instance\_pool\_access\_control) | Instance pool access control | `any` | `null` | no |
 | <a name="input_instance_profile_arn"></a> [instance\_profile\_arn](#input\_instance\_profile\_arn) | ARN attribute of aws\_iam\_instance\_profile output, the EC2 instance profile association to AWS IAM role. This ARN would be validated upon resource creation and it's not possible to skip validation. | `any` | `null` | no |
 | <a name="input_is_meta_instance_profile"></a> [is\_meta\_instance\_profile](#input\_is\_meta\_instance\_profile) | Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough. | `any` | `false` | no |
-| <a name="input_job_access_control"></a> [job\_access\_control](#input\_job\_access\_control) | Jobs access control | `any` | <pre>{<br>  "group_name": "admins",<br>  "permission_level": "CAN_MANAGE"<br>}</pre> | no |
+| <a name="input_jobs_access_control"></a> [jobs\_access\_control](#input\_jobs\_access\_control) | Jobs access control | `any` | `null` | no |
 | <a name="input_language"></a> [language](#input\_language) | notebook language | `string` | `"PYTHON"` | no |
 | <a name="input_local_disk"></a> [local\_disk](#input\_local\_disk) | Pick only nodes with local storage. Defaults to false. | `string` | `true` | no |
 | <a name="input_local_notebooks"></a> [local\_notebooks](#input\_local\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
@@ -419,7 +425,7 @@ No modules.
 | <a name="input_min_retry_interval_millis"></a> [min\_retry\_interval\_millis](#input\_min\_retry\_interval\_millis) | An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried. | `number` | `null` | no |
 | <a name="input_ml"></a> [ml](#input\_ml) | ML required or not. | `bool` | `false` | no |
 | <a name="input_notebook_access_control"></a> [notebook\_access\_control](#input\_notebook\_access\_control) | Notebook access control | `any` | `null` | no |
-| <a name="input_notebook_name"></a> [notebook\_name](#input\_notebook\_name) | notebook name | `string` | `null` | no |
+| <a name="input_notebooks"></a> [notebooks](#input\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
 | <a name="input_num_workers"></a> [num\_workers](#input\_num\_workers) | number of workers for job | `number` | `1` | no |
 | <a name="input_policy_access_control"></a> [policy\_access\_control](#input\_policy\_access\_control) | Policy access control | `any` | `null` | no |
 | <a name="input_policy_overrides"></a> [policy\_overrides](#input\_policy\_overrides) | Cluster policy overrides | `any` | `null` | no |
@@ -440,22 +446,21 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | databricks cluster id |
-| <a name="output_cluster_permissions"></a> [cluster\_permissions](#output\_cluster\_permissions) | databricks cluster permissions |
-| <a name="output_cluster_policy_permissions"></a> [cluster\_policy\_permissions](#output\_cluster\_policy\_permissions) | databricks cluster policy permissions |
+| <a name="output_cluster_policy_id"></a> [cluster\_policy\_id](#output\_cluster\_policy\_id) | databricks cluster policy permissions |
 | <a name="output_databricks_group"></a> [databricks\_group](#output\_databricks\_group) | databricks group name |
 | <a name="output_databricks_group_member"></a> [databricks\_group\_member](#output\_databricks\_group\_member) | databricks group members |
 | <a name="output_databricks_secret_acl"></a> [databricks\_secret\_acl](#output\_databricks\_secret\_acl) | databricks secret acl |
 | <a name="output_databricks_user"></a> [databricks\_user](#output\_databricks\_user) | databricks user name |
 | <a name="output_databricks_user_id"></a> [databricks\_user\_id](#output\_databricks\_user\_id) | databricks user id |
-| <a name="output_driver_pool_permissions"></a> [driver\_pool\_permissions](#output\_driver\_pool\_permissions) | databricks driver pool permissions |
 | <a name="output_existing_cluster_new_job_existing_notebooks_id"></a> [existing\_cluster\_new\_job\_existing\_notebooks\_id](#output\_existing\_cluster\_new\_job\_existing\_notebooks\_id) | databricks new cluster job id |
 | <a name="output_existing_cluster_new_job_existing_notebooks_job"></a> [existing\_cluster\_new\_job\_existing\_notebooks\_job](#output\_existing\_cluster\_new\_job\_existing\_notebooks\_job) | databricks new cluster job url |
 | <a name="output_existing_cluster_new_job_new_notebooks_id"></a> [existing\_cluster\_new\_job\_new\_notebooks\_id](#output\_existing\_cluster\_new\_job\_new\_notebooks\_id) | databricks new cluster job id |
 | <a name="output_existing_cluster_new_job_new_notebooks_job"></a> [existing\_cluster\_new\_job\_new\_notebooks\_job](#output\_existing\_cluster\_new\_job\_new\_notebooks\_job) | databricks new cluster job url |
-| <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | databricks worker pool permissions |
+| <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | databricks instance profile ARN |
 | <a name="output_new_cluster_new_job_existing_notebooks_id"></a> [new\_cluster\_new\_job\_existing\_notebooks\_id](#output\_new\_cluster\_new\_job\_existing\_notebooks\_id) | databricks job id |
 | <a name="output_new_cluster_new_job_existing_notebooks_job"></a> [new\_cluster\_new\_job\_existing\_notebooks\_job](#output\_new\_cluster\_new\_job\_existing\_notebooks\_job) | databricks job url |
 | <a name="output_new_cluster_new_job_new_notebooks_id"></a> [new\_cluster\_new\_job\_new\_notebooks\_id](#output\_new\_cluster\_new\_job\_new\_notebooks\_id) | databricks job id |
 | <a name="output_new_cluster_new_job_new_notebooks_job"></a> [new\_cluster\_new\_job\_new\_notebooks\_job](#output\_new\_cluster\_new\_job\_new\_notebooks\_job) | databricks job url |
 | <a name="output_notebook_url"></a> [notebook\_url](#output\_notebook\_url) | databricks notebook url |
-| <a name="output_worker_pool_permissions"></a> [worker\_pool\_permissions](#output\_worker\_pool\_permissions) | databricks worker pool permissions |
+| <a name="output_notebook_url_standalone"></a> [notebook\_url\_standalone](#output\_notebook\_url\_standalone) | databricks notebook url standalone |
+| <a name="output_single_node_cluster_id"></a> [single\_node\_cluster\_id](#output\_single\_node\_cluster\_id) | databricks cluster id |

@@ -1,3 +1,13 @@
+output "cluster_id" {
+  description = "databricks cluster id"
+  value       = module.databricks_workspace_management.cluster_id
+}
+
+output "standalone_cluster_id" {
+  description = "databricks standalone cluster id"
+  value       = module.databricks_workspace_management.single_node_cluster_id
+}
+
 output "notebook_url" {
   description = "databricks notebook url"
   value       = module.databricks_workspace_management.notebook_url

@@ -19,7 +19,7 @@ module "databricks_workspace_management" {
   workspace_url = var.workspace_url
   dapi_token    = var.dapi_token
   # ------------------------------------------------
-  # Job
+  # JOB
   # ------------------------------------------------
   deploy_jobs               = true
   deploy_cluster            = true
@@ -45,7 +45,16 @@ module "databricks_workspace_management" {
     on_success                = ["demo@demo.com"]
   }
   # ------------------------------------------------
-  # Notebook
+  # JOB ACCESS CONTROL
+  # ------------------------------------------------
+  jobs_access_control = [
+    {
+      group_name       = "demo"
+      permission_level = "CAN_MANAGE_RUN"
+    }
+  ]
+  # ------------------------------------------------
+  # NOTEBOOK
   # ------------------------------------------------
   local_notebooks = [
     {
@@ -63,6 +72,15 @@ module "databricks_workspace_management" {
     {
       job_name = "remote_demo_job"
       path     = "/Shared/demo/sample1.py"
+    }
+  ]
+  # ------------------------------------------------
+  # NOTEBOOK ACCESS CONTROL
+  # ------------------------------------------------
+  notebook_access_control = [
+    {
+      group_name       = "demo"
+      permission_level = "CAN_READ"
     }
   ]
   # ------------------------------------------------
