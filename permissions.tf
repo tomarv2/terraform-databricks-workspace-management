@@ -61,39 +61,100 @@ resource "databricks_permissions" "policy" {
     }
   }
 }
-/*
+
 # ------------------------------------------------
 # Jobs Permissions
 # ------------------------------------------------
-resource "databricks_permissions" "job" {
-  count = length(local.job_id_list)
+# 1. NEW CLUSTER WITH NEW NOTEBOOKS
+# ------------------------------------------------
+resource "databricks_permissions" "new_cluster_new_job_new_notebooks" {
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id == null && var.local_notebooks != null) ? databricks_job.new_cluster_new_job_new_notebooks : {}
 
-  job_id = local.job_id_list[count.index]
+  job_id = each.value.id
 
   dynamic "access_control" {
-    for_each = var.job_access_control
-    content {
-      group_name       = "all users"
-      permission_level = "CAN_MANAGE"
-    }
-  }
-}
-
-# ------------------------------------------------
-# Notebooks Permissions
-# ------------------------------------------------
-resource "databricks_permissions" "notebook" {
-  #for_each = length(var.notebook_info) && var.job_access_control != null ? length(local.job_id_list) : 0
-  for_each = var.notebook_info
-
-  notebook_path = var.custom_path != "" ? var.custom_path : "${data.databricks_current_user.me.home}/${each.key}"
-
-  dynamic "access_control" {
-    for_each = var.notebook_access_control != null ? var.notebook_access_control : [] #var.notebook_access_control
+    for_each = var.jobs_access_control != null ? var.jobs_access_control : []
     content {
       group_name       = access_control.value.group_name
       permission_level = access_control.value.permission_level
     }
   }
 }
-*/
+# ------------------------------------------------
+# 2. EXISTING CLUSTER WITH NEW NOTEBOOKS
+# ------------------------------------------------
+resource "databricks_permissions" "existing_cluster_new_job_new_notebooks" {
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id != null && var.local_notebooks != null) ? databricks_job.existing_cluster_new_job_new_notebooks : {}
+
+  job_id = each.value.id
+
+  dynamic "access_control" {
+    for_each = var.jobs_access_control != null ? var.jobs_access_control : []
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+# ------------------------------------------------
+# 3. NEW CLUSTER WITH EXITING NOTEBOOKS
+# ------------------------------------------------
+resource "databricks_permissions" "new_cluster_new_job_existing_notebooks" {
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id == null && var.remote_notebooks != null) ? databricks_job.new_cluster_new_job_existing_notebooks : {}
+
+  job_id = each.value.id
+
+  dynamic "access_control" {
+    for_each = var.jobs_access_control != null ? var.jobs_access_control : []
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+# ------------------------------------------------
+# 4. EXISTING CLUSTER WITH EXITING NOTEBOOKS
+# ------------------------------------------------
+resource "databricks_permissions" "existing_cluster_new_job_existing_notebooks" {
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id != null && var.remote_notebooks != null) ? databricks_job.existing_cluster_new_job_existing_notebooks : {}
+
+  job_id = each.value.id
+
+  dynamic "access_control" {
+    for_each = var.jobs_access_control != null ? var.jobs_access_control : []
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+# ------------------------------------------------
+# Notebooks Permissions
+# ------------------------------------------------
+resource "databricks_permissions" "notebook" {
+  for_each = var.notebook_access_control != null ? { for p in var.notebooks : "${p.name}-${p.local_path}" => p } : {}
+
+  notebook_path = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.name}")
+
+  dynamic "access_control" {
+    for_each = var.notebook_access_control != null ? var.notebook_access_control : []
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+
+resource "databricks_permissions" "jobs_notebook" {
+  for_each = (var.deploy_jobs != false && var.notebook_access_control != null) ? { for p in var.local_notebooks : "${p.job_name}-${p.local_path}" => p } : {}
+
+  notebook_path = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.job_name}")
+
+  dynamic "access_control" {
+    for_each = var.notebook_access_control != null ? var.notebook_access_control : []
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
