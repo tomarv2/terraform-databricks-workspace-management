@@ -132,12 +132,12 @@ resource "databricks_permissions" "existing_cluster_new_job_existing_notebooks" 
 # Notebooks Permissions
 # ------------------------------------------------
 resource "databricks_permissions" "notebook" {
-  for_each = var.notebook_access_control != null ? { for p in var.notebooks : "${p.name}-${p.local_path}" => p } : {}
+  for_each = var.notebooks_access_control != null ? { for p in var.notebooks : "${p.name}-${p.local_path}" => p } : {}
 
   notebook_path = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.name}")
 
   dynamic "access_control" {
-    for_each = var.notebook_access_control != null ? var.notebook_access_control : []
+    for_each = var.notebooks_access_control != null ? var.notebooks_access_control : []
     content {
       group_name       = access_control.value.group_name
       permission_level = access_control.value.permission_level
@@ -146,12 +146,12 @@ resource "databricks_permissions" "notebook" {
 }
 
 resource "databricks_permissions" "jobs_notebook" {
-  for_each = (var.deploy_jobs != false && var.notebook_access_control != null) ? { for p in var.local_notebooks : "${p.job_name}-${p.local_path}" => p } : {}
+  for_each = (var.deploy_jobs != false && var.notebooks_access_control != null) ? { for p in var.local_notebooks : "${p.job_name}-${p.local_path}" => p } : {}
 
   notebook_path = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.job_name}")
 
   dynamic "access_control" {
-    for_each = var.notebook_access_control != null ? var.notebook_access_control : []
+    for_each = var.notebooks_access_control != null ? var.notebooks_access_control : []
     content {
       group_name       = access_control.value.group_name
       permission_level = access_control.value.permission_level
