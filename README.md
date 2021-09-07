@@ -179,7 +179,7 @@ Job creator has `IS_OWNER` permission. Destroying databricks_permissions resourc
 - Jobs triggered through Run Now assume the permissions of the job owner and not the user, and service principal who issued Run Now.
 
 ```
-job_access_control = [
+jobs_access_control = [
   {
     group_name       = "<group_name>"
     permission_level = "CAN_MANAGE_RUN"
@@ -210,7 +210,7 @@ Put notebooks in notebooks folder and provide below information:
 Notebook can have one of these permissions:  `CAN_READ`, `CAN_RUN`, `CAN_EDIT`, and `CAN_MANAGE`.
 
 ```
-notebook_access_control = [
+notebooks_access_control = [
   {
     group_name       = "<group_name>"
     permission_level = "CAN_MANAGE"
@@ -424,7 +424,7 @@ No modules.
 | <a name="input_min_memory_gb"></a> [min\_memory\_gb](#input\_min\_memory\_gb) | Minimum amount of memory per node in gigabytes. Defaults to 0. | `string` | `0` | no |
 | <a name="input_min_retry_interval_millis"></a> [min\_retry\_interval\_millis](#input\_min\_retry\_interval\_millis) | An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried. | `number` | `null` | no |
 | <a name="input_ml"></a> [ml](#input\_ml) | ML required or not. | `bool` | `false` | no |
-| <a name="input_notebook_access_control"></a> [notebook\_access\_control](#input\_notebook\_access\_control) | Notebook access control | `any` | `null` | no |
+| <a name="input_notebooks_access_control"></a> [notebook\_access\_control](#input\_notebook\_access\_control) | Notebook access control | `any` | `null` | no |
 | <a name="input_notebooks"></a> [notebooks](#input\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
 | <a name="input_num_workers"></a> [num\_workers](#input\_num\_workers) | number of workers for job | `number` | `1` | no |
 | <a name="input_policy_access_control"></a> [policy\_access\_control](#input\_policy\_access\_control) | Policy access control | `any` | `null` | no |

@@ -392,7 +392,7 @@ variable "jobs_access_control" {
   default     = null
 }
 
-variable "notebook_access_control" {
+variable "notebooks_access_control" {
   type        = any
   description = "Notebook access control"
   default     = null
