@@ -87,7 +87,7 @@ resource "databricks_job" "existing_cluster_new_job_new_notebooks" {
 # 3. NEW CLUSTER WITH EXITING NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_job" "new_cluster_new_job_existing_notebooks" {
-  for_each = (var.deploy_jobs == true && var.cluster_id == null && var.remote_notebooks != null) ? { for p in var.remote_notebooks : "${p.path}" => p } : {}
+  for_each = (var.deploy_jobs == true && var.cluster_id == null && var.remote_notebooks != null) ? { for p in var.remote_notebooks : "${p.job_name}-${p.path}" => p } : {}
 
   name = "${each.value.job_name} (Terraform managed)"
 
@@ -132,7 +132,7 @@ resource "databricks_job" "new_cluster_new_job_existing_notebooks" {
 # 4. EXISTING CLUSTER WITH EXITING NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_job" "existing_cluster_new_job_existing_notebooks" {
-  for_each = (var.cluster_id != null && var.remote_notebooks != null) ? { for p in var.remote_notebooks : "${p.path}" => p } : {}
+  for_each = (var.cluster_id != null && var.remote_notebooks != null) ? { for p in var.remote_notebooks : "${p.job_name}-${p.path}" => p } : {}
 
   name                = "${each.value.job_name} (Terraform managed)"
   existing_cluster_id = local.cluster_info
