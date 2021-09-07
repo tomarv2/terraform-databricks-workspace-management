@@ -386,13 +386,10 @@ variable "policy_access_control" {
   default     = null
 }
 
-variable "job_access_control" {
+variable "jobs_access_control" {
   type        = any
   description = "Jobs access control"
-  default = {
-    group_name       = "admins"
-    permission_level = "CAN_MANAGE"
-  }
+  default     = null
 }
 
 variable "notebook_access_control" {

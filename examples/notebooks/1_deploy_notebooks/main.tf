@@ -34,6 +34,15 @@ module "databricks_workspace_management" {
     }
   ]
   # ------------------------------------------------
+  # NOTEBOOK ACCESS CONTROL
+  # ------------------------------------------------
+  notebook_access_control = [
+    {
+      group_name       = "demo"
+      permission_level = "CAN_READ"
+    }
+  ]
+  # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
   prjid  = var.prjid
