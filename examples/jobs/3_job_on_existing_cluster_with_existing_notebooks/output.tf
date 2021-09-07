@@ -2,6 +2,7 @@ output "notebook_url" {
   description = "databricks notebook url"
   value       = module.databricks_workspace_management.notebook_url
 }
+
 output "new_cluster_new_job_new_notebooks_job" {
   description = "databricks job url"
   value       = module.databricks_workspace_management.new_cluster_new_job_new_notebooks_job

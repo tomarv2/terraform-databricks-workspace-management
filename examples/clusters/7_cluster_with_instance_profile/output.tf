@@ -3,6 +3,11 @@ output "cluster_id" {
   value       = module.databricks_workspace_management.cluster_id
 }
 
+output "standalone_cluster_id" {
+  description = "databricks standalone cluster id"
+  value       = module.databricks_workspace_management.single_node_cluster_id
+}
+
 output "databricks_secret_acl" {
   description = "databricks secret acl"
   value       = module.databricks_workspace_management.databricks_secret_acl

@@ -97,6 +97,38 @@ resource "databricks_permissions" "existing_cluster_new_job_new_notebooks" {
   }
 }
 # ------------------------------------------------
+# 3. NEW CLUSTER WITH EXITING NOTEBOOKS
+# ------------------------------------------------
+resource "databricks_permissions" "new_cluster_new_job_existing_notebooks" {
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id == null && var.remote_notebooks != null) ? databricks_job.new_cluster_new_job_existing_notebooks : {}
+
+  job_id = each.value.id
+
+  dynamic "access_control" {
+    for_each = var.jobs_access_control != null ? var.jobs_access_control : []
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+# ------------------------------------------------
+# 4. EXISTING CLUSTER WITH EXITING NOTEBOOKS
+# ------------------------------------------------
+resource "databricks_permissions" "existing_cluster_new_job_existing_notebooks" {
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id != null && var.remote_notebooks != null) ? databricks_job.existing_cluster_new_job_existing_notebooks : {}
+
+  job_id = each.value.id
+
+  dynamic "access_control" {
+    for_each = var.jobs_access_control != null ? var.jobs_access_control : []
+    content {
+      group_name       = access_control.value.group_name
+      permission_level = access_control.value.permission_level
+    }
+  }
+}
+# ------------------------------------------------
 # Notebooks Permissions
 # ------------------------------------------------
 resource "databricks_permissions" "notebook" {
