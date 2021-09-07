@@ -28,22 +28,7 @@ output "databricks_group_member" {
   value       = module.databricks_workspace_management.databricks_group_member
 }
 
-output "cluster_permissions" {
-  description = "databricks cluster permissions"
-  value       = module.databricks_workspace_management.cluster_permissions
-}
-
-output "cluster_policy_permissions" {
+output "cluster_policy_id" {
   description = "databricks cluster policy permissions"
-  value       = module.databricks_workspace_management.cluster_policy_permissions
-}
-
-output "driver_pool_permissions" {
-  description = "databricks driver pool permissions"
-  value       = module.databricks_workspace_management.driver_pool_permissions
-}
-
-output "worker_pool_permissions" {
-  description = "databricks worker pool permissions"
-  value       = module.databricks_workspace_management.driver_pool_permissions
+  value       = module.databricks_workspace_management.cluster_policy_id
 }

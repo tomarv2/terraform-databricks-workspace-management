@@ -16,36 +16,13 @@ terraform {
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://<workspace_url>.cloud.databricks.com"
+  workspace_url = var.workspace_url
   dapi_token    = var.dapi_token
   # ------------------------------------------------
   # CLUSTER
   # ------------------------------------------------
-  deploy_cluster                  = true
-  cluster_autotermination_minutes = 30
-  fixed_value                     = 1
-  auto_scaling                    = [2, 3]
-  worker_node_type_id             = "i3.large"
-  driver_node_type_id             = "i3.large"
-  spark_version                   = "8.3.x-scala2.12"
-  spark_conf = {
-    "spark.databricks.io.cache.enabled" = true
-    "spark.driver.maxResultSize"        = "100g"
-  }
-  add_instance_profile_to_workspace = true
-
-  aws_attributes = {
-    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
-  }
-  # ------------------------------------------------
-  # CLUSTER PERMISSIONS
-  # ------------------------------------------------
-  cluster_access_control = [
-    {
-      group_name       = "seceng"
-      permission_level = "CAN_RESTART"
-    }
-  ]
+  deploy_cluster = true
+  fixed_value    = 1
   # ------------------------------------------------
   # INSTANCE POOL
   # ------------------------------------------------
@@ -58,8 +35,8 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   instance_pool_access_control = [
     {
-      group_name       = "seceng"
-      permission_level = "CAN_RESTART"
+      group_name       = "demo"
+      permission_level = "CAN_ATTACH_TO"
     }
   ]
   # ------------------------------------------------

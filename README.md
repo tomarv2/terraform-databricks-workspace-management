@@ -40,7 +40,7 @@
 
 ## What this module does?
 
-### [Deploy Cluster](examples/cluster)
+### [Deploy Cluster](examples/clusters)
 
 - This is where you would normally start with if you have just deployed your databricks workspace.
 
@@ -103,7 +103,7 @@ curl -X GET --header "Authorization: Bearer $DAPI_TOKEN"  https://<workspace_nam
 --data '{ "sort_order": "DESC", "sort_column": "POLICY_CREATION_TIME" }'
 ```
 
-### [Cluster Policy ACL]()
+### Cluster Policy ACL
 
 ```
 policy_access_control = [
@@ -153,14 +153,17 @@ instance_pool_access_control = [
 > If `deploy_worker_instance_pool` is set to `true` and `auto_scaling` is enabled.
 > Ensure `max_capacity` of Cluster Instance Pool is more than `auto_scaling` max value for Cluster.
 
-### [Deploy Job](examples/job)
+### [Deploy Job](examples/jobs)
 
 Two options are available:
 
 - Deploy Job to an existing cluster.
-- Deploy new cluster and then deploy Job.
+- Deploy new Cluster and then deploy Job.
 
-Note: `Job name` and `Notebook name` is same.
+Two options are available to attach notebooks to a job:
+
+- Attach existing notebook to a job.
+- Create new notebook and attach it to a job.
 
 ### [Jobs ACL](https://docs.databricks.com/security/access-control/jobs-acl.html)
 
@@ -184,23 +187,23 @@ job_access_control = [
 ]
 ```
 
-### [Deploy Notebook](examples/notebook)
+### [Deploy Notebook](examples/notebooks)
 
 Put notebooks in notebooks folder and provide below information:
 
 ```
-local_notebooks = [
-  {
-    name       = "local_demo_job1"
-    language   = "PYTHON"
-    local_path = "notebooks/sample1.py"
-    path       = "/Shared/demo/sample1.py"
-  },
-  {
-    name       = "local_demo_job2"
-    local_path = "notebooks/sample2.py"
-  }
-]
+  notebooks = [
+    {
+      name       = "demo_notebook1"
+      language   = "PYTHON"
+      local_path = "notebooks/sample1.py"
+      path       = "/Shared/demo/sample1.py"
+    },
+    {
+      name       = "demo_notebook2"
+      local_path = "notebooks/sample2.py"
+    }
+  ]
 ```
 ### [Notebook ACL]()
 
