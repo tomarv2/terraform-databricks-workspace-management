@@ -193,7 +193,7 @@ variable "language" {
 }
 
 variable "local_path" {
-  description = "Notebook location on user machine"
+  description = "Notebook(s) location on users machine"
   type        = string
   default     = null
 }
