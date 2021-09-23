@@ -111,14 +111,8 @@ variable "spark_conf" {
 
 variable "add_instance_profile_to_workspace" {
   description = "Existing AWS instance profile ARN"
-  type        = any
+  type        = bool
   default     = false
-}
-
-variable "instance_profile_arn" {
-  description = "ARN attribute of aws_iam_instance_profile output, the EC2 instance profile association to AWS IAM role. This ARN would be validated upon resource creation and it's not possible to skip validation."
-  type        = any
-  default     = null
 }
 
 variable "is_meta_instance_profile" {
@@ -199,26 +193,25 @@ variable "language" {
 }
 
 variable "local_path" {
-  description = "notebook location on user machine"
+  description = "Notebook(s) location on users machine"
   type        = string
   default     = null
 }
 
-
 variable "local_notebooks" {
-  description = "nested block: NestingSet, min items: 0, max items: 0"
+  description = "Local path to the notebook(s) that will be used by the job"
   type        = any
   default     = []
 }
 
 variable "remote_notebooks" {
-  description = "nested block: NestingSet, min items: 0, max items: 0"
+  description = "Path to notebook(s) in the databricks workspace that will be used by the job"
   type        = any
   default     = []
 }
 
 variable "notebooks" {
-  description = "nested block: NestingSet, min items: 0, max items: 0"
+  description = "Local path to the notebook(s) that will be deployed"
   type        = any
   default     = []
 }
