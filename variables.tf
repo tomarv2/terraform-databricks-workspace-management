@@ -390,3 +390,15 @@ variable "notebooks_access_control" {
   description = "Notebook access control"
   default     = null
 }
+
+variable "existing_cluster" {
+  type        = bool
+  description = "Existing job cluster"
+  default     = false
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name"
+  default     = null
+}
