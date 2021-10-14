@@ -11,7 +11,7 @@ resource "databricks_instance_profile" "shared" {
 resource "databricks_cluster" "cluster" {
   count = (var.deploy_cluster == true && (var.fixed_value != 0 || var.auto_scaling != null) ? 1 : 0)
 
-  cluster_name = "${var.teamid}-${var.prjid} (Terraform managed)"
+  cluster_name = var.cluster_name != null ? var.cluster_name : "${var.teamid}-${var.prjid} (Terraform managed)"
 
   policy_id           = var.cluster_policy_id == null && var.deploy_cluster_policy == false ? null : local.cluster_policy_id
   spark_version       = var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
@@ -47,8 +47,10 @@ resource "databricks_cluster" "cluster" {
 }
 
 resource "databricks_cluster" "single_node_cluster" {
-  count         = var.deploy_cluster == true && var.fixed_value == 0 && var.auto_scaling == null ? 1 : 0
-  cluster_name  = "${var.teamid}-${var.prjid} (Terraform managed)"
+  count = var.deploy_cluster == true && var.fixed_value == 0 && var.auto_scaling == null ? 1 : 0
+
+  cluster_name = var.cluster_name != null ? var.cluster_name : "${var.teamid}-${var.prjid} (Terraform managed)"
+
   spark_version = var.spark_version != null ? var.spark_version : data.databricks_spark_version.latest.id
   node_type_id  = var.deploy_worker_instance_pool != true ? local.driver_node_type : null
   num_workers   = 0

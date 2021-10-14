@@ -70,6 +70,10 @@ cluster_access_control = [
   {
     group_name       = "<group_name>"
     permission_level = "CAN_RESTART"
+  },
+  {
+    user_name       = "<user_name>"
+    permission_level = "CAN_RESTART"
   }
 ]
 ```
@@ -110,6 +114,10 @@ policy_access_control = [
   {
     group_name       = "<group_name>"
     permission_level = "CAN_USE"
+  },
+  {
+    user_name       = "<user_name>"
+    permission_level = "CAN_USE"
   }
 ]
 ```
@@ -144,7 +152,11 @@ instance_pool_access_control = [
   {
     group_name       = "<group_name>"
     permission_level = "CAN_ATTACH_TO"
-  }
+  },
+  {
+    user_name       = "<user_name>"
+    permission_level = "CAN_ATTACH_TO"
+  },
 ]
 ```
 
@@ -183,6 +195,10 @@ jobs_access_control = [
   {
     group_name       = "<group_name>"
     permission_level = "CAN_MANAGE_RUN"
+  },
+   {
+    user_name       = "<user_name>"
+    permission_level = "CAN_MANAGE_RUN"
   }
 ]
 ```
@@ -214,6 +230,10 @@ notebooks_access_control = [
   {
     group_name       = "<group_name>"
     permission_level = "CAN_MANAGE"
+  },
+  {
+    user_name       = "<user_name>"
+    permission_level = "CAN_MANAGE"
   }
 ]
 ```
@@ -238,7 +258,7 @@ terraform destroy -var='teamid=tryme' -var='prjid=project'
 
 #### Recommended method (store remote state in S3 using `prjid` and `teamid` to create directory structure):
 
-- Create python 3.6+ virtual environment
+- Create python 3.8+ virtual environment
 ```
 python3 -m venv <venv name>
 ```
@@ -321,7 +341,6 @@ Error: Failed to delete token in Scope <scope name>
 ```
 Error: Scope <scope name> does not exist!
 ```
-
 ## Requirements
 
 | Name | Version |
@@ -360,8 +379,10 @@ No modules.
 | [databricks_notebook.notebook_file_deployment](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/notebook) | resource |
 | [databricks_permissions.cluster](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.driver_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.existing_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.jobs_notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
 | [databricks_permissions.policy](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
@@ -376,7 +397,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_add_instance_profile_to_workspace"></a> [add\_instance\_profile\_to\_workspace](#input\_add\_instance\_profile\_to\_workspace) | Existing AWS instance profile ARN | `any` | `false` | no |
+| <a name="input_add_instance_profile_to_workspace"></a> [add\_instance\_profile\_to\_workspace](#input\_add\_instance\_profile\_to\_workspace) | Existing AWS instance profile ARN | `bool` | `false` | no |
 | <a name="input_allow_cluster_create"></a> [allow\_cluster\_create](#input\_allow\_cluster\_create) | This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks\_permissions and cluster\_id argument. Everyone without allow\_cluster\_create argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy. | `bool` | `true` | no |
 | <a name="input_allow_instance_pool_create"></a> [allow\_instance\_pool\_create](#input\_allow\_instance\_pool\_create) | This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks\_permissions and instance\_pool\_id argument. | `bool` | `true` | no |
 | <a name="input_allow_sql_analytics_access"></a> [allow\_sql\_analytics\_access](#input\_allow\_sql\_analytics\_access) | This is a field to allow the group to have access to SQL Analytics feature through databricks\_sql\_endpoint. | `bool` | `true` | no |
@@ -386,6 +407,7 @@ No modules.
 | <a name="input_cluster_access_control"></a> [cluster\_access\_control](#input\_cluster\_access\_control) | Cluster access control | `any` | `null` | no |
 | <a name="input_cluster_autotermination_minutes"></a> [cluster\_autotermination\_minutes](#input\_cluster\_autotermination\_minutes) | cluster auto termination duration | `number` | `30` | no |
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | Existing cluster id | `string` | `null` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name | `string` | `null` | no |
 | <a name="input_cluster_policy_id"></a> [cluster\_policy\_id](#input\_cluster\_policy\_id) | Exiting cluster policy id | `string` | `null` | no |
 | <a name="input_create_group"></a> [create\_group](#input\_create\_group) | Create a new group, if group already exists the deployment will fail. | `bool` | `false` | no |
 | <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Create a new user, if user already exists the deployment will fail. | `bool` | `false` | no |
@@ -400,6 +422,7 @@ No modules.
 | <a name="input_deploy_worker_instance_pool"></a> [deploy\_worker\_instance\_pool](#input\_deploy\_worker\_instance\_pool) | Worker instance pool | `bool` | `false` | no |
 | <a name="input_driver_node_type_id"></a> [driver\_node\_type\_id](#input\_driver\_node\_type\_id) | The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node\_type\_id. | `string` | `null` | no |
 | <a name="input_email_notifications"></a> [email\_notifications](#input\_email\_notifications) | Email notification block. | `any` | `null` | no |
+| <a name="input_existing_cluster"></a> [existing\_cluster](#input\_existing\_cluster) | Existing job cluster | `bool` | `false` | no |
 | <a name="input_fixed_value"></a> [fixed\_value](#input\_fixed\_value) | Number of nodes in the cluster. | `number` | `0` | no |
 | <a name="input_gb_per_core"></a> [gb\_per\_core](#input\_gb\_per\_core) | Number of gigabytes per core available on instance. Conflicts with min\_memory\_gb. Defaults to 0. | `string` | `0` | no |
 | <a name="input_gpu"></a> [gpu](#input\_gpu) | GPU required or not. | `bool` | `false` | no |
@@ -408,13 +431,12 @@ No modules.
 | <a name="input_group_can_restart"></a> [group\_can\_restart](#input\_group\_can\_restart) | Group allowed to access the platform. | `string` | `""` | no |
 | <a name="input_idle_instance_autotermination_minutes"></a> [idle\_instance\_autotermination\_minutes](#input\_idle\_instance\_autotermination\_minutes) | idle instance auto termination duration | `number` | `20` | no |
 | <a name="input_instance_pool_access_control"></a> [instance\_pool\_access\_control](#input\_instance\_pool\_access\_control) | Instance pool access control | `any` | `null` | no |
-| <a name="input_instance_profile_arn"></a> [instance\_profile\_arn](#input\_instance\_profile\_arn) | ARN attribute of aws\_iam\_instance\_profile output, the EC2 instance profile association to AWS IAM role. This ARN would be validated upon resource creation and it's not possible to skip validation. | `any` | `null` | no |
 | <a name="input_is_meta_instance_profile"></a> [is\_meta\_instance\_profile](#input\_is\_meta\_instance\_profile) | Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough. | `any` | `false` | no |
 | <a name="input_jobs_access_control"></a> [jobs\_access\_control](#input\_jobs\_access\_control) | Jobs access control | `any` | `null` | no |
 | <a name="input_language"></a> [language](#input\_language) | notebook language | `string` | `"PYTHON"` | no |
 | <a name="input_local_disk"></a> [local\_disk](#input\_local\_disk) | Pick only nodes with local storage. Defaults to false. | `string` | `true` | no |
-| <a name="input_local_notebooks"></a> [local\_notebooks](#input\_local\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
-| <a name="input_local_path"></a> [local\_path](#input\_local\_path) | notebook location on user machine | `string` | `null` | no |
+| <a name="input_local_notebooks"></a> [local\_notebooks](#input\_local\_notebooks) | Local path to the notebook(s) that will be used by the job | `any` | `[]` | no |
+| <a name="input_local_path"></a> [local\_path](#input\_local\_path) | Notebook(s) location on users machine | `string` | `null` | no |
 | <a name="input_max_capacity"></a> [max\_capacity](#input\_max\_capacity) | instance pool maximum capacity | `number` | `3` | no |
 | <a name="input_max_concurrent_runs"></a> [max\_concurrent\_runs](#input\_max\_concurrent\_runs) | An optional maximum allowed number of concurrent runs of the job. | `number` | `null` | no |
 | <a name="input_max_retries"></a> [max\_retries](#input\_max\_retries) | An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED result\_state or INTERNAL\_ERROR life\_cycle\_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry. | `number` | `0` | no |
@@ -424,13 +446,13 @@ No modules.
 | <a name="input_min_memory_gb"></a> [min\_memory\_gb](#input\_min\_memory\_gb) | Minimum amount of memory per node in gigabytes. Defaults to 0. | `string` | `0` | no |
 | <a name="input_min_retry_interval_millis"></a> [min\_retry\_interval\_millis](#input\_min\_retry\_interval\_millis) | An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried. | `number` | `null` | no |
 | <a name="input_ml"></a> [ml](#input\_ml) | ML required or not. | `bool` | `false` | no |
-| <a name="input_notebooks_access_control"></a> [notebook\_access\_control](#input\_notebook\_access\_control) | Notebook access control | `any` | `null` | no |
-| <a name="input_notebooks"></a> [notebooks](#input\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
+| <a name="input_notebooks"></a> [notebooks](#input\_notebooks) | Local path to the notebook(s) that will be deployed | `any` | `[]` | no |
+| <a name="input_notebooks_access_control"></a> [notebooks\_access\_control](#input\_notebooks\_access\_control) | Notebook access control | `any` | `null` | no |
 | <a name="input_num_workers"></a> [num\_workers](#input\_num\_workers) | number of workers for job | `number` | `1` | no |
 | <a name="input_policy_access_control"></a> [policy\_access\_control](#input\_policy\_access\_control) | Policy access control | `any` | `null` | no |
 | <a name="input_policy_overrides"></a> [policy\_overrides](#input\_policy\_overrides) | Cluster policy overrides | `any` | `null` | no |
 | <a name="input_prjid"></a> [prjid](#input\_prjid) | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_remote_notebooks"></a> [remote\_notebooks](#input\_remote\_notebooks) | nested block: NestingSet, min items: 0, max items: 0 | `any` | `[]` | no |
+| <a name="input_remote_notebooks"></a> [remote\_notebooks](#input\_remote\_notebooks) | Path to notebook(s) in the databricks workspace that will be used by the job | `any` | `[]` | no |
 | <a name="input_retry_on_timeout"></a> [retry\_on\_timeout](#input\_retry\_on\_timeout) | An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout. | `bool` | `false` | no |
 | <a name="input_schedule"></a> [schedule](#input\_schedule) | Job schedule configuration. | `map(any)` | `null` | no |
 | <a name="input_spark_conf"></a> [spark\_conf](#input\_spark\_conf) | Optional Spark configuration block | `any` | `null` | no |
