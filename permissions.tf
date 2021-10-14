@@ -10,7 +10,7 @@ resource "databricks_permissions" "worker_pool" {
     for_each = var.instance_pool_access_control
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -25,7 +25,7 @@ resource "databricks_permissions" "driver_pool" {
     for_each = var.instance_pool_access_control
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -42,7 +42,7 @@ resource "databricks_permissions" "cluster" {
     for_each = var.cluster_access_control
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -60,7 +60,7 @@ resource "databricks_permissions" "policy" {
     for_each = var.policy_access_control
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -80,7 +80,7 @@ resource "databricks_permissions" "new_cluster_new_job_new_notebooks" {
     for_each = var.jobs_access_control != null ? var.jobs_access_control : []
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -97,7 +97,7 @@ resource "databricks_permissions" "existing_cluster_new_job_new_notebooks" {
     for_each = var.jobs_access_control != null ? var.jobs_access_control : []
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -114,7 +114,7 @@ resource "databricks_permissions" "new_cluster_new_job_existing_notebooks" {
     for_each = var.jobs_access_control != null ? var.jobs_access_control : []
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -131,7 +131,7 @@ resource "databricks_permissions" "existing_cluster_new_job_existing_notebooks" 
     for_each = var.jobs_access_control != null ? var.jobs_access_control : []
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -148,7 +148,7 @@ resource "databricks_permissions" "notebook" {
     for_each = var.notebooks_access_control != null ? var.notebooks_access_control : []
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
@@ -163,7 +163,7 @@ resource "databricks_permissions" "jobs_notebook" {
     for_each = var.notebooks_access_control != null ? var.notebooks_access_control : []
     content {
       group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
-      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
+      user_name        = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
