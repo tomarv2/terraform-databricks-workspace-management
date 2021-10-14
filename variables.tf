@@ -396,3 +396,9 @@ variable "existing_cluster" {
   description = "Existing job cluster"
   default     = false
 }
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name"
+  default     = null
+}
