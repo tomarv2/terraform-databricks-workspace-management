@@ -39,8 +39,8 @@ resource "databricks_permissions" "cluster" {
   dynamic "access_control" {
     for_each = var.cluster_access_control
     content {
-      group_name       = access_control.value.group_name != null ? access_control.value.group_name : null
-      user_name        = access_control.value.user_name != null ? access_control.value.user_name : null
+      group_name       = lookup(access_control.value, "group_name", null) != null ? access_control.value.group_name : null
+      user_name       = lookup(access_control.value, "user_name", null) != null ? access_control.value.user_name : null
       permission_level = access_control.value.permission_level
     }
   }
