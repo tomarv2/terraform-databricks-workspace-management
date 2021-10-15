@@ -42,7 +42,9 @@ resource "databricks_cluster" "cluster" {
   }
 
   autotermination_minutes = var.cluster_autotermination_minutes
-  custom_tags             = merge(local.shared_tags)
+  #custom_tags             = merge(local.shared_tags)
+  custom_tags              = var.custom_tags != null ? merge(var.custom_tags, local.shared_tags) : merge(local.shared_tags)
+
   spark_conf              = var.spark_conf
 }
 
