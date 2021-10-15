@@ -402,3 +402,9 @@ variable "cluster_name" {
   description = "Cluster name"
   default     = null
 }
+
+variable "custom_tags" {
+  type        = any
+  description = "Extra custom tags"
+  default     = null
+}
