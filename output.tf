@@ -8,6 +8,16 @@ output "single_node_cluster_id" {
   value       = join("", databricks_cluster.single_node_cluster.*.id)
 }
 
+output "cluster_name" {
+  description = "databricks cluster name"
+  value       = join("", databricks_cluster.cluster.*.cluster_name)
+}
+
+output "single_node_cluster_name" {
+  description = "databricks cluster name"
+  value       = join("", databricks_cluster.single_node_cluster.*.cluster_name)
+}
+
 /*
 output "databricks_token" {
   description = "databricks token"
