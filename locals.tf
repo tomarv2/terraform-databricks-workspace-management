@@ -6,11 +6,14 @@ locals {
     }
   )
 
-  # JOBS CLUSTER
-  cluster_info = var.cluster_id == null ? join("", databricks_cluster.cluster.*.id) : var.cluster_id
+  # CLUSTER
+
+  type_of_cluster = var.fixed_value == 0 ? join("", databricks_cluster.cluster.*.id) : join("", databricks_cluster.single_node_cluster.*.id)
+
+  cluster_info = var.cluster_id == null ? local.type_of_cluster : var.cluster_id
 
   # USERS
-  databricks_username    = var.databricks_username != "" ? var.databricks_username : "${data.databricks_current_user.me.alphanumeric}"
+  databricks_username    = var.databricks_username != "" ? var.databricks_username : data.databricks_current_user.me.alphanumeric
   databricks_displayname = var.databricks_username != "" ? "${var.databricks_username} (Terraform managed)" : data.databricks_current_user.me.alphanumeric
 
   # WORKER NODE TYPE

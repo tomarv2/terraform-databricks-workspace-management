@@ -60,6 +60,11 @@ variable "deploy_cluster" {
   type        = bool
 }
 
+variable "deploy_job_cluster" {
+  description = "feature flag, true or false"
+  default     = false
+  type        = bool
+}
 
 variable "cluster_autotermination_minutes" {
   description = "cluster auto termination duration"
@@ -389,12 +394,6 @@ variable "notebooks_access_control" {
   type        = any
   description = "Notebook access control"
   default     = null
-}
-
-variable "existing_cluster" {
-  type        = bool
-  description = "Existing job cluster"
-  default     = false
 }
 
 variable "cluster_name" {

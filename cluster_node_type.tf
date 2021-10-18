@@ -1,5 +1,5 @@
 data "databricks_node_type" "cluster_node_type" {
-  count = var.deploy_cluster ? 1 : 0
+  count = var.deploy_cluster || var.deploy_job_cluster ? 1 : 0
 
   local_disk    = var.local_disk
   min_cores     = var.min_cores

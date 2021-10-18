@@ -3,13 +3,13 @@ locals {
 }
 
 resource "databricks_instance_profile" "shared" {
-  count = (var.deploy_cluster == true && var.add_instance_profile_to_workspace == true) ? 1 : 0
+  count = var.deploy_cluster == true && var.add_instance_profile_to_workspace == true ? 1 : 0
 
   instance_profile_arn = lookup(var.aws_attributes, "instance_profile_arn", null)
 }
 
 resource "databricks_cluster" "cluster" {
-  count = (var.deploy_cluster == true && (var.fixed_value != 0 || var.auto_scaling != null) ? 1 : 0)
+  count = var.deploy_cluster == true && (var.fixed_value != 0 || var.auto_scaling != null) ? 1 : 0
 
   cluster_name = var.cluster_name != null ? var.cluster_name : "${var.teamid}-${var.prjid} (Terraform managed)"
 
@@ -42,14 +42,13 @@ resource "databricks_cluster" "cluster" {
   }
 
   autotermination_minutes = var.cluster_autotermination_minutes
-  #custom_tags             = merge(local.shared_tags)
-  custom_tags              = var.custom_tags != null ? merge(var.custom_tags, local.shared_tags) : merge(local.shared_tags)
+  custom_tags             = var.custom_tags != null ? merge(var.custom_tags, local.shared_tags) : merge(local.shared_tags)
 
-  spark_conf              = var.spark_conf
+  spark_conf = var.spark_conf
 }
 
 resource "databricks_cluster" "single_node_cluster" {
-  count = var.deploy_cluster == true && var.fixed_value == 0 && var.auto_scaling == null ? 1 : 0
+  count = var.deploy_cluster == true && var.fixed_value == 0 ? 1 : 0
 
   cluster_name = var.cluster_name != null ? var.cluster_name : "${var.teamid}-${var.prjid} (Terraform managed)"
 
