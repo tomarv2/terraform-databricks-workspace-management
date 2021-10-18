@@ -341,13 +341,14 @@ Error: Failed to delete token in Scope <scope name>
 ```
 Error: Scope <scope name> does not exist!
 ```
+
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.47 |
-| <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) | ~> 0.3.5 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.61 |
+| <a name="requirement_databricks"></a> [databricks](#requirement\_databricks) | >= 0.3.9 |
 
 ## Providers
 
@@ -411,6 +412,7 @@ No modules.
 | <a name="input_cluster_policy_id"></a> [cluster\_policy\_id](#input\_cluster\_policy\_id) | Exiting cluster policy id | `string` | `null` | no |
 | <a name="input_create_group"></a> [create\_group](#input\_create\_group) | Create a new group, if group already exists the deployment will fail. | `bool` | `false` | no |
 | <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Create a new user, if user already exists the deployment will fail. | `bool` | `false` | no |
+| <a name="input_custom_tags"></a> [custom\_tags](#input\_custom\_tags) | Extra custom tags | `any` | `null` | no |
 | <a name="input_dapi_token"></a> [dapi\_token](#input\_dapi\_token) | databricks dapi token | `string` | n/a | yes |
 | <a name="input_dapi_token_duration"></a> [dapi\_token\_duration](#input\_dapi\_token\_duration) | databricks dapi token duration | `number` | `3600` | no |
 | <a name="input_databricks_secret_key"></a> [databricks\_secret\_key](#input\_databricks\_secret\_key) | databricks token type | `string` | `"token"` | no |
@@ -418,11 +420,11 @@ No modules.
 | <a name="input_deploy_cluster"></a> [deploy\_cluster](#input\_deploy\_cluster) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_cluster_policy"></a> [deploy\_cluster\_policy](#input\_deploy\_cluster\_policy) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_driver_instance_pool"></a> [deploy\_driver\_instance\_pool](#input\_deploy\_driver\_instance\_pool) | Driver instance pool | `bool` | `false` | no |
+| <a name="input_deploy_job_cluster"></a> [deploy\_job\_cluster](#input\_deploy\_job\_cluster) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_jobs"></a> [deploy\_jobs](#input\_deploy\_jobs) | feature flag, true or false | `bool` | `false` | no |
 | <a name="input_deploy_worker_instance_pool"></a> [deploy\_worker\_instance\_pool](#input\_deploy\_worker\_instance\_pool) | Worker instance pool | `bool` | `false` | no |
 | <a name="input_driver_node_type_id"></a> [driver\_node\_type\_id](#input\_driver\_node\_type\_id) | The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node\_type\_id. | `string` | `null` | no |
 | <a name="input_email_notifications"></a> [email\_notifications](#input\_email\_notifications) | Email notification block. | `any` | `null` | no |
-| <a name="input_existing_cluster"></a> [existing\_cluster](#input\_existing\_cluster) | Existing job cluster | `bool` | `false` | no |
 | <a name="input_fixed_value"></a> [fixed\_value](#input\_fixed\_value) | Number of nodes in the cluster. | `number` | `0` | no |
 | <a name="input_gb_per_core"></a> [gb\_per\_core](#input\_gb\_per\_core) | Number of gigabytes per core available on instance. Conflicts with min\_memory\_gb. Defaults to 0. | `string` | `0` | no |
 | <a name="input_gpu"></a> [gpu](#input\_gpu) | GPU required or not. | `bool` | `false` | no |
@@ -468,6 +470,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | databricks cluster id |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | databricks cluster name |
 | <a name="output_cluster_policy_id"></a> [cluster\_policy\_id](#output\_cluster\_policy\_id) | databricks cluster policy permissions |
 | <a name="output_databricks_group"></a> [databricks\_group](#output\_databricks\_group) | databricks group name |
 | <a name="output_databricks_group_member"></a> [databricks\_group\_member](#output\_databricks\_group\_member) | databricks group members |
@@ -486,3 +489,4 @@ No modules.
 | <a name="output_notebook_url"></a> [notebook\_url](#output\_notebook\_url) | databricks notebook url |
 | <a name="output_notebook_url_standalone"></a> [notebook\_url\_standalone](#output\_notebook\_url\_standalone) | databricks notebook url standalone |
 | <a name="output_single_node_cluster_id"></a> [single\_node\_cluster\_id](#output\_single\_node\_cluster\_id) | databricks cluster id |
+| <a name="output_single_node_cluster_name"></a> [single\_node\_cluster\_name](#output\_single\_node\_cluster\_name) | databricks cluster name |
