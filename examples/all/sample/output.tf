@@ -3,26 +3,9 @@ output "cluster_id" {
   value       = module.databricks_workspace_management.cluster_id
 }
 
-/*
-output "databricks_token" {
-  description = "databricks token"
-  value       = module.databricks_workspace_management.databricks_token
-}
-*/
-
-output "databricks_job_url" {
-  description = "databricks job url"
-  value       = module.databricks_workspace_management.job_url
-}
-
 output "databricks_notebook_url" {
   description = "databricks notebook url"
   value       = module.databricks_workspace_management.notebook_url
-}
-
-output "job_new_cluster_url" {
-  description = "databricks new cluster job url"
-  value       = module.databricks_workspace_management.job_new_cluster_url
 }
 
 output "databricks_secret_acl" {
@@ -48,30 +31,4 @@ output "databricks_user_id" {
 output "databricks_group_member" {
   description = "databricks group members"
   value       = module.databricks_workspace_management.databricks_group_member
-}
-
-output "databricks_permissions_notebook" {
-  description = "databricks notebook permissions"
-  value       = module.databricks_workspace_management.databricks_permissions_notebook
-}
-
-/*
-output "databricks_permissions_job" {
-  value = module.databricks_workspace_management.databricks_permissions_job
-}
-*/
-
-output "databricks_permissions_cluster" {
-  description = "databricks cluster permissions"
-  value       = module.databricks_workspace_management.databricks_permissions_cluster
-}
-
-output "databricks_permissions_policy" {
-  description = "databricks cluster policy"
-  value       = module.databricks_workspace_management.databricks_permissions_policy
-}
-
-output "databricks_permissions_pool" {
-  description = "databricks instance pool permissions"
-  value       = module.databricks_workspace_management.databricks_permissions_pool
 }
