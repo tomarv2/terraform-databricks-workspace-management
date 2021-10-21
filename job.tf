@@ -41,7 +41,7 @@ resource "databricks_job" "new_cluster_new_job_new_notebooks" {
 
     spark_conf = var.spark_conf
   }
-
+  always_running = var.always_running
   notebook_task {
     notebook_path   = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.job_name}")
     base_parameters = var.task_parameters
@@ -114,7 +114,7 @@ resource "databricks_job" "new_cluster_new_job_existing_notebooks" {
 
     spark_conf = var.spark_conf
   }
-
+  always_running = var.always_running
   notebook_task {
     notebook_path   = lookup(each.value, "path")
     base_parameters = var.task_parameters
@@ -154,7 +154,7 @@ resource "databricks_job" "existing_cluster_new_job_new_notebooks" {
 
   name                = "${each.value.job_name} (Terraform managed)"
   existing_cluster_id = local.cluster_info
-
+  always_running      = var.always_running
   notebook_task {
     notebook_path   = lookup(each.value, "path", "${data.databricks_current_user.me.home}/${each.value.job_name}")
     base_parameters = var.task_parameters
@@ -194,7 +194,7 @@ resource "databricks_job" "existing_cluster_new_job_existing_notebooks" {
 
   name                = "${each.value.job_name} (Terraform managed)"
   existing_cluster_id = local.cluster_info
-
+  always_running      = var.always_running
   notebook_task {
     notebook_path   = lookup(each.value, "path")
     base_parameters = var.task_parameters
