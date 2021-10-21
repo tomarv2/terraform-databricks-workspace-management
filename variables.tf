@@ -188,6 +188,12 @@ variable "max_concurrent_runs" {
   default     = null
   type        = number
 }
+
+variable "always_running" {
+  description = "Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default."
+  default     = false
+  type        = bool
+}
 # ------------------------------------------------
 # Notebook
 # ------------------------------------------------
