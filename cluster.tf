@@ -44,7 +44,8 @@ resource "databricks_cluster" "cluster" {
   autotermination_minutes = var.cluster_autotermination_minutes
   custom_tags             = var.custom_tags != null ? merge(var.custom_tags, local.shared_tags) : merge(local.shared_tags)
 
-  spark_conf = var.spark_conf
+  spark_conf     = var.spark_conf
+  spark_env_vars = var.spark_env_vars
 }
 
 resource "databricks_cluster" "single_node_cluster" {
@@ -79,4 +80,7 @@ resource "databricks_cluster" "single_node_cluster" {
     "spark.databricks.cluster.profile" : "singleNode"
     "spark.master" : "local[*]"
   }
+
+  spark_env_vars = var.spark_env_vars
 }
+

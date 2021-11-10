@@ -103,13 +103,19 @@ variable "fixed_value" {
 }
 
 variable "aws_attributes" {
-  description = "Optional configuration block contains attributes related to clusters running on AWS"
+  description = "Optional configuration block contains attributes related to clusters running on AWS."
+  type        = any
+  default     = null
+}
+
+variable "spark_env_vars" {
+  description = "Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers."
   type        = any
   default     = null
 }
 
 variable "spark_conf" {
-  description = "Optional Spark configuration block"
+  description = "Map with key-value pairs to fine-tune Spark clusters, where you can provide custom Spark configuration properties in a cluster configuration."
   type        = any
   default     = null
 }
