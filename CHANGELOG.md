@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [v0.2.1](https://github.com/tomarv2/terraform-databricks-workspace-management/releases/tag/v0.2.1) - 2021-11-10 18:18:40
+## [v0.2.1](https://github.com/tomarv2/terraform-databricks-workspace-management/releases/tag/v0.2.1) - 2021-11-10 18:19:09
 
 Release for version refs/tags/v0.2.1. Please check CHANGELOG.md for more information.
 
