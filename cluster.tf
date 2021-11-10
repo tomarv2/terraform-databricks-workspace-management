@@ -38,6 +38,7 @@ resource "databricks_cluster" "cluster" {
       spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent", null)
       ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count", null)
       ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size", null)
+      ebs_volume_type        = lookup(aws_attributes.value, "ebs_volume_type", null)
     }
   }
 
@@ -67,6 +68,7 @@ resource "databricks_cluster" "single_node_cluster" {
       spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent", null)
       ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count", null)
       ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size", null)
+      ebs_volume_type        = lookup(aws_attributes.value, "ebs_volume_type", null)
     }
   }
 
