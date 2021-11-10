@@ -35,9 +35,9 @@ resource "databricks_cluster" "cluster" {
       zone_id                = lookup(aws_attributes.value, "zone_id", null)
       first_on_demand        = lookup(aws_attributes.value, "first_on_demand", null)
       availability           = lookup(aws_attributes.value, "availability", null)
-      spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent ", null)
-      ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count ", null)
-      ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size ", null)
+      spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent", null)
+      ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count", null)
+      ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size", null)
     }
   }
 
@@ -63,9 +63,9 @@ resource "databricks_cluster" "single_node_cluster" {
       zone_id                = lookup(aws_attributes.value, "zone_id", null)
       first_on_demand        = lookup(aws_attributes.value, "first_on_demand", null)
       availability           = lookup(aws_attributes.value, "availability", null)
-      spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent ", null)
-      ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count ", null)
-      ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size ", null)
+      spot_bid_price_percent = lookup(aws_attributes.value, "spot_bid_price_percent", null)
+      ebs_volume_count       = lookup(aws_attributes.value, "ebs_volume_count", null)
+      ebs_volume_size        = lookup(aws_attributes.value, "ebs_volume_size", null)
     }
   }
 
