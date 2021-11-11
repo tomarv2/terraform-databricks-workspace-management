@@ -18,14 +18,6 @@ output "single_node_cluster_name" {
   value       = join("", databricks_cluster.single_node_cluster.*.cluster_name)
 }
 
-/*
-output "databricks_token" {
-  description = "databricks token"
-  value       = databricks_token.pat.*.token_value
- sensitive   = true
-}
-*/
-
 output "notebook_url" {
   description = "databricks notebook url"
   value       = { for k, v in databricks_notebook.notebook_file : k => v.url }

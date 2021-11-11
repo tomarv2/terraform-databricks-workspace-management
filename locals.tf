@@ -1,8 +1,7 @@
 locals {
-  shared_tags = tomap(
+  single_node_tags = tomap(
     {
-      "Team"    = var.teamid,
-      "Project" = var.prjid
+      "ResourceClass" = "SingleNode"
     }
   )
 
