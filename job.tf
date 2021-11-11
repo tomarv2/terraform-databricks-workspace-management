@@ -37,7 +37,7 @@ resource "databricks_job" "new_cluster_new_job_new_notebooks" {
     }
 
     autotermination_minutes = var.cluster_autotermination_minutes
-    custom_tags             = var.custom_tags != null ? merge(var.custom_tags, local.shared_tags) : merge(local.shared_tags)
+    custom_tags             = var.custom_tags != null ? var.custom_tags : null
 
     spark_conf = var.spark_conf
   }
@@ -110,7 +110,7 @@ resource "databricks_job" "new_cluster_new_job_existing_notebooks" {
     }
 
     autotermination_minutes = var.cluster_autotermination_minutes
-    custom_tags             = var.custom_tags != null ? merge(var.custom_tags, local.shared_tags) : merge(local.shared_tags)
+    custom_tags             = var.custom_tags != null ? var.custom_tags : null
 
     spark_conf = var.spark_conf
   }
