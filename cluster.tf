@@ -73,7 +73,10 @@ resource "databricks_cluster" "single_node_cluster" {
   }
 
   autotermination_minutes = var.cluster_autotermination_minutes
-  custom_tags             = var.custom_tags != null ? var.custom_tags : null
+
+  custom_tags = {
+    "ResourceClass" = "SingleNode"
+  }
 
   spark_conf = {
     # Single-node
