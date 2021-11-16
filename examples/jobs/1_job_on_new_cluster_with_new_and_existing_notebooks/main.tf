@@ -23,7 +23,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   deploy_jobs               = true
   deploy_cluster            = true
-  num_workers               = 1
+  fixed_value               = 1
   retry_on_timeout          = false
   max_retries               = 3
   timeout                   = 30
