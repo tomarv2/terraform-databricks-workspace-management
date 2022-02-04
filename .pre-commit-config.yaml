@@ -17,7 +17,7 @@ repos:
           - '--args=--only=terraform_workspace_remote'
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v3.4.0
     hooks:
       - id: trailing-whitespace
       - id: check-merge-conflict
@@ -25,8 +25,8 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: '2.0.469'
+    rev: '2.0.531'
     hooks:
     - id: checkov
       verbose: true
-      args: [-d, '.', --framework,'terraform']
+      args: [-d, '.', --framework, 'terraform', --download-external-modules, 'True']
