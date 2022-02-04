@@ -35,7 +35,7 @@
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-databricks-workspace-management" /></a>).
 
 <p align="center">
-    <img width="700" height="350"  src="https://github.com/tomarv2/terraform-databricks-workspace-management/raw/develop/docs/images/databricks-workspace-management.png">
+    <img width="700" height="350"  src="https://github.com/tomarv2/terraform-databricks-workspace-management/raw/main/docs/images/databricks-workspace-management.png">
 </p>
 
 ## What this module does?
