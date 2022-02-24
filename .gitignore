@@ -82,3 +82,6 @@ _testmain.go
 # ignore test related file(s)
 **/test**
 **.
+
+# ignore terraform external modules
+**/.external_modules
