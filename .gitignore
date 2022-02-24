@@ -79,6 +79,9 @@ _testmain.go
 /test/run.out
 /test/times.out
 
-# ignore test file(s)
-**test**
-**remote_backend.tf**
+# ignore test related file(s)
+**/test**
+**.
+
+# ignore terraform external modules
+**/.external_modules
