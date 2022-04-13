@@ -1,32 +1,38 @@
 repos:
-  - repo: git://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.48.0
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.64.0
     hooks:
       - id: terraform_fmt
       - id: terraform_tflint
         args:
           - '--args=--only=terraform_deprecated_interpolation'
           - '--args=--only=terraform_deprecated_index'
+          - '--args=--only=terraform_unused_declarations'
           - '--args=--only=terraform_comment_syntax'
           - '--args=--only=terraform_documented_outputs'
           - '--args=--only=terraform_documented_variables'
           - '--args=--only=terraform_typed_variables'
-          - '--args=--only=terraform_module_pinned_source'
+          #- '--args=--only=terraform_module_pinned_source'
           - '--args=--only=terraform_naming_convention'
           - '--args=--only=terraform_required_providers'
+          - '--args=--only=terraform_standard_module_structure'
           - '--args=--only=terraform_workspace_remote'
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.1.0
     hooks:
       - id: trailing-whitespace
-      - id: check-merge-conflict
       - id: end-of-file-fixer
+      - id: check-docstring-first
       - id: check-yaml
+      - id: debug-statements
+      - id: double-quote-string-fixer
+      - id: name-tests-test
+      - id: requirements-txt-fixer
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: '2.0.531'
+    rev: '2.0.914'
     hooks:
     - id: checkov
       verbose: true
-      args: [-d, '.', --framework, 'terraform', --download-external-modules, 'True']
+      args: [-d, '.', --framework,'terraform']

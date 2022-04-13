@@ -342,6 +342,7 @@ Error: Failed to delete token in Scope <scope name>
 Error: Scope <scope name> does not exist!
 ```
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -354,7 +355,7 @@ Error: Scope <scope name> does not exist!
 
 | Name | Version |
 |------|---------|
-| <a name="provider_databricks"></a> [databricks](#provider\_databricks) | 0.3.5 |
+| <a name="provider_databricks"></a> [databricks](#provider\_databricks) | >= 0.3.9 |
 
 ## Modules
 
@@ -492,3 +493,4 @@ No modules.
 | <a name="output_notebook_url_standalone"></a> [notebook\_url\_standalone](#output\_notebook\_url\_standalone) | databricks notebook url standalone |
 | <a name="output_single_node_cluster_id"></a> [single\_node\_cluster\_id](#output\_single\_node\_cluster\_id) | databricks cluster id |
 | <a name="output_single_node_cluster_name"></a> [single\_node\_cluster\_name](#output\_single\_node\_cluster\_name) | databricks cluster name |
+<!-- END_TF_DOCS -->
