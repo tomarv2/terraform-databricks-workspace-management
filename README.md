@@ -9,8 +9,6 @@
         <img src="https://img.shields.io/github/commit-activity/m/tomarv2/terraform-databricks-workspace-management" /></a>
     <a href="https://stackoverflow.com/users/6679867/tomarv2" alt="Stack Exchange reputation">
         <img src="https://img.shields.io/stackexchange/stackoverflow/r/6679867"></a>
-    <a href="https://discord.gg/XH975bzN" alt="chat on Discord">
-        <img src="https://img.shields.io/discord/813961944443912223?logo=discord"></a>
     <a href="https://twitter.com/intent/follow?screen_name=varuntomar2019" alt="follow on Twitter">
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
@@ -19,7 +17,7 @@
 
 > ❗️ **Important**
 >
-> :point_right: This Terraform module assumes you have [Databricks Workspace](https://github.com/tomarv2/terraform-databricks-workspace) already deployed.
+> :point_right: This Terraform module assumes you have Databricks Workspace [AWS](https://github.com/tomarv2/terraform-databricks-workspace) or Azure already deployed.
 >
 > :point_right: Workspace URL
 >
@@ -28,8 +26,8 @@
 ## Versions
 
 - Module tested for Terraform 1.0.1.
-- `databrickslabs/databricks` provider version [0.3.9](https://registry.terraform.io/providers/databrickslabs/databricks/latest)
-- AWS provider version [3.61](https://registry.terraform.io/providers/hashicorp/aws/latest).
+- `databrickslabs/databricks` provider version [0.5.7](https://registry.terraform.io/providers/databrickslabs/databricks/latest)
+- AWS provider version [4.14](https://registry.terraform.io/providers/hashicorp/aws/latest).
 - `main` branch: Provider versions not pinned to keep up with Terraform releases.
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-databricks-workspace-management/tags" alt="GitHub tag">
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-databricks-workspace-management" /></a>).
@@ -122,17 +120,6 @@ policy_access_control = [
 ]
 ```
 
-### [Instance Profile](https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html)
-
-```
-add_instance_profile_to_workspace = true (default false)
-aws_attributes = {
-    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
-}
-```
-
-Note: `add_instance_profile_to_workspace` to add Instance profile to Databricks workspace. To use existing set it to `false`.
-
 ### [Instance Pool](https://docs.databricks.com/clusters/instance-pools/index.html)
 **Note:** To configure `Instance Pool`, add below configuration:
 
@@ -203,6 +190,18 @@ jobs_access_control = [
 ]
 ```
 
+## AWS
+### [Instance Profile](https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html)
+
+```
+add_instance_profile_to_workspace = true (default false)
+aws_attributes = {
+    instance_profile_arn = "arn:aws:iam::123456789012:instance-profile/aws-instance-role"
+}
+```
+
+Note: `add_instance_profile_to_workspace` to add Instance profile to Databricks workspace. To use existing set it to `false`.
+
 ### [Deploy Notebook](examples/notebooks)
 
 Put notebooks in notebooks folder and provide below information:
@@ -268,53 +267,14 @@ python3 -m venv <venv name>
 pip install tfremote
 ```
 
-- Set below environment variables:
-```
-export TF_AWS_BUCKET=<remote state bucket name>
-export TF_AWS_PROFILE=default
-export TF_AWS_BUCKET_REGION=us-west-2
-```
+- Set below environment variables based on cloud provider.
 
 - Updated `examples` directory with required values.
 
-- Run and verify the output before deploying:
-```
-tf -c=aws plan -var='teamid=foo' -var='prjid=bar'
-```
-
-- Run below to deploy:
-```
-tf -c=aws apply -var='teamid=foo' -var='prjid=bar'
-```
-
-- Run below to destroy:
-```
-tf -c=aws destroy -var='teamid=foo' -var='prjid=bar'
-```
 **NOTE:**
 
 - Read more on [tfremote](https://github.com/tomarv2/tfremote)
 ---
-
-#### Databricks workspace management with default config
-```
-module "databricks_workspace_management" {
-  source = "git::git@github.com:tomarv2/terraform-databricks-workspace-management.git"
-
-  workspace_url = "https://<workspace-url>.cloud.sample.com"
-  dapi_token    = "dapi123456789012"
-
-  deploy_cluster  = true
-  deploy_jobs      = true
-  deploy_notebook = true
-  notebook_path   = "notebooks/sample.py"
-  notebook_name   = "demo-notebook"
-  # -----------------------------------------
-  # Do not change the teamid, prjid once set.
-  teamid = var.teamid
-  prjid  = var.prjid
-}
-```
 
 Please refer to examples directory [link](examples) for references.
 

@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.64.0
+    rev: v1.71.0
     hooks:
       - id: terraform_fmt
       - id: terraform_tflint
@@ -12,7 +12,6 @@ repos:
           - '--args=--only=terraform_documented_outputs'
           - '--args=--only=terraform_documented_variables'
           - '--args=--only=terraform_typed_variables'
-          #- '--args=--only=terraform_module_pinned_source'
           - '--args=--only=terraform_naming_convention'
           - '--args=--only=terraform_required_providers'
           - '--args=--only=terraform_standard_module_structure'
@@ -29,10 +28,3 @@ repos:
       - id: double-quote-string-fixer
       - id: name-tests-test
       - id: requirements-txt-fixer
-
-  - repo: https://github.com/bridgecrewio/checkov.git
-    rev: '2.0.914'
-    hooks:
-    - id: checkov
-      verbose: true
-      args: [-d, '.', --framework,'terraform']
