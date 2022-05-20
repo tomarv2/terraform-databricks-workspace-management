@@ -293,7 +293,7 @@ Please refer to examples directory [link](examples) for references.
 
 #### Troubleshooting
 
-Common error messages. Try the step one again if you below error.
+If you see error messages. Try running the same the command again.
 
 ```
 Error: Failed to delete token in Scope <scope name>
