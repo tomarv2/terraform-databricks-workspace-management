@@ -17,7 +17,7 @@
 
 > ❗️ **Important**
 >
-> :point_right: This Terraform module assumes you have Databricks Workspace [AWS](https://github.com/tomarv2/terraform-databricks-workspace) or Azure already deployed.
+> :point_right: This module assumes you have Databricks Workspace [AWS](https://github.com/tomarv2/terraform-databricks-workspace) or Azure already deployed.
 >
 > :point_right: Workspace URL
 >
@@ -190,9 +190,10 @@ jobs_access_control = [
 ]
 ```
 
-## AWS
+### AWS only
 ### [Instance Profile](https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html)
 
+Add instance profile at cluster creation time. It can control which data a given cluster can access through cloud-native controls.
 ```
 add_instance_profile_to_workspace = true (default false)
 aws_attributes = {
