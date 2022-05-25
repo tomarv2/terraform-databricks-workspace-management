@@ -1,13 +1,6 @@
 locals {
-  single_node_tags = tomap(
-    {
-      "ResourceClass" = "SingleNode"
-    }
-  )
-
   # CLUSTER
-
-  type_of_cluster = var.fixed_value == 0 ? join("", databricks_cluster.single_node_cluster.*.id) : join("", databricks_cluster.cluster.*.id)
+  type_of_cluster = databricks_cluster.cluster[local.cluster_name].id
 
   cluster_info = var.cluster_id == null ? local.type_of_cluster : var.cluster_id
 
