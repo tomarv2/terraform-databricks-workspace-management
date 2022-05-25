@@ -84,6 +84,18 @@ variable "aws_attributes" {
   default     = null
 }
 
+variable "azure_attributes" {
+  description = "Optional configuration block contains attributes related to clusters running on Azure."
+  type        = any
+  default     = null
+}
+
+variable "gcp_attributes" {
+  description = "Optional configuration block contains attributes related to clusters running on GCP."
+  type        = any
+  default     = null
+}
+
 variable "spark_env_vars" {
   description = "Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers."
   type        = any

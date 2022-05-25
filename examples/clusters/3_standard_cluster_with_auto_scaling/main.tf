@@ -20,9 +20,7 @@ module "databricks_workspace_management" {
   # ------------------------------------------------
   deploy_cluster = true
 
-  fixed_value = 0
-  #fixed_value = 5
-  #auto_scaling   = [3, 5]
+  auto_scaling   = [3, 5]
 
   custom_tags = {
     "Application" : "DemoApp"
