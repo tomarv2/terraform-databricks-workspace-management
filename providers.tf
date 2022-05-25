@@ -2,11 +2,11 @@ terraform {
   required_version = ">= 1.0.1"
   required_providers {
     aws = {
-      version = ">= 3.61"
+      version = ">= 4.14"
     }
     databricks = {
       source  = "databrickslabs/databricks"
-      version = ">= 0.3.9"
+      version = ">= 0.5.7"
     }
   }
 }

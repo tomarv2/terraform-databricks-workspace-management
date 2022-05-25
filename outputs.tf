@@ -1,21 +1,11 @@
 output "cluster_id" {
   description = "databricks cluster id"
-  value       = join("", databricks_cluster.cluster.*.id)
-}
-
-output "single_node_cluster_id" {
-  description = "databricks cluster id"
-  value       = join("", databricks_cluster.single_node_cluster.*.id)
+  value       = databricks_cluster.cluster[local.cluster_name].id
 }
 
 output "cluster_name" {
   description = "databricks cluster name"
-  value       = join("", databricks_cluster.cluster.*.cluster_name)
-}
-
-output "single_node_cluster_name" {
-  description = "databricks cluster name"
-  value       = join("", databricks_cluster.single_node_cluster.*.cluster_name)
+  value       = databricks_cluster.cluster[local.cluster_name].cluster_name
 }
 
 output "notebook_url" {

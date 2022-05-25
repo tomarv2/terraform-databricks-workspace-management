@@ -7,30 +7,6 @@ variable "prjid" {
   description = "(Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply'"
   type        = string
 }
-
-variable "workspace_url" {
-  description = "databricks workspace url"
-  type        = string
-}
-# ------------------------------------------------
-# Token
-# ------------------------------------------------
-variable "dapi_token" {
-  description = "databricks dapi token"
-  type        = string
-}
-
-variable "dapi_token_duration" {
-  description = "databricks dapi token duration"
-  type        = number
-  default     = 3600
-}
-
-variable "databricks_secret_key" {
-  description = "databricks token type"
-  type        = string
-  default     = "token"
-}
 # ------------------------------------------------
 # Cluster Instance Pool
 # ------------------------------------------------
@@ -108,6 +84,18 @@ variable "aws_attributes" {
   default     = null
 }
 
+variable "azure_attributes" {
+  description = "Optional configuration block contains attributes related to clusters running on Azure."
+  type        = any
+  default     = null
+}
+
+variable "gcp_attributes" {
+  description = "Optional configuration block contains attributes related to clusters running on GCP."
+  type        = any
+  default     = null
+}
+
 variable "spark_env_vars" {
   description = "Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers."
   type        = any
@@ -125,13 +113,6 @@ variable "add_instance_profile_to_workspace" {
   type        = bool
   default     = false
 }
-
-variable "is_meta_instance_profile" {
-  description = "Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough."
-  type        = any
-  default     = false
-}
-
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
@@ -139,12 +120,6 @@ variable "deploy_jobs" {
   description = "feature flag, true or false"
   default     = false
   type        = bool
-}
-
-variable "num_workers" {
-  description = "number of workers for job"
-  type        = number
-  default     = 1
 }
 
 variable "email_notifications" {
@@ -203,18 +178,6 @@ variable "always_running" {
 # ------------------------------------------------
 # Notebook
 # ------------------------------------------------
-variable "language" {
-  description = "notebook language"
-  type        = string
-  default     = "PYTHON"
-}
-
-variable "local_path" {
-  description = "Notebook(s) location on users machine"
-  type        = string
-  default     = null
-}
-
 variable "local_notebooks" {
   description = "Local path to the notebook(s) that will be used by the job"
   type        = any
@@ -352,30 +315,6 @@ variable "allow_instance_pool_create" {
   description = "This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks_permissions and instance_pool_id argument."
   type        = bool
   default     = true
-}
-
-variable "allow_sql_analytics_access" {
-  description = "This is a field to allow the group to have access to SQL Analytics feature through databricks_sql_endpoint."
-  type        = bool
-  default     = true
-}
-
-variable "group_can_manage" {
-  description = "Group allowed to access the platform."
-  type        = string
-  default     = ""
-}
-
-variable "group_can_attach_to" {
-  description = "Group allowed to access the platform."
-  type        = string
-  default     = ""
-}
-
-variable "group_can_restart" {
-  description = "Group allowed to access the platform."
-  type        = string
-  default     = ""
 }
 
 variable "cluster_access_control" {
