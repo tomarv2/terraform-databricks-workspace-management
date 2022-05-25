@@ -19,7 +19,6 @@ resource "databricks_group" "this" {
   display_name               = "${var.teamid}-${var.prjid} (Terraform managed)"
   allow_cluster_create       = var.allow_cluster_create
   allow_instance_pool_create = var.allow_instance_pool_create
-  allow_sql_analytics_access = var.allow_sql_analytics_access
 }
 
 resource "databricks_group_member" "group_members" {
