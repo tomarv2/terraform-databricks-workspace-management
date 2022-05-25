@@ -365,6 +365,7 @@ No modules.
 | <a name="input_always_running"></a> [always\_running](#input\_always\_running) | Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. | `bool` | `false` | no |
 | <a name="input_auto_scaling"></a> [auto\_scaling](#input\_auto\_scaling) | Number of min and max workers in auto scale. | `list(any)` | `null` | no |
 | <a name="input_aws_attributes"></a> [aws\_attributes](#input\_aws\_attributes) | Optional configuration block contains attributes related to clusters running on AWS. | `any` | `null` | no |
+| <a name="input_azure_attributes"></a> [azure\_attributes](#input\_azure\_attributes) | Optional configuration block contains attributes related to clusters running on Azure. | `any` | `null` | no |
 | <a name="input_category"></a> [category](#input\_category) | Node category, which can be one of: General purpose, Memory optimized, Storage optimized, Compute optimized, GPU | `string` | `"General purpose"` | no |
 | <a name="input_cluster_access_control"></a> [cluster\_access\_control](#input\_cluster\_access\_control) | Cluster access control | `any` | `null` | no |
 | <a name="input_cluster_autotermination_minutes"></a> [cluster\_autotermination\_minutes](#input\_cluster\_autotermination\_minutes) | cluster auto termination duration | `number` | `30` | no |
@@ -385,6 +386,7 @@ No modules.
 | <a name="input_email_notifications"></a> [email\_notifications](#input\_email\_notifications) | Email notification block. | `any` | `null` | no |
 | <a name="input_fixed_value"></a> [fixed\_value](#input\_fixed\_value) | Number of nodes in the cluster. | `number` | `0` | no |
 | <a name="input_gb_per_core"></a> [gb\_per\_core](#input\_gb\_per\_core) | Number of gigabytes per core available on instance. Conflicts with min\_memory\_gb. Defaults to 0. | `string` | `0` | no |
+| <a name="input_gcp_attributes"></a> [gcp\_attributes](#input\_gcp\_attributes) | Optional configuration block contains attributes related to clusters running on GCP. | `any` | `null` | no |
 | <a name="input_gpu"></a> [gpu](#input\_gpu) | GPU required or not. | `bool` | `false` | no |
 | <a name="input_idle_instance_autotermination_minutes"></a> [idle\_instance\_autotermination\_minutes](#input\_idle\_instance\_autotermination\_minutes) | idle instance auto termination duration | `number` | `20` | no |
 | <a name="input_instance_pool_access_control"></a> [instance\_pool\_access\_control](#input\_instance\_pool\_access\_control) | Instance pool access control | `any` | `null` | no |
