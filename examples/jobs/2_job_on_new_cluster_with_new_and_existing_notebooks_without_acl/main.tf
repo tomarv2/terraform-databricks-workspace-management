@@ -15,14 +15,11 @@ terraform {
 
 module "databricks_workspace_management" {
   source = "../../../"
-
-  workspace_url = var.workspace_url
-  dapi_token    = var.dapi_token
   # ------------------------------------------------
   # JOB
   # ------------------------------------------------
   deploy_jobs               = true
-  cluster_id                = "0907-052446-bike152"
+  deploy_cluster            = true
   fixed_value               = 1
   retry_on_timeout          = false
   max_retries               = 3
@@ -45,15 +42,6 @@ module "databricks_workspace_management" {
     on_success                = ["demo@demo.com"]
   }
   # ------------------------------------------------
-  # JOB ACCESS CONTROL
-  # ------------------------------------------------
-  jobs_access_control = [
-    {
-      group_name       = "demo"
-      permission_level = "CAN_MANAGE_RUN"
-    }
-  ]
-  # ------------------------------------------------
   # NOTEBOOK
   # ------------------------------------------------
   local_notebooks = [
@@ -68,15 +56,12 @@ module "databricks_workspace_management" {
       local_path = "notebooks/sample2.py"
     }
   ]
-  # ------------------------------------------------
-  # NOTEBOOK ACCESS CONTROL
-  # ------------------------------------------------
-  notebooks_access_control = [
-    {
-      group_name       = "demo"
-      permission_level = "CAN_READ"
-    }
-  ]
+#  remote_notebooks = [
+#    {
+#      job_name = "remote_demo_job"
+#      path     = "/Shared/demo/sample1.py"
+#    }
+#  ]
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid

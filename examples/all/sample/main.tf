@@ -16,9 +16,6 @@ terraform {
 module "databricks_workspace_management" {
   source = "../../../"
 
-  workspace_url = "https://<workspace_url>.cloud.databricks.com"
-  dapi_token    = "dapi1234567890"
-  # ------------------------------------------------
   deploy_cluster = true
   deploy_jobs    = true
   local_notebooks = [
