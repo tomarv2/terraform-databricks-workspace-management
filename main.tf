@@ -1,6 +1,6 @@
 locals {
   # CLUSTER
-  type_of_cluster = databricks_cluster.cluster[local.cluster_name].id
+  type_of_cluster = var.cluster_id == null ? databricks_cluster.cluster[local.cluster_name].id: null
 
   cluster_info = var.cluster_id == null ? local.type_of_cluster : var.cluster_id
 
