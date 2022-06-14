@@ -1,11 +1,11 @@
 output "cluster_id" {
   description = "databricks cluster id"
-  value       = databricks_cluster.cluster[local.cluster_name].id
+  value       = var.deploy_cluster == true ? databricks_cluster.cluster[local.cluster_name].id : null
 }
 
 output "cluster_name" {
   description = "databricks cluster name"
-  value       = databricks_cluster.cluster[local.cluster_name].cluster_name
+  value       = var.deploy_cluster == true ? databricks_cluster.cluster[local.cluster_name].cluster_name : null
 }
 
 output "notebook_url" {

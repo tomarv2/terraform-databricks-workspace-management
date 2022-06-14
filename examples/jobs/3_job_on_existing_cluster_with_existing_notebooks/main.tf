@@ -14,23 +14,11 @@ terraform {
 
 module "databricks_workspace_management" {
   source = "../../../"
-
-  workspace_url = var.workspace_url
-  dapi_token    = var.dapi_token
   # ------------------------------------------------
   # JOB
   # ------------------------------------------------
   deploy_jobs = true
-  cluster_id  = "0907-052446-bike152"
-  # ------------------------------------------------
-  # JOB ACCESS CONTROL
-  # ------------------------------------------------
-  jobs_access_control = [
-    {
-      group_name       = "demo"
-      permission_level = "CAN_MANAGE_RUN"
-    }
-  ]
+  cluster_id  = "0609-190359-dbzlwtsp"
   # ------------------------------------------------
   # NOTEBOOK
   # ------------------------------------------------
