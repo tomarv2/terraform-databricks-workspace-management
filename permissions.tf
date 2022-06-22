@@ -36,7 +36,7 @@ resource "databricks_permissions" "driver_pool" {
 resource "databricks_permissions" "cluster" {
   count = var.deploy_cluster == true && var.cluster_access_control != null ? 1 : 0
 
-  cluster_id = join("", databricks_cluster.cluster.*.id)
+  cluster_id = databricks_cluster.cluster[local.cluster_name].id
 
   dynamic "access_control" {
     for_each = var.cluster_access_control
