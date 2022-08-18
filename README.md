@@ -435,6 +435,7 @@ No modules.
 | <a name="output_existing_cluster_new_job_new_notebooks_id"></a> [existing\_cluster\_new\_job\_new\_notebooks\_id](#output\_existing\_cluster\_new\_job\_new\_notebooks\_id) | databricks new cluster job id |
 | <a name="output_existing_cluster_new_job_new_notebooks_job"></a> [existing\_cluster\_new\_job\_new\_notebooks\_job](#output\_existing\_cluster\_new\_job\_new\_notebooks\_job) | databricks new cluster job url |
 | <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | databricks instance profile ARN |
+| <a name="output_job_id"></a> [job\_id](#output\_job\_id) | databricks job id |
 | <a name="output_new_cluster_new_job_existing_notebooks_id"></a> [new\_cluster\_new\_job\_existing\_notebooks\_id](#output\_new\_cluster\_new\_job\_existing\_notebooks\_id) | databricks job id |
 | <a name="output_new_cluster_new_job_existing_notebooks_job"></a> [new\_cluster\_new\_job\_existing\_notebooks\_job](#output\_new\_cluster\_new\_job\_existing\_notebooks\_job) | databricks job url |
 | <a name="output_new_cluster_new_job_new_notebooks_id"></a> [new\_cluster\_new\_job\_new\_notebooks\_id](#output\_new\_cluster\_new\_job\_new\_notebooks\_id) | databricks job id |
