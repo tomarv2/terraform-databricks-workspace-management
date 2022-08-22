@@ -92,12 +92,3 @@ output "instance_profile" {
   description = "databricks instance profile ARN"
   value       = join("", databricks_instance_profile.shared.*.instance_profile_arn)
 }
-
-output "job_id" {
-  description = "databricks job id"
-  value = coalesce(join("", databricks_job.new_cluster_new_job_new_notebooks.*.id),
-              join("", databricks_job.existing_cluster_new_job_existing_notebooks.*.id),
-              join("", databricks_job.existing_cluster_new_job_new_notebooks.*.id),
-              join("", databricks_job.new_cluster_new_job_existing_notebooks.*.id),
-  )
-}
