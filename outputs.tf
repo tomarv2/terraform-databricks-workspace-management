@@ -95,7 +95,7 @@ output "instance_profile" {
 
 output "job_id" {
   description = "databricks job id"
-  value = try(join("", databricks_job.new_cluster_new_job_new_notebooks.*.id),
+  value = coalesce(join("", databricks_job.new_cluster_new_job_new_notebooks.*.id),
               join("", databricks_job.existing_cluster_new_job_existing_notebooks.*.id),
               join("", databricks_job.existing_cluster_new_job_new_notebooks.*.id),
               join("", databricks_job.new_cluster_new_job_existing_notebooks.*.id),
