@@ -13,7 +13,7 @@
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
 
-## Terraform module for [Databricks Workspace Management (Part 2)](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management)
+## Terraform module for [Databricks Workspace Management (Part 2)](https://registry.terraform.io/providers/databricks/databricks/latest/docs/guides/workspace-management)
 
 > ❗️ **Important**
 >
@@ -26,7 +26,7 @@
 ## Versions
 
 - Module tested for Terraform 1.0.1.
-- `databrickslabs/databricks` provider version [0.5.7](https://registry.terraform.io/providers/databrickslabs/databricks/latest)
+- `databricks/databricks` provider version [0.5.7](https://registry.terraform.io/providers/databricks/databricks/latest)
 - AWS provider version [4.14](https://registry.terraform.io/providers/hashicorp/aws/latest).
 - `main` branch: Provider versions not pinned to keep up with Terraform releases.
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-databricks-workspace-management/tags" alt="GitHub tag">
@@ -281,13 +281,13 @@ Please refer to examples directory [link](examples) for references.
 
 ## Coming up
 
-- [**Storage**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-3-storage)
-- [**Advanced configuration**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/guides/workspace-management#part-4-advanced-configuration)
-- [**Init Script**](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/global_init_script)
+- [**Storage**](https://registry.terraform.io/providers/databricks/databricks/latest/docs/guides/workspace-management#part-3-storage)
+- [**Advanced configuration**](https://registry.terraform.io/providers/databricks/databricks/latest/docs/guides/workspace-management#part-4-advanced-configuration)
+- [**Init Script**](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/global_init_script)
 
 ## Helpful links
 
-- [Databricks Sync](https://github.com/databrickslabs/databricks-sync) - Tool for multi cloud migrations, DR sync of workspaces. It uses TF in the backend. Run it from command line or from a notebook.
+- [Databricks Sync](https://github.com/databricks/databricks-sync) - Tool for multi cloud migrations, DR sync of workspaces. It uses TF in the backend. Run it from command line or from a notebook.
 - [Databricks Migrate](https://github.com/databrickslabs/migrate) - Tool to migrate a workspace(One time tool).
 - [Databricks CICD Templates](https://github.com/databrickslabs/cicd-templates)
 
@@ -326,34 +326,34 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [databricks_cluster.cluster](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/cluster) | resource |
-| [databricks_cluster_policy.this](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/cluster_policy) | resource |
-| [databricks_group.this](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/group) | resource |
-| [databricks_group_member.group_members](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/group_member) | resource |
-| [databricks_instance_pool.driver_instance_nodes](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_pool) | resource |
-| [databricks_instance_pool.worker_instance_nodes](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_pool) | resource |
-| [databricks_instance_profile.shared](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/instance_profile) | resource |
-| [databricks_job.existing_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
-| [databricks_job.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
-| [databricks_job.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
-| [databricks_job.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/job) | resource |
-| [databricks_notebook.notebook_file](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/notebook) | resource |
-| [databricks_notebook.notebook_file_deployment](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/notebook) | resource |
-| [databricks_permissions.cluster](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.driver_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.existing_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.jobs_notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.notebook](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.policy](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_permissions.worker_pool](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/permissions) | resource |
-| [databricks_secret_acl.spectators](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/secret_acl) | resource |
-| [databricks_user.users](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/resources/user) | resource |
-| [databricks_current_user.me](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/data-sources/current_user) | data source |
-| [databricks_node_type.cluster_node_type](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/data-sources/node_type) | data source |
-| [databricks_spark_version.latest](https://registry.terraform.io/providers/databrickslabs/databricks/latest/docs/data-sources/spark_version) | data source |
+| [databricks_cluster.cluster](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/cluster) | resource |
+| [databricks_cluster_policy.this](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/cluster_policy) | resource |
+| [databricks_group.this](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/group) | resource |
+| [databricks_group_member.group_members](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/group_member) | resource |
+| [databricks_instance_pool.driver_instance_nodes](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/instance_pool) | resource |
+| [databricks_instance_pool.worker_instance_nodes](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/instance_pool) | resource |
+| [databricks_instance_profile.shared](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/instance_profile) | resource |
+| [databricks_job.existing_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/job) | resource |
+| [databricks_job.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/job) | resource |
+| [databricks_job.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/job) | resource |
+| [databricks_job.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/job) | resource |
+| [databricks_notebook.notebook_file](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/notebook) | resource |
+| [databricks_notebook.notebook_file_deployment](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/notebook) | resource |
+| [databricks_permissions.cluster](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.driver_pool](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.existing_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.jobs_notebook](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.notebook](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.policy](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_permissions.worker_pool](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
+| [databricks_secret_acl.spectators](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/secret_acl) | resource |
+| [databricks_user.users](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/user) | resource |
+| [databricks_current_user.me](https://registry.terraform.io/providers/databricks/databricks/latest/docs/data-sources/current_user) | data source |
+| [databricks_node_type.cluster_node_type](https://registry.terraform.io/providers/databricks/databricks/latest/docs/data-sources/node_type) | data source |
+| [databricks_spark_version.latest](https://registry.terraform.io/providers/databricks/databricks/latest/docs/data-sources/spark_version) | data source |
 
 ## Inputs
 
