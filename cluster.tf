@@ -3,6 +3,23 @@ locals {
   cluster_name      = var.cluster_name != null ? var.cluster_name : "${var.teamid}-${var.prjid} (Terraform managed)"
 }
 
+resource "databricks_library" "maven" {
+  for_each = try(var.libraries.maven, null) != null ? var.libraries.maven : {}
+
+  cluster_id = databricks_cluster.cluster[local.cluster_name].id
+  maven {
+    coordinates = each.key
+    exclusions = try(each.value.exclusion, [])
+  }
+}
+
+resource "databricks_library" "python_wheel" {
+  for_each = try(var.libraries.python_wheel, null) != null ? var.libraries.python_wheel: {}
+
+  cluster_id = databricks_cluster.cluster[local.cluster_name].id
+  whl        = each.key
+}
+
 resource "databricks_cluster" "cluster" {
   for_each = var.deploy_cluster == true ? toset([local.cluster_name]) : toset([])
 

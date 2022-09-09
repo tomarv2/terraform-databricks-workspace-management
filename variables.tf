@@ -358,3 +358,9 @@ variable "custom_tags" {
   description = "Extra custom tags"
   default     = null
 }
+
+variable "libraries" {
+  type = map(any)
+  description = "Installs a library on databricks_cluster"
+  default = {}
+}
