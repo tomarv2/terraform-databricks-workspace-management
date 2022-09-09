@@ -43,15 +43,6 @@ module "databricks_workspace_management" {
     on_success                = ["demo@demo.com"]
   }
   # ------------------------------------------------
-  # JOB ACCESS CONTROL
-  # ------------------------------------------------
-  jobs_access_control = [
-    {
-      group_name       = "demo"
-      permission_level = "CAN_MANAGE_RUN"
-    }
-  ]
-  # ------------------------------------------------
   # NOTEBOOK
   # ------------------------------------------------
   local_notebooks = [
@@ -64,15 +55,6 @@ module "databricks_workspace_management" {
     {
       job_name   = "local_demo_job2"
       local_path = "notebooks/sample2.py"
-    }
-  ]
-  # ------------------------------------------------
-  # NOTEBOOK ACCESS CONTROL
-  # ------------------------------------------------
-  notebooks_access_control = [
-    {
-      group_name       = "demo"
-      permission_level = "CAN_READ"
     }
   ]
   # ------------------------------------------------
