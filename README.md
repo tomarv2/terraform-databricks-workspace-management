@@ -337,6 +337,8 @@ No modules.
 | [databricks_job.existing_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/job) | resource |
 | [databricks_job.new_cluster_new_job_existing_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/job) | resource |
 | [databricks_job.new_cluster_new_job_new_notebooks](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/job) | resource |
+| [databricks_library.maven](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/library) | resource |
+| [databricks_library.python_wheel](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/library) | resource |
 | [databricks_notebook.notebook_file](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/notebook) | resource |
 | [databricks_notebook.notebook_file_deployment](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/notebook) | resource |
 | [databricks_permissions.cluster](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/permissions) | resource |
@@ -391,6 +393,7 @@ No modules.
 | <a name="input_idle_instance_autotermination_minutes"></a> [idle\_instance\_autotermination\_minutes](#input\_idle\_instance\_autotermination\_minutes) | idle instance auto termination duration | `number` | `20` | no |
 | <a name="input_instance_pool_access_control"></a> [instance\_pool\_access\_control](#input\_instance\_pool\_access\_control) | Instance pool access control | `any` | `null` | no |
 | <a name="input_jobs_access_control"></a> [jobs\_access\_control](#input\_jobs\_access\_control) | Jobs access control | `any` | `null` | no |
+| <a name="input_libraries"></a> [libraries](#input\_libraries) | Installs a library on databricks\_cluster | `map(any)` | `{}` | no |
 | <a name="input_local_disk"></a> [local\_disk](#input\_local\_disk) | Pick only nodes with local storage. Defaults to false. | `string` | `true` | no |
 | <a name="input_local_notebooks"></a> [local\_notebooks](#input\_local\_notebooks) | Local path to the notebook(s) that will be used by the job | `any` | `[]` | no |
 | <a name="input_max_capacity"></a> [max\_capacity](#input\_max\_capacity) | instance pool maximum capacity | `number` | `3` | no |
