@@ -14,7 +14,7 @@ terraform {
 
 
 module "databricks_workspace_management" {
-  source = "git::git@github.com:databricks/terraform-databricks-workspace-management.git?ref=v0.2.11"
+  source = "../../../"
   # ------------------------------------------------
   # JOB
   # ------------------------------------------------
