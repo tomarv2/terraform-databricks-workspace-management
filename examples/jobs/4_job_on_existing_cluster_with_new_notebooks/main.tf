@@ -15,11 +15,12 @@ terraform {
 
 module "databricks_workspace_management" {
   source = "../../../"
+
   # ------------------------------------------------
   # JOB
   # ------------------------------------------------
   deploy_jobs               = true
-  cluster_id                = "0606-193951-30y13dr5"
+  cluster_id                = "0907-052446-bike152"
   fixed_value               = 1
   retry_on_timeout          = false
   max_retries               = 3
