@@ -14,12 +14,12 @@ terraform {
 
 
 module "databricks_workspace_management" {
-  source = "../../../"
+  source = "git::git@github.com:databricks/terraform-databricks-workspace-management.git?ref=v0.2.11"
   # ------------------------------------------------
   # JOB
   # ------------------------------------------------
   deploy_jobs               = true
-  cluster_id                = "0606-193951-30y13dr5"
+  cluster_id                = "0824-160733-mzd2ygdp"
   fixed_value               = 1
   retry_on_timeout          = false
   max_retries               = 3
@@ -50,10 +50,12 @@ module "databricks_workspace_management" {
       language   = "PYTHON"
       local_path = "notebooks/sample1.py"
       path       = "/Shared/demo/sample1.py"
-    },
+    }
+  ]
+  jobs_access_control = [
     {
-      job_name   = "local_demo_job2"
-      local_path = "notebooks/sample2.py"
+      group_name       = "users"
+      permission_level = "CAN_VIEW"
     }
   ]
   # ------------------------------------------------
