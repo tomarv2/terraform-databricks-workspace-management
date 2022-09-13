@@ -12,16 +12,36 @@ terraform {
   }
 }
 
+module "cluster" {
+  source = "../../../"
+  # ------------------------------------------------
+  # CLUSTER
+  # ------------------------------------------------
+  deploy_cluster = true
+  fixed_value    = 0
 
-module "databricks_workspace_management" {
+#  libraries = {
+#    maven = {
+#      "com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.21" = {}
+#    }
+#    python_wheel = {}
+#  }
+
+  # ------------------------------------------------
+  # Do not change the teamid, prjid once set.
+  teamid = var.teamid
+  prjid  = var.prjid
+}
+
+module "jobs" {
   source = "../../../"
 
   # ------------------------------------------------
   # JOB
   # ------------------------------------------------
   deploy_jobs               = true
-  cluster_id                = "0907-052446-bike152"
-  fixed_value               = 1
+  cluster_id                = module.cluster.cluster_id
+  #fixed_value               = 1
   retry_on_timeout          = false
   max_retries               = 3
   timeout                   = 30
@@ -57,6 +77,13 @@ module "databricks_workspace_management" {
       local_path = "notebooks/sample2.py"
     }
   ]
+  jobs_access_control = [
+    {
+      group_name       = "demo"
+      permission_level = "CAN_MANAGE_RUN"
+    }
+  ]
+  depends_on = [module.cluster]
   # ------------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid

@@ -72,7 +72,7 @@ resource "databricks_permissions" "policy" {
 # 1. NEW CLUSTER WITH NEW NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_permissions" "new_cluster_new_job_new_notebooks" {
-  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id == null && var.local_notebooks != null) ? databricks_job.new_cluster_new_job_new_notebooks : {}
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.local_notebooks != null) ? databricks_job.new_cluster_new_job_new_notebooks : {}
 
   job_id = each.value.id
 
@@ -89,7 +89,7 @@ resource "databricks_permissions" "new_cluster_new_job_new_notebooks" {
 # 2. EXISTING CLUSTER WITH NEW NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_permissions" "existing_cluster_new_job_new_notebooks" {
-  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id != null && var.local_notebooks != null) ? databricks_job.existing_cluster_new_job_new_notebooks : {}
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.local_notebooks != null) ? databricks_job.existing_cluster_new_job_new_notebooks : {}
 
   job_id = each.value.id
 
@@ -106,7 +106,7 @@ resource "databricks_permissions" "existing_cluster_new_job_new_notebooks" {
 # 3. NEW CLUSTER WITH EXITING NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_permissions" "new_cluster_new_job_existing_notebooks" {
-  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id == null && var.remote_notebooks != null) ? databricks_job.new_cluster_new_job_existing_notebooks : {}
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.remote_notebooks != null) ? databricks_job.new_cluster_new_job_existing_notebooks : {}
 
   job_id = each.value.id
 
@@ -123,7 +123,7 @@ resource "databricks_permissions" "new_cluster_new_job_existing_notebooks" {
 # 4. EXISTING CLUSTER WITH EXITING NOTEBOOKS
 # ------------------------------------------------
 resource "databricks_permissions" "existing_cluster_new_job_existing_notebooks" {
-  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.cluster_id != null && var.remote_notebooks != null) ? databricks_job.existing_cluster_new_job_existing_notebooks : {}
+  for_each = (var.jobs_access_control != null && var.deploy_jobs == true && var.remote_notebooks != null) ? databricks_job.existing_cluster_new_job_existing_notebooks : {}
 
   job_id = each.value.id
 
