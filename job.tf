@@ -137,7 +137,6 @@ resource "databricks_job" "new_cluster_new_job_existing_notebooks" {
     dynamic "gcp_attributes" {
       for_each = var.gcp_attributes == null ? [] : [var.gcp_attributes]
       content {
-        first_on_demand    = lookup(gcp_attributes.value, "first_on_demand", null)
         availability       = lookup(gcp_attributes.value, "availability", null)
         spot_bid_max_price = lookup(gcp_attributes.value, "spot_bid_max_price", null)
       }
