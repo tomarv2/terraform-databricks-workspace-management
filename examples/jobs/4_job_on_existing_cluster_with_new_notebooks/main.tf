@@ -7,7 +7,7 @@ terraform {
   required_providers {
     databricks = {
       source  = "databricks/databricks"
-      version = "~> 0.5.7"
+      version = "~> 1.3.1"
     }
   }
 }
@@ -19,21 +19,11 @@ module "cluster" {
   # ------------------------------------------------
   deploy_cluster = true
   fixed_value    = 0
-
-#  libraries = {
-#    maven = {
-#      "com.microsoft.azure:azure-eventhubs-spark_2.12:2.3.21" = {}
-#    }
-#    python_wheel = {}
-#  }
-
-  # ------------------------------------------------
-  # Do not change the teamid, prjid once set.
   teamid = var.teamid
   prjid  = var.prjid
 }
 
-module "jobs" {
+module "job" {
   source = "../../../"
 
   # ------------------------------------------------

@@ -26,7 +26,7 @@
 ## Versions
 
 - Module tested for Terraform 1.0.1.
-- `databricks/databricks` provider version [1.3.0](https://registry.terraform.io/providers/databricks/databricks/latest)
+- `databricks/databricks` provider version [1.3.1](https://registry.terraform.io/providers/databricks/databricks/latest)
 - AWS provider version [4.14](https://registry.terraform.io/providers/hashicorp/aws/latest).
 - `main` branch: Provider versions not pinned to keep up with Terraform releases.
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-databricks-workspace-management/tags" alt="GitHub tag">
