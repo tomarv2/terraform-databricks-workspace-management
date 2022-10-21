@@ -14,6 +14,7 @@ resource "databricks_cluster" "cluster" {
   instance_pool_id    = var.deploy_worker_instance_pool == true ? join("", databricks_instance_pool.worker_instance_nodes.*.id) : null
   driver_node_type_id = var.deploy_worker_instance_pool != true ? local.driver_node_type : null
   num_workers         = var.fixed_value != null ? var.fixed_value : null
+  data_security_mode  = var.data_security_mode
 
   dynamic "autoscale" {
     for_each = var.fixed_value == null && var.auto_scaling != null ? [var.auto_scaling] : []
