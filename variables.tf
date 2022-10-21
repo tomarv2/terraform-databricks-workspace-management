@@ -114,11 +114,11 @@ variable "add_instance_profile_to_workspace" {
   default     = false
 }
 
-variable "data-security-mode" {
+variable "data_security_mode" {
   description = "Cluster access mode"
   type        = string
   default     = "None"
-}
+} 
 # ------------------------------------------------
 # Job
 # ------------------------------------------------
