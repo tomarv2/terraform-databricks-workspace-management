@@ -364,3 +364,9 @@ variable "libraries" {
   description = "Installs a library on databricks_cluster"
   default = {}
 }
+
+variable "data_security_mode" {
+  description = "Access mode"
+  type        = string
+  default     = "NONE"
+}
